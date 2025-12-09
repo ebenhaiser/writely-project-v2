@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 })->name('home');
 
 Route::view('dashboard', 'dashboard')
