@@ -96,24 +96,32 @@
                         <div class="dropdown-header">
                             <h4>
                                 Good Morning,
-                                <span class="small text-muted">John Doe</span>
+                                {{-- <span class="small text-muted">John Doe</span> --}}
                             </h4>
-                            <p class="text-muted">Project Admin</p>
-                            <hr />
+                            <p class="text-muted">John Doe</p>
+                            {{-- <hr /> --}}
                             <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 280px)">
-                                <div class="upgradeplan-block bg-light-warning rounded">
+                                {{-- <div class="upgradeplan-block bg-light-warning rounded">
                                     <h4>Explore full code</h4>
                                     <p class="text-muted">Buy now to get full access of code files</p>
                                     <a href="https://codedthemes.com/item/berry-bootstrap-5-admin-template/" target="_blank" class="btn btn-warning">Buy Now</a>
-                                </div>
+                                </div> --}}
                                 <hr />
+                                <a href="{{ route('profile') }}" class="dropdown-item">
+                                    <i class="ti ti-user"></i>
+                                    <span>Social Profile</span>
+                                </a>
                                 <a href="#" class="dropdown-item">
                                     <i class="ti ti-settings"></i>
                                     <span>Account Settings</span>
                                 </a>
                                 <a href="#" class="dropdown-item">
-                                    <i class="ti ti-user"></i>
-                                    <span>Social Profile</span>
+                                    <i class="ti ti-bookmarks"></i>
+                                    <span>Bookmark</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="ti ti-clock"></i>
+                                    <span>History</span>
                                 </a>
                                 <a href="#" class="dropdown-item">
                                     <i class="ti ti-logout"></i>

@@ -1,14 +1,7 @@
-<x-main-layout.main>
-    <div class="row">
-        <div class="col-md-4">
-            <x-cards.post-small />
-        </div>
-        <div class="col-md-4">
-            <x-cards.post-small />
-        </div>
-        <div class="col-md-4">
-            <x-cards.post-small />
-        </div>
-    </div>
+<x-layout.main>
+    <x-cards.post-large />
+    <x-cards.post-large />
+    <x-cards.post-large />
+    <x-cards.post-large />
     
-</x-main-layout.main>
+</x-layout.main>

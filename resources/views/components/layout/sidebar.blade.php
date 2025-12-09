@@ -1,7 +1,7 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper" style="margin-top: -0.85em">
         <div class="m-header">
-            <a href="#" class="b-brand text-primary">
+            <a href="{{ route('home') }}" class="b-brand text-primary">
                 <!-- ========   Change your logo from here   ============ -->
                 {{-- <img src="{{ asset('src/assets/images/writely-logo.png') }}" alt="" class="logo logo-lg" /> --}}
                 <h1 class="m-auto">Writely.</h1>
@@ -14,7 +14,7 @@
                     <i class="ti ti-dashboard"></i>
                 </li> --}}
                 <li class="pc-item active">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('home') }}" class="pc-link">
                         <span class="pc-micon">
                             <i class='ti ti-home'></i>
                         </span>

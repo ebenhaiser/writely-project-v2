@@ -8,6 +8,16 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/id/username', function () {
+    return view('profile.index');
+})->name('profile');
+Route::get('/id/username/likes', function () {
+    return view('profile.index');
+})->name('profile.likes');
+Route::get('/id/username/comments', function () {
+    return view('profile.index');
+})->name('profile.comments');
+
 
 
 

@@ -2,8 +2,8 @@
 <html lang="en">
 <!-- [Head] start -->
 <head>
-    <x-main-layout.head-meta />
-    <x-main-layout.head />
+    <x-layout.head-meta />
+    <x-layout.head />
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -17,11 +17,11 @@
     <!-- [ Pre-loader ] End -->
     
     <!-- [ Sidebar Menu ] start -->
-    <x-main-layout.sidebar />
+    <x-layout.sidebar />
     <!-- [ Sidebar Menu ] end -->
     
     <!-- [ Header Topbar ] start -->
-    <x-main-layout.topbar />
+    <x-layout.topbar />
     <!-- [ Header ] end -->
     
     
@@ -36,9 +36,9 @@
         </div>
     </div>
     <!-- [ Main Content ] end -->
-    <x-main-layout.footer />
+    <x-layout.footer />
     <!-- Required Js -->
-    <x-main-layout.scripts />
+    <x-layout.scripts />
     <!-- [Page Specific JS] end -->
 </body>
 <!-- [Body] end -->
