@@ -28,7 +28,7 @@
     
     <!-- [ Main Content ] start -->
     <div class="pc-container">
-        <div class="pc-content">
+        <div class="pc-content" style="padding-bottom: 0.5em">
             <!-- [ Main Content ] start -->
             {{ $slot }}
             {{-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dignissimos qui voluptatum neque earum iusto, fuga omnis recusandae sint natus ratione quas quia illo quod aut, eos dicta. Ex, eligendi?</h1> --}}
