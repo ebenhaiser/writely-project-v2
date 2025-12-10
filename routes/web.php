@@ -7,7 +7,6 @@ use Livewire\Volt\Volt;
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
 Route::get('/id/username', function () {
     return view('profile.index');
 })->name('profile');
@@ -17,6 +16,9 @@ Route::get('/id/username/likes', function () {
 Route::get('/id/username/comments', function () {
     return view('profile.index');
 })->name('profile.comments');
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('auth.login');
 
 
 

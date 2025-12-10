@@ -21,6 +21,7 @@
                         <span class="pc-mtext">Home</span>
                     </a>
                 </li>
+                @if (Auth::check())
                 <li class="pc-item">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
@@ -29,6 +30,7 @@
                         <span class="pc-mtext">Following</span>
                     </a>
                 </li>
+                @endif
                 <li class="pc-item">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">

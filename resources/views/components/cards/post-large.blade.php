@@ -6,8 +6,6 @@
         border-radius: 50%;
     }
 </style>
-
-@forelse ($posts as $post)
 <div class="card-post-big">
     <div class="card shadow-sm">
         <div class="card-body">
@@ -92,8 +90,3 @@
         </div>
     </div>
 </div>
-@empty
-<div class="col-md-12" align="center">
-    <i>No post yet.</i>
-</div>
-@endforelse

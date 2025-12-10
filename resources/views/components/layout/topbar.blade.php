@@ -140,7 +140,11 @@
                 </li>
                 @else
                 <li class="ms-2 pc-h-item">
-                    <a href="#" class="btn btn-secondary"><i class="ti ti-login"> Login</i></a>
+                    <a href="#" class="">
+                        <span class="btn btn-secondary">
+                            <i class="ti ti-login"></i> Login
+                        </span>
+                    </a>
                 </li>
                 @endif
             </ul>
