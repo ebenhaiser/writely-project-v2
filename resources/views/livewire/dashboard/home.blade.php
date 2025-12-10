@@ -1,3 +1,3 @@
 <div>
-    <x-cards.post-large />
+    <x-cards.post-large :posts="$posts" />
 </div>

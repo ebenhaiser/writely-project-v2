@@ -37,6 +37,7 @@
         <!-- [Mobile Media Block end] -->
         <div class="ms-auto">
             <ul class="list-unstyled">
+                @if (Auth::check())
                 <li class="dropdown pc-h-item">
                     <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="ti ti-bell"></i>
@@ -87,7 +88,20 @@
                 </li>
                 <li class="dropdown pc-h-item header-user-profile">
                     <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="{{ asset('src/assets/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar" />
+                        @php
+                        $topbar_loggedInUser = Auth::user();
+                        $topbar_profile_picture = $topbar_loggedInUser->profile_picture ?? null;
+                        
+                        if($topbar_profile_picture) {
+                            $topbar_avatarPath = public_path('img/profilePicture/' . $topbar_profile_picture);
+                            $topbar_avatarUrl = $profile_picture && file_exists($avatarPath) 
+                            ? asset('img/profilePicture/' . $profile_picture)
+                            : 'https://placehold.co/400';
+                        } else {
+                            $topbar_avatarUrl = 'https://placehold.co/400';
+                        }
+                        @endphp
+                        <img src="{{ $topbar_avatarUrl }}" alt="user-image" class="user-avtar" />
                         <span>
                             <i class="ti ti-settings"></i>
                         </span>
@@ -96,18 +110,11 @@
                         <div class="dropdown-header">
                             <h4>
                                 Good Morning,
-                                {{-- <span class="small text-muted">John Doe</span> --}}
                             </h4>
-                            <p class="text-muted">John Doe</p>
-                            {{-- <hr /> --}}
+                            <p class="text-muted">{{ Auth::user()->name }}</p>
                             <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 280px)">
-                                {{-- <div class="upgradeplan-block bg-light-warning rounded">
-                                    <h4>Explore full code</h4>
-                                    <p class="text-muted">Buy now to get full access of code files</p>
-                                    <a href="https://codedthemes.com/item/berry-bootstrap-5-admin-template/" target="_blank" class="btn btn-warning">Buy Now</a>
-                                </div> --}}
                                 <hr />
-                                <a href="{{ route('profile') }}" class="dropdown-item">
+                                <a href="#" class="dropdown-item">
                                     <i class="ti ti-user"></i>
                                     <span>Social Profile</span>
                                 </a>
@@ -131,6 +138,11 @@
                         </div>
                     </div>
                 </li>
+                @else
+                <li class="ms-2 pc-h-item">
+                    <a href="#" class="btn btn-secondary"><i class="ti ti-login"> Login</i></a>
+                </li>
+                @endif
             </ul>
         </div>
     </div>

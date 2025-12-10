@@ -10,7 +10,7 @@ use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use Searchable;
+    // use Searchable;
 
     protected $table = 'posts';
     protected $with = ['user', 'category', 'likes', 'comments'];
