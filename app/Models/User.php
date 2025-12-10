@@ -4,26 +4,37 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'username',
+    //     'email',
+    //     'password',
+    // ];
+
+    // protected $fillable = [
+    //     'username',
+    //     'email',
+    //     'password',
+    //     'full_name',
+    //     'bio',
+    //     'profile_image',
+    // ];
+    protected $guarded = [];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -32,8 +43,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'two_factor_secret',
-        'two_factor_recovery_codes',
         'remember_token',
     ];
 
@@ -50,15 +59,55 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
-    public function initials(): string
+    // protected $with = ['posts', 'following', 'followers'];
+    public function posts()
     {
-        return Str::of($this->name)
-            ->explode(' ')
-            ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
-            ->implode('');
+        return $this->hasMany(Post::class)->orderBy('created_at', 'desc');
+    }
+
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')
+            ->withTimestamps() // Pastikan mengambil created_at
+            ->orderBy('follows.created_at', 'desc'); // Urutkan berdasarkan waktu follow terbaru
+    }
+
+    // Relasi: User yang menjadi pengikut (Followers)
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')
+            ->withTimestamps()
+            ->orderBy('follows.created_at', 'desc');
+    }
+
+    // Cek apakah user sudah di-follow oleh pengguna yang login
+    public function isFollowedByUser()
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        return $this->followers()->where('follower_id', Auth::user()->id)->exists();
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'from_user_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'to_user_id');
+    }
+
+    public function messages()
+    {
+        return $this->sentMessages()->union($this->receivedMessages());
     }
 }
