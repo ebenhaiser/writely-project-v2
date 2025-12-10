@@ -94,8 +94,8 @@
                         
                         if($topbar_profile_picture) {
                             $topbar_avatarPath = public_path('img/profilePicture/' . $topbar_profile_picture);
-                            $topbar_avatarUrl = $profile_picture && file_exists($avatarPath) 
-                            ? asset('img/profilePicture/' . $profile_picture)
+                            $topbar_avatarUrl = $topbar_profile_picture && file_exists($topbar_avatarPath) 
+                            ? asset('img/profilePicture/' . $topbar_profile_picture)
                             : 'https://placehold.co/400';
                         } else {
                             $topbar_avatarUrl = 'https://placehold.co/400';
@@ -130,7 +130,7 @@
                                     <i class="ti ti-clock"></i>
                                     <span>History</span>
                                 </a>
-                                <a href="#" class="dropdown-item">
+                                <a href="{{ route('auth.logout') }}" class="dropdown-item">
                                     <i class="ti ti-logout"></i>
                                     <span>Logout</span>
                                 </a>
@@ -140,7 +140,7 @@
                 </li>
                 @else
                 <li class="ms-2 pc-h-item">
-                    <a href="#" class="">
+                    <a href="{{ route('auth.login') }}" class="">
                         <span class="btn btn-secondary">
                             <i class="ti ti-login"></i> Login
                         </span>

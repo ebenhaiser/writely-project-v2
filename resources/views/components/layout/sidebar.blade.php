@@ -39,6 +39,7 @@
                         <span class="pc-mtext">Explore</span>
                     </a>
                 </li>
+                @if (Auth::check())
                 <li class="pc-item">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
@@ -47,6 +48,7 @@
                         <span class="pc-mtext">Message</span>
                     </a>
                 </li>
+                @endif
                 
                 {{-- <li class="pc-item pc-caption">
                     <label>Elements</label>

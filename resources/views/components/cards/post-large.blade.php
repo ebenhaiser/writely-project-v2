@@ -44,10 +44,10 @@
                             &#8226;
                         </span>
                         <span>
-                            <i class='ti ti-thumb-up'></i> {{ count($post->likes) }}</span>
+                            <i class='ti ti-thumb-up'></i> {{ count($post->likes) }}
                         </span>
                         <span>
-                            <i class='ti ti-message-circle'></i> {{ count($post->comments) }}</span>
+                            <i class='ti ti-message-circle'></i> {{ count($post->comments) }}
                         </span>
                     </div>
                     {{-- <button class="btn btn-outline-primary mt-2 like-btn" data-post-id="{{ $post->id }}">

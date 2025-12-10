@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('home');
@@ -16,9 +17,18 @@ Route::get('/id/username/likes', function () {
 Route::get('/id/username/comments', function () {
     return view('profile.index');
 })->name('profile.comments');
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('auth.login');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('auth.register');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+});
 
 
 
