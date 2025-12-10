@@ -130,7 +130,7 @@
                                     <i class="ti ti-clock"></i>
                                     <span>History</span>
                                 </a>
-                                <a href="{{ route('auth.logout') }}" class="dropdown-item">
+                                <a href="{{ route('auth.logout') }}" class="dropdown-item text-danger">
                                     <i class="ti ti-logout"></i>
                                     <span>Logout</span>
                                 </a>
