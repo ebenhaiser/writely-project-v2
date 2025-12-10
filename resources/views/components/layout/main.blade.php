@@ -2,7 +2,7 @@
 <html lang="en">
 <!-- [Head] start -->
 <head>
-    <x-layout.head-meta />
+    <x-layout.head-meta :title="$title" />
     <x-layout.head />
 </head>
 <!-- [Head] end -->

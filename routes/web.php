@@ -4,27 +4,18 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
-Route::get('/id/username', function () {
-    return view('profile.index');
-})->name('profile');
-Route::get('/id/username/likes', function () {
-    return view('profile.index');
-})->name('profile.likes');
-Route::get('/id/username/comments', function () {
-    return view('profile.index');
-})->name('profile.comments');
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('auth.login');
+Route::get('/id/{username}', [ProfileController::class, 'show'])->name('profile.show');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('auth.register');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');

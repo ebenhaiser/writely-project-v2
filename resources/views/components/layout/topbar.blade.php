@@ -114,7 +114,7 @@
                             <p class="text-muted">{{ Auth::user()->name }}</p>
                             <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 280px)">
                                 <hr />
-                                <a href="#" class="dropdown-item">
+                                <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}" class="dropdown-item">
                                     <i class="ti ti-user"></i>
                                     <span>Social Profile</span>
                                 </a>
