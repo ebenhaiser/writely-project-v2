@@ -33,9 +33,17 @@
                 <span class="my-auto">
                     <div align="right">
                         @if (Auth::check() && Auth::id() !== $user->id)
-                            <button class="btn btn-outline-primary follow-btn" data-user-id="{{ $user->id }}">
-                                <span class="">Follow</span>
-                            </button>
+                            <div wire:click="toggleFollow()" style="cursor: pointer;">
+                            @if ($followStatus)
+                                <div class="btn btn-outline-primary">
+                                    Unfollow
+                                </div>
+                            @else
+                                <div class="btn btn-primary">
+                                    Follow
+                                </div>
+                            @endif
+                        </div>
                         @elseif (Auth::check() && Auth::id() === $user->id)
                             <p class="my-auto text-muted">You</p>
                         @endif

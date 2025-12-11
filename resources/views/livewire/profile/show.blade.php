@@ -132,7 +132,10 @@
     </div>
     <div class="row">
         @forelse ($posts as $post)
-            <x-cards.post-small :post="$post" />
+            <x-cards.post-small>
+                <x-slot:post>{{ $post }}</x-slot:post>
+                <x-slot:followStatus>{{ $followStatus }}</x-slot:followStatus>
+            </x-cards.post-small>
         @empty
             <div class="col-md-12" align="center">
                 <i>No post yet.</i>
