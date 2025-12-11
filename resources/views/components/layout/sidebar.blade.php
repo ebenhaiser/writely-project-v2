@@ -13,7 +13,7 @@
                     <label>Dashboard</label>
                     <i class="ti ti-dashboard"></i>
                 </li> --}}
-                <li class="pc-item active">
+                <li class="pc-item {{ request()->routeIs('home') ? 'active' : '' }}">
                     <a href="{{ route('home') }}" class="pc-link">
                         <span class="pc-micon">
                             <i class='ti ti-home'></i>

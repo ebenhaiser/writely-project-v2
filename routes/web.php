@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
+Route::fallback(function () {
+    return redirect('/');
+});
 
 
 

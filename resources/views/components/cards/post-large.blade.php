@@ -38,16 +38,15 @@
                     <div class="d-flex gap-2">
                         <span>
                             <i align="right">{{ $post->created_at->diffForHumans() }}</i>
-                            <i align="right">25 minutes ago</i>
                         </span>
                         <span>
                             &#8226;
                         </span>
                         <span>
-                            <i class='ti ti-thumb-up'></i> {{ count($post->likes) }}
+                            <i class='ti ti-thumb-up'></i>{{ ' ' . count($post->likes) }}
                         </span>
                         <span>
-                            <i class='ti ti-message-circle'></i> {{ count($post->comments) }}
+                            <i class='ti ti-message-circle'></i>{{ ' ' . count($post->comments) }}
                         </span>
                     </div>
                     {{-- <button class="btn btn-outline-primary mt-2 like-btn" data-post-id="{{ $post->id }}">
@@ -61,7 +60,7 @@
         </div>
         <div class="card-footer row">
             <div class="col-sm-10">
-                <a href="#" class="d-flex">
+                <a href="{{ route('profile.show', ['username' => $post->user->username]) }}" class="d-flex">
                     <span>
                         <div class="profile me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
                             @php

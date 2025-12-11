@@ -74,8 +74,7 @@
                             </div>
                         @elseif (Auth::check() && Auth::user()->username != $profile->username)
                             <button class="btn btn-primary follow-btn" data-user-id="{{ $profile->id }}">
-                                <span
-                                    class="follow-text">Follow</span>
+                                <span class="follow-text">Follow</span>
                             </button>
                         @endif
                     </div>
@@ -102,18 +101,15 @@
                     <div class="profile-nav">
                         <ul class="nav nav-underline nav-fill">
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}"
-                                    aria-current="page" href="#">Posts
+                                <a class="nav-link" aria-current="page" href="#">Posts
+                                </a>
+                            </li>
+                            <li class="nav-item">"
+                                <a class="nav-link" aria-current="page" href="#">Likes
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('profile.likes') ? 'active' : '' }}"
-                                    href="#">Likes
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('profile.comments') ? 'active' : '' }}"
-                                    href="#">Comments
+                                <a class="nav-link" href="#">Comments
                                 </a>
                             </li>
                         </ul>
@@ -123,14 +119,13 @@
         </div>
     </div>
     <div class="row">
-        {{-- @forelse ($posts as $post) --}}
-        <div class="col-md-4">
-            {{-- <x-cards.post-small /> --}}
-        </div>
-        {{-- @empty --}}
-        <div class="col-md-12" align="center">
-            {{-- <i>No post yet.</i> --}}
-        </div>
-        {{-- @endforelse --}}
+        @forelse ($posts as $post)
+            <x-cards.post-small :post="$post" />
+        @empty
+            <div class="col-md-12" align="center">
+                <i>No post yet.</i>
+            </div>
+        @endforelse
+        {{ $posts->links() }}
     </div>
 </div>
