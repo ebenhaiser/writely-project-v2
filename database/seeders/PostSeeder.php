@@ -13,6 +13,17 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory()->count(100)->create();
+        // Buat 3000 post menggunakan factory
+        // Dengan chunk untuk menghindari memory limit
+        $chunkSize = 500;
+        $totalPosts = 3000;
+
+        for ($i = 0; $i < ceil($totalPosts / $chunkSize); $i++) {
+            Post::factory()
+                ->count(min($chunkSize, $totalPosts - ($i * $chunkSize)))
+                ->create();
+
+            $this->command->info('Created ' . (($i + 1) * $chunkSize) . ' posts...');
+        }
     }
 }

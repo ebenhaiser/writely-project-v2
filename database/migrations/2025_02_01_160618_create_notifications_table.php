@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('type');
-            $table->foreignId('source_users_id')->references('id')->on('users');
-            $table->foreignId('post_id')->constrained('posts');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('type'); // 'like', 'comment', 'follow'
+            $table->foreignId('source_user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('post_id')->nullable()->constrained('posts')->onDelete('cascade');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

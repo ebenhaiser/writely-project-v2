@@ -23,30 +23,25 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        // return [
-        //     'name' => fake()->name(),
-        //     'email' => fake()->unique()->safeEmail(),
-        //     'email_verified_at' => now(),
-        //     'password' => static::$password ??= Hash::make('password'),
-        //     'remember_token' => Str::random(10),
-        //     'two_factor_secret' => Str::random(10),
-        //     'two_factor_recovery_codes' => Str::random(10),
-        //     'two_factor_confirmed_at' => now(),
-        // ];
-
-        $username = $this->faker->unique()->userName;
+        $firstName = $this->faker->firstName();
+        $lastName = $this->faker->lastName();
+        $username = Str::slug($firstName . '.' . $lastName) . $this->faker->randomNumber(3, false);
 
         return [
-            'name' => $this->faker->name(),
+            'name' => $firstName . ' ' . $lastName,
             'username' => $username,
-            'email' => $username . '@admin.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('admin'),
-            'bio' => Str::limit($this->faker->sentence(10), 100), // <- PERBAIKAN DI SINI
-            'profile_picture' => $this->faker->imageUrl(200, 200, 'people', true, 'profile'),
+            'email' => $username . '@example.com',
+            'email_verified_at' => $this->faker->randomElement([now(), null]),
+            'password' => Hash::make('admin'), // Password default
+            'bio' => $this->faker->boolean(70) ? Str::limit($this->faker->sentence(rand(5, 15)), 100) : null,
+            'profile_picture' => $this->faker->randomElement([
+                null,
+                $this->faker->imageUrl(200, 200, 'people', true, 'avatar'),
+                'https://i.pravatar.cc/300?img=' . $this->faker->numberBetween(1, 70),
+            ]),
             'remember_token' => Str::random(10),
-            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
-            'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'created_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
         ];
     }
 
@@ -57,18 +52,6 @@ class UserFactory extends Factory
     {
         return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
-        ]);
-    }
-
-    /**
-     * Indicate that the model does not have two-factor authentication configured.
-     */
-    public function withoutTwoFactor(): static
-    {
-        return $this->state(fn(array $attributes) => [
-            'two_factor_secret' => null,
-            'two_factor_recovery_codes' => null,
-            'two_factor_confirmed_at' => null,
         ]);
     }
 }

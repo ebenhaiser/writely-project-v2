@@ -14,30 +14,42 @@ class LikeSeeder extends Seeder
     public function run(): void
     {
         $likes = [];
+        $totalUsers = 750;
+        $totalPosts = 3000;
 
-        // Setiap user akan like beberapa post secara acak
-        for ($userId = 1; $userId <= 10; $userId++) {
-            // Setiap user like 10-30 post secara acak
-            $likedPosts = collect(range(1, 100))
-                ->random(rand(10, 30))
-                ->map(function ($postId) use ($userId) {
-                    return [
-                        'user_id' => $userId,
-                        'post_id' => $postId,
-                        'created_at' => now()->subDays(rand(0, 365)),
-                        'updated_at' => now()->subDays(rand(0, 365)),
-                    ];
-                })
-                ->toArray();
+        // Setiap user akan like 50-200 post secara acak
+        for ($userId = 1; $userId <= $totalUsers; $userId++) {
+            // Jumlah like per user: 50-200
+            $likeCount = rand(50, 200);
 
-            $likes = array_merge($likes, $likedPosts);
+            // Pilih post yang akan dilike (unique per user)
+            $likedPostIds = collect(range(1, $totalPosts))
+                ->shuffle()
+                ->take($likeCount);
+
+            foreach ($likedPostIds as $postId) {
+                $likes[] = [
+                    'user_id' => $userId,
+                    'post_id' => $postId,
+                    'created_at' => now()->subDays(rand(0, 365)),
+                    'updated_at' => now()->subDays(rand(0, 365)),
+                ];
+            }
+
+            // Insert per 1000 records untuk menghindari memory issue
+            if (count($likes) >= 1000) {
+                Like::insert($likes);
+                $likes = [];
+                $this->command->info('Inserted likes for user ' . $userId);
+            }
         }
 
-        // Hapus duplikat (jika ada)
-        $uniqueLikes = collect($likes)->unique(function ($item) {
-            return $item['user_id'] . '-' . $item['post_id'];
-        });
+        // Insert sisa likes
+        if (!empty($likes)) {
+            Like::insert($likes);
+        }
 
-        Like::insert($uniqueLikes->toArray());
+        // Hapus duplikat (jika ada) - meskipun sudah ada unique constraint
+        $this->command->info('Total likes created: ' . Like::count());
     }
 }

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('from_user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('to_user_id')->constrained('users')->onDelete('cascade');
             $table->text('message');
+            $table->boolean('is_read')->default(false); // Tambahkan ini
+            $table->timestamp('read_at')->nullable(); // Tambahkan ini
             $table->timestamps();
         });
     }

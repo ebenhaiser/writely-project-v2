@@ -14,29 +14,40 @@ class BookmarkSeeder extends Seeder
     public function run(): void
     {
         $bookmarks = [];
+        $totalUsers = 750;
+        $totalPosts = 3000;
 
-        // Setiap user bookmark 5-15 post
-        for ($userId = 1; $userId <= 10; $userId++) {
-            $bookmarkedPosts = collect(range(1, 100))
-                ->random(rand(5, 15))
-                ->map(function ($postId) use ($userId) {
-                    return [
-                        'user_id' => $userId,
-                        'post_id' => $postId,
-                        'created_at' => now()->subDays(rand(0, 365)),
-                        'updated_at' => now()->subDays(rand(0, 365)),
-                    ];
-                })
-                ->toArray();
+        // Setiap user bookmark 10-30 post
+        for ($userId = 1; $userId <= $totalUsers; $userId++) {
+            // Jumlah bookmark per user: 10-30
+            $bookmarkCount = rand(10, 30);
 
-            $bookmarks = array_merge($bookmarks, $bookmarkedPosts);
+            // Pilih post yang akan di-bookmark (unique per user)
+            $bookmarkedPostIds = collect(range(1, $totalPosts))
+                ->shuffle()
+                ->take($bookmarkCount);
+
+            foreach ($bookmarkedPostIds as $postId) {
+                $bookmarks[] = [
+                    'user_id' => $userId,
+                    'post_id' => $postId,
+                    'created_at' => now()->subDays(rand(0, 365)),
+                    'updated_at' => now()->subDays(rand(0, 365)),
+                ];
+            }
+
+            // Insert per 1000 records
+            if (count($bookmarks) >= 1000) {
+                Bookmark::insert($bookmarks);
+                $bookmarks = [];
+            }
         }
 
-        // Hapus duplikat (meskipun sudah ada unique constraint)
-        $uniqueBookmarks = collect($bookmarks)->unique(function ($item) {
-            return $item['user_id'] . '-' . $item['post_id'];
-        });
+        // Insert sisa bookmarks
+        if (!empty($bookmarks)) {
+            Bookmark::insert($bookmarks);
+        }
 
-        Bookmark::insert($uniqueBookmarks->toArray());
+        $this->command->info('Total bookmarks created: ' . Bookmark::count());
     }
 }

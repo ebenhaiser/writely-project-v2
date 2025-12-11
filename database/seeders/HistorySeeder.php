@@ -14,32 +14,43 @@ class HistorySeeder extends Seeder
     public function run(): void
     {
         $histories = [];
+        $totalUsers = 750;
+        $totalPosts = 3000;
 
-        // Setiap user memiliki 10-30 riwayat pembacaan
-        for ($userId = 1; $userId <= 10; $userId++) {
-            $viewedPosts = collect(range(1, 100))
-                ->random(rand(10, 30))
-                ->map(function ($postId) use ($userId) {
-                    $viewedAt = now()->subDays(rand(0, 365));
+        // Setiap user memiliki 30-100 riwayat pembacaan
+        for ($userId = 1; $userId <= $totalUsers; $userId++) {
+            // Jumlah history per user: 30-100
+            $historyCount = rand(30, 100);
 
-                    return [
-                        'user_id' => $userId,
-                        'post_id' => $postId,
-                        'viewed_at' => $viewedAt,
-                        'created_at' => $viewedAt,
-                        'updated_at' => $viewedAt,
-                    ];
-                })
-                ->toArray();
+            // Pilih post yang telah dilihat (unique per user)
+            $viewedPostIds = collect(range(1, $totalPosts))
+                ->shuffle()
+                ->take($historyCount);
 
-            $histories = array_merge($histories, $viewedPosts);
+            foreach ($viewedPostIds as $postId) {
+                $viewedAt = now()->subDays(rand(0, 365));
+
+                $histories[] = [
+                    'user_id' => $userId,
+                    'post_id' => $postId,
+                    'viewed_at' => $viewedAt,
+                    'created_at' => $viewedAt,
+                    'updated_at' => $viewedAt,
+                ];
+            }
+
+            // Insert per 1000 records
+            if (count($histories) >= 1000) {
+                History::insert($histories);
+                $histories = [];
+            }
         }
 
-        // Hapus duplikat
-        $uniqueHistories = collect($histories)->unique(function ($item) {
-            return $item['user_id'] . '-' . $item['post_id'];
-        });
+        // Insert sisa histories
+        if (!empty($histories)) {
+            History::insert($histories);
+        }
 
-        History::insert($uniqueHistories->toArray());
+        $this->command->info('Total histories created: ' . History::count());
     }
 }
