@@ -5,6 +5,8 @@ namespace App\Livewire\Profile;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Follow;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 use Livewire\Component;
 
@@ -16,10 +18,14 @@ class Show extends Component
     public $profile;
     public $profileNavbar = 'post';
     public $followModalTitle, $followModalData = [];
+    public $followStatus = false;
 
     public function mount($username)
     {
         $this->profile = User::where('username', $username)->firstOrFail();
+        if (Auth::check() && Auth::user()->id != $this->profile->id) {
+            $this->followStatus = Auth::user()->following->contains($this->profile->id);
+        }
     }
 
     public function render()
@@ -77,5 +83,28 @@ class Show extends Component
     {
         $this->followModalTitle = null;
         $this->followModalData = [];
+    }
+
+    public function toggleFollow()
+    {
+        if (Auth::check() && Auth::user()->id != $this->profile->id) {
+            $followingId = $this->profile->id;
+            $followerId = Auth::user()->id;
+            $follow = Follow::where('follower_id', $followerId)
+                ->where('following_id', $followingId)
+                ->first();
+
+            if ($follow) {
+                $follow->delete();
+                $this->followStatus = false;
+            } else {
+                Follow::create([
+                    'following_id' => $followingId,
+                    'follower_id' => $followerId,
+                ]);
+                $this->followStatus = true;
+            }
+            $this->mount($username = $this->profile->username);
+        }
     }
 }
