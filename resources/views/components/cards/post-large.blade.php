@@ -64,12 +64,12 @@
                     <span>
                         <div class="profile me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
                             @php
-                            $avatarPath = public_path('img/profilePicture/' . $post->user->profile_picture);
-                            $avatarlUrl = $post->user->profile_picture && file_exists($avatarPath) 
+                            $card_PostLargeAvatarPath = public_path('img/profilePicture/' . $post->user->profile_picture);
+                            $card_PostLargeAvatarlUrl = $post->user->profile_picture && file_exists($card_PostLargeAvatarPath) 
                             ? asset('img/profilePicture/' . $post->user->profile_picture)
                             : 'https://placehold.co/400';
                             @endphp
-                            <img src="{{ $avatarlUrl }}"
+                            <img src="{{ $card_PostLargeAvatarlUrl }}"
                             alt="" class="rounded-circle border-4 border-white-color-40">
                         </div>
                     </span>

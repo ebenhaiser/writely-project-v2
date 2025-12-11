@@ -62,6 +62,12 @@
                 <a href="#" class="d-flex">
                     <span>
                         <div class="post-profile me-2">
+                            @php
+                            $card_PostSmallAvatarPath = public_path('img/profilePicture/' . $post->user->profile_picture);
+                            $card_PostSmallAvatarlUrl = $post->user->profile_picture && file_exists($card_PostSmallAvatarPath) 
+                            ? asset('img/profilePicture/' . $post->user->profile_picture)
+                            : 'https://placehold.co/400';
+                            @endphp
                             <img src="{{ asset('src/assets/images/user/avatar-1.jpg') }}" alt=""
                                 class="rounded-circle border-4 border-white-color-40">
                         </div>
