@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Follow extends Model
+class Notification extends Model
 {
     use HasFactory;
-    protected $table = 'follows';
-    protected $fillable = ['following_id', 'follower_id'];
 }
