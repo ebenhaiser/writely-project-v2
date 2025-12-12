@@ -72,14 +72,14 @@
                                 <a class="btn btn-outline-primary" href="#">Edit Profile</a>
                             </div>
                         @elseif (Auth::check() && Auth::user()->username != $profile->username)
-                        <div wire:click="toggleFollow()" style="cursor: pointer;">
-                            @if ($followStatus)
+                        <div wire:click="toggleFollow({{ $profile->id }})" style="cursor: pointer;">
+                            @if (Auth::user()->following->contains($profile->id))
                                 <div class="btn btn-outline-primary">
                                     Unfollow
                                 </div>
                             @else
                                 <div class="btn btn-primary">
-                                    Follow
+                                    Follow {{ !Auth::user()->following->contains($profile->id) && $profile->following->contains(Auth::id()) ? 'Back' : '' }}
                                 </div>
                             @endif
                         </div>
@@ -132,10 +132,7 @@
     </div>
     <div class="row">
         @forelse ($posts as $post)
-            <x-cards.post-small>
-                <x-slot:post>{{ $post }}</x-slot:post>
-                <x-slot:followStatus>{{ $followStatus }}</x-slot:followStatus>
-            </x-cards.post-small>
+            <x-cards.post-small :post="$post" />
         @empty
             <div class="col-md-12" align="center">
                 <i>No post yet.</i>

@@ -18,13 +18,13 @@ class Show extends Component
     public $profile;
     public $profileNavbar = 'post';
     public $followModalTitle, $followModalData = [];
-    public $followStatus = false;
+    // public $followStatus = false;
 
     public function mount($username)
     {
         $this->profile = User::where('username', $username)->firstOrFail();
         if (Auth::check() && Auth::user()->id != $this->profile->id) {
-            $this->followStatus = Auth::user()->following->contains($this->profile->id);
+            // $this->followStatus = Auth::user()->following->contains($this->profile->id);
         }
     }
 
@@ -85,10 +85,9 @@ class Show extends Component
         $this->followModalData = [];
     }
 
-    public function toggleFollow()
+    public function toggleFollow($followingId)
     {
-        if (Auth::check() && Auth::user()->id != $this->profile->id) {
-            $followingId = $this->profile->id;
+        if (Auth::check()) {
             $followerId = Auth::user()->id;
             $follow = Follow::where('follower_id', $followerId)
                 ->where('following_id', $followingId)
@@ -96,13 +95,13 @@ class Show extends Component
 
             if ($follow) {
                 $follow->delete();
-                $this->followStatus = false;
+                // $this->followStatus = false;
             } else {
                 Follow::create([
                     'following_id' => $followingId,
                     'follower_id' => $followerId,
                 ]);
-                $this->followStatus = true;
+                // $this->followStatus = true;
             }
             $this->mount($username = $this->profile->username);
         }
