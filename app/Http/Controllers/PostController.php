@@ -10,7 +10,7 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-        $title = $post->title . ' by ' . $post->author->name . ' | Writely.';
+        $title = $post->title . ' by ' . $post->user->name . ' | Writely.';
         return view('post.show', compact('post', 'title'));
     }
 }

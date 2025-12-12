@@ -31,7 +31,7 @@
 <div class="col-md-4">
     <div class="card-post-mini link-dark">
         <div class="card shadow">
-            <a href="#" style="color: inherit; text-decoration: none;">
+            <a href="{{ route('post.show', ['slug' => $post->slug]) }}" style="color: inherit; text-decoration: none;">
                 <img src="https://placehold.co/600x400" class="card-img-top" alt="Thumbnail">
                 <div class="card-body">
                     <h2 class="card-title title-limit">{{ $post->title }}</h2>

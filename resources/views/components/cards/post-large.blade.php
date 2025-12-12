@@ -82,7 +82,7 @@
                 </a>
             </div>
             <div class="col-sm-2 my-auto" align="right">
-                <a href="#" class="btn btn-outline-secondary">
+                <a href="{{ route('post.show', ['slug' => $post->slug]) }}" class="btn btn-outline-secondary">
                     Read more &rarr;
                 </a>
             </div>
