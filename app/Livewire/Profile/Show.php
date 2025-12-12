@@ -28,13 +28,16 @@ class Show extends Component
     {
         if ($this->profileNavbar == 'post') {
             $posts = Post::where('user_id', $this->profile->id)
-                ->orderBy('created_at', 'desc')
+                ->orderByDesc('created_at')
                 ->paginate(12);
         } elseif ($this->profileNavbar == 'like') {
             $profile = $this->profile;
-            $posts = Post::whereHas('likes', function ($query) use ($profile) {
-                $query->where('user_id', $profile->id);
-            })->latest()->paginate(12);
+            $posts = Post::join('likes', 'posts.id', '=', 'likes.post_id')
+                ->where('likes.user_id', $profile->id)
+                ->select('posts.*', 'likes.created_at as liked_at') // Ambil juga timestamp like
+                ->orderBy('likes.created_at', 'desc')
+                ->distinct('posts.id') // Hindari duplikat jika ada multiple likes (tapi seharusnya tidak)
+                ->paginate(12);
         } elseif ($this->profileNavbar == 'comment') {
             $userId = $this->profile->id;
             $posts = Post::whereHas('comments', function ($query) use ($userId) {

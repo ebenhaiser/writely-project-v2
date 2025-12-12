@@ -162,14 +162,14 @@
                 
                 {{-- comment --}}
                 <!-- Input Komentar -->
-                <div class="card comments-section shadow">
+                {{-- <div class="card comments-section shadow">
                     <div class="card-header">
                         <h3>Comments</h3>
                     </div>
-                    <div class="card-body">
-                        {{-- <x-comments :post="$post" /> --}}
-                    </div>
-                </div>
+                    <div class="card-body"> --}}
+                        <livewire:post.comment :post="$post" />
+                    {{-- </div>
+                </div> --}}
             </div>
         </div>
     </div>
