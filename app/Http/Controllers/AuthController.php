@@ -7,12 +7,31 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
         if (Auth::check()) {
             return redirect()->back();
         }
-        return view('auth.login');
+        if ($request->has('returnUrl')) {
+            return view('auth.login', ['returnUrl' => $request->returnUrl]);
+        }
+
+        $previousUrl = url()->previous();
+        $currentUrl = url()->current();
+
+        if (
+            $previousUrl !== $currentUrl &&
+            !str_contains($previousUrl, '/login') &&
+            !str_contains($previousUrl, '/register') &&
+            !str_contains($previousUrl, '/logout') &&
+            !str_contains($previousUrl, '/password') &&
+            !str_contains($previousUrl, '/message') &&
+            !str_contains($previousUrl, '/history') &&
+            !str_contains($previousUrl, '/edit')
+        ) {
+            return redirect()->route('auth.login', ['returnUrl' => $previousUrl]);
+        }
+        // return view('auth.login');
     }
 
     public function register()

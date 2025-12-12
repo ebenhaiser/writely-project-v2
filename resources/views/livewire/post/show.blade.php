@@ -38,34 +38,45 @@
             <div class="show-post">
                 <div class="card shadow">
                     <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <span class="">
+                        {{-- <div class="d-flex justify-content-between"> --}}
+                        <div class="row">
+                            <div class="col-md-10">
                                 <h1 class="">{{ $post->title }}</h1>
                                 <h3 class="badge text-bg-info" style="color: white">
                                     {{ $post->category->name }}
                                 </h3>
-                            </span>
-                            <span class="" align="right">
+                            </div>
+                            <div class="col-md-2" align="right">
                                 @if (Auth::check())
                                     <div class="d-flex gap-1">
-                                        <button class="btn btn-outline-primary mb-1">
-                                            <i class="ti ti-star"></i>
+                                        <button class="btn btn-outline-primary mb-1"
+                                            wire:click="likeToggle({{ $post->id }})">
+                                            @if (!$post->likes->contains('user_id', Auth::id()))
+                                                <i class="bi bi-hand-thumbs-up"></i>
+                                            @else
+                                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                            @endif
                                         </button>
-                                        <button class="btn btn-outline-primary mb-1">
-                                            <i class="ti ti-thumb-up"></i>
+                                        <button class="btn btn-outline-primary mb-1"
+                                            wire:click="bookmarkToggle({{ $post->id }})">
+                                            @if (!$post->bookmarks->contains('user_id', Auth::id()))
+                                                <i class="bi bi-bookmark"></i>
+                                            @else
+                                                <i class="bi bi-bookmark-fill"></i>
+                                            @endif
                                         </button>
                                     </div>
                                 @endif
                                 @if (Auth::check() && Auth::user()->id == $post->user_id)
                                     <a href="#" class="btn btn-outline-primary">Edit</a>
                                 @endif
-                                <div align="right" class="mt-3">
+                                <div align="right" class="mt-1">
                                     <div class="d-flex justify-content-end gap-3">
-                                        <span class=""><i class="ti ti-thumb-up"></i>
-                                            {{ $post->likes->count() }}</span>
+                                        <span><i class="ti ti-thumb-up"></i>{{ ' ' . $post->likes->count() }}</span>
+                                        <span><i class="ti ti-bookmark"></i>{{ ' ' . $post->bookmarks->count() }}</span>
                                     </div>
                                 </div>
-                            </span>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -87,23 +98,32 @@
             <div class="author-and-comments-section">
                 <div class="card author-section shadow">
                     <div class="card-header">
-                        <h5>Author</h5>
+                        <h3>Author</h3>
                     </div>
                     <div class="card-body">
                         @php
                             $user = $post->user;
                         @endphp
                         <div class="d-flex justify-content-between">
-                            <a href="#" style="color: inherit; text-decoration: none;">
+                            <a href="{{ route('profile.show', ['username' => $user->username]) }}" style="color: inherit; text-decoration: none;">
                                 <span class="d-flex">
                                     <span>
                                         <div class="me-2">
-                                            <img src="" alt=""
+                                            @php
+                                                $author_avatarPath = public_path(
+                                                    'img/profilePicture/' . $user->profile_picture,
+                                                );
+                                                $author_avatarUrl =
+                                                    $user->profile_picture && file_exists($author_avatarPath)
+                                                        ? asset('img/profilePicture/' . $user->profile_picture)
+                                                        : 'https://placehold.co/400';
+                                            @endphp
+                                            <img src="{{ $author_avatarUrl }}" alt=""
                                                 class="rounded-circle  border-4 border-white-color-40">
                                         </div>
                                     </span>
                                     <span class="my-auto">
-                                        <h6 class="mt-0 mb-0">{{ $user->name }}</h6>
+                                        <h5 class="mt-0 mb-0">{{ $user->name }}</h5>
                                         <p class="mb-0 mt-0 text-body" style="text-decoration: none">
                                             {{ '@' . $user->username }}
                                         </p>
@@ -112,15 +132,22 @@
                             </a>
                             <span class="my-auto">
                                 <div align="right">
-                                    @if (Auth::check() && Auth::id() !== $user->id)
-                                        <button class="btn btn-outline-primary follow-btn"
-                                            data-user-id="{{ $user->id }}">
-                                            <span
-                                                class="">{{ $user->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
-                                        </button>
-                                    @elseif (Auth::check() && Auth::id() === $user->id)
-                                        <p class="my-auto text-muted">You</p>
-                                    @endif
+                                    <div wire:click="toggleFollow({{ $user->id }})" style="cursor: pointer;">
+                                        @if (Auth::check() && Auth::id() !== $user->id)
+                                            @if (Auth::user()->following->contains($user->id))
+                                                <div class="btn btn-outline-primary">
+                                                    Unfollow
+                                                </div>
+                                            @else
+                                                <div class="btn btn-primary">
+                                                    Follow
+                                                    {{ !Auth::user()->following->contains($user->id) && $user->following->contains(Auth::id()) ? 'Back' : '' }}
+                                                </div>
+                                            @endif
+                                        @elseif (Auth::check() && Auth::id() === $user->id)
+                                            <p class="my-auto text-muted">You</p>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="mt-1" align="right">
                                     <i>
@@ -131,14 +158,13 @@
                             </span>
                         </div>
                     </div>
-
-                    {{-- <x-cards.user :user="$user" /> --}}
                 </div>
+                
                 {{-- comment --}}
                 <!-- Input Komentar -->
                 <div class="card comments-section shadow">
                     <div class="card-header">
-                        <h5>Comments</h5>
+                        <h3>Comments</h3>
                     </div>
                     <div class="card-body">
                         {{-- <x-comments :post="$post" /> --}}

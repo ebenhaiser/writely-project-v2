@@ -18,14 +18,10 @@ class Show extends Component
     public $profile;
     public $profileNavbar = 'post';
     public $followModalTitle, $followModalData = [];
-    // public $followStatus = false;
 
     public function mount($username)
     {
         $this->profile = User::where('username', $username)->firstOrFail();
-        if (Auth::check() && Auth::user()->id != $this->profile->id) {
-            // $this->followStatus = Auth::user()->following->contains($this->profile->id);
-        }
     }
 
     public function render()
@@ -95,15 +91,13 @@ class Show extends Component
 
             if ($follow) {
                 $follow->delete();
-                // $this->followStatus = false;
             } else {
                 Follow::create([
                     'following_id' => $followingId,
                     'follower_id' => $followerId,
                 ]);
-                // $this->followStatus = true;
             }
-            $this->mount($username = $this->profile->username);
+            $this->mount($this->profile->username);
         }
     }
 }

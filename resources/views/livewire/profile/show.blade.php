@@ -51,12 +51,12 @@
                                 class="avatar-profile avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
                                 @php
                                     $avatarPath = public_path('img/profilePicture/' . $profile->profile_picture);
-                                    $avatarlUrl =
+                                    $avatarUrl =
                                         $profile->profile_picture && file_exists($avatarPath)
                                             ? asset('img/profilePicture/' . $profile->profile_picture)
                                             : 'https://placehold.co/400';
                                 @endphp
-                                <img src="{{ $avatarlUrl }}" alt=""
+                                <img src="{{ $avatarUrl }}" alt=""
                                     class="avatar-xxl rounded-circle  border-4 border-white-color-40">
                             </div>
                             <div class="lh-1 profile-name me-4">

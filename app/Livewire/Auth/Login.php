@@ -9,13 +9,13 @@ use Illuminate\Validation\ValidationException;
 class Login extends Component
 {
     public $email, $password;
-    public $returnUrl;
+    public $returnUrl = null;
 
 
-    public function mount()
+    public function mount($returnUrl)
     {
-        if (request()->has('returnUrl')) {
-            $this->returnUrl = request()->get('returnUrl');
+        if ($returnUrl) {
+            $this->returnUrl = $returnUrl;
         }
     }
 

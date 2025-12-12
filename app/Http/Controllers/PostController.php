@@ -9,8 +9,11 @@ class PostController extends Controller
 {
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::where('slug', $slug)->first();
+        if (!$post) {
+            return redirect()->route('home');
+        }
         $title = $post->title . ' by ' . $post->user->name . ' | Writely.';
-        return view('post.show', compact('post', 'title'));
+        return view('post.show', compact('slug', 'title'));
     }
 }

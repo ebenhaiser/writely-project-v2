@@ -5,6 +5,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    <input type="hidden" wire:model="returnUrl" />
     <div class="form-floating mb-3">
         <input type="email" class="form-control" id="floatingInput" placeholder="Email address / Username"
             wire:model="email" />
