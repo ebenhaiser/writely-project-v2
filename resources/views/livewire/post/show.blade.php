@@ -50,20 +50,31 @@
                                 @if (Auth::check())
                                     <div class="d-flex gap-1">
                                         <button class="btn btn-outline-primary mb-1"
-                                            wire:click="likeToggle({{ $post->id }})">
-                                            @if (!$post->likes->contains('user_id', Auth::id()))
-                                                <i class="bi bi-hand-thumbs-up"></i>
-                                            @else
-                                                <i class="bi bi-hand-thumbs-up-fill"></i>
-                                            @endif
+                                            wire:click="likeToggle({{ $post->id }})" wire:loading.attr="disabled">
+                                            <span wire:loading.remove wire:target="likeToggle({{ $post->id }})">
+                                                @if (!$post->likes->contains('user_id', Auth::id()))
+                                                    <i class="bi bi-hand-thumbs-up"></i>
+                                                @else
+                                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                                @endif
+                                            </span>
+                                            <span wire:loading wire:target="likeToggle({{ $post->id }})">
+                                                <span class="spinner-border spinner-border-sm" role="status"></span>
+                                            </span>
                                         </button>
                                         <button class="btn btn-outline-primary mb-1"
-                                            wire:click="bookmarkToggle({{ $post->id }})">
-                                            @if (!$post->bookmarks->contains('user_id', Auth::id()))
-                                                <i class="bi bi-bookmark"></i>
-                                            @else
-                                                <i class="bi bi-bookmark-fill"></i>
-                                            @endif
+                                            wire:click="bookmarkToggle({{ $post->id }})"
+                                            wire:loading.attr="disabled">
+                                            <span wire:loading.remove wire:target="bookmarkToggle({{ $post->id }})">
+                                                @if (!$post->bookmarks->contains('user_id', Auth::id()))
+                                                    <i class="bi bi-bookmark"></i>
+                                                @else
+                                                    <i class="bi bi-bookmark-fill"></i>
+                                                @endif
+                                            </span>
+                                            <span wire:loading wire:target="bookmarkToggle({{ $post->id }})">
+                                                <span class="spinner-border spinner-border-sm" role="status"></span>
+                                            </span>
                                         </button>
                                     </div>
                                 @endif
@@ -105,7 +116,8 @@
                             $user = $post->user;
                         @endphp
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('profile.show', ['username' => $user->username]) }}" style="color: inherit; text-decoration: none;">
+                            <a href="{{ route('profile.show', ['username' => $user->username]) }}"
+                                style="color: inherit; text-decoration: none;">
                                 <span class="d-flex">
                                     <span>
                                         <div class="me-2">
@@ -133,19 +145,33 @@
                             <span class="my-auto">
                                 <div align="right">
                                     <div wire:click="toggleFollow({{ $user->id }})" style="cursor: pointer;">
-                                        @if (Auth::check() && Auth::id() !== $user->id)
-                                            @if (Auth::user()->following->contains($user->id))
-                                                <div class="btn btn-outline-primary">
-                                                    Unfollow
-                                                </div>
+                                        @if (Auth::check())
+                                            @if (Auth::id() !== $user->id)
+                                                @php
+                                                    $isFollowing = Auth::user()->following->contains($user->id);
+                                                    $isFollowedBack = $user->following->contains(Auth::id());
+                                                @endphp
+
+                                                <button
+                                                    class="btn {{ $isFollowing ? 'btn-outline-primary' : 'btn-primary' }}"
+                                                    wire:loading.attr="disabled"
+                                                    wire:target="toggleFollow({{ $user->id }})">
+                                                    <span wire:loading.remove
+                                                        wire:target="toggleFollow({{ $user->id }})">
+                                                        @if ($isFollowing)
+                                                            Unfollow
+                                                        @else
+                                                            Follow{{ $isFollowedBack ? ' Back' : '' }}
+                                                        @endif
+                                                    </span>
+                                                    <span wire:loading wire:target="toggleFollow({{ $user->id }})">
+                                                        <span class="spinner-border spinner-border-sm"
+                                                            role="status"></span>
+                                                    </span>
+                                                </button>
                                             @else
-                                                <div class="btn btn-primary">
-                                                    Follow
-                                                    {{ !Auth::user()->following->contains($user->id) && $user->following->contains(Auth::id()) ? 'Back' : '' }}
-                                                </div>
+                                                <p class="my-auto text-muted">You</p>
                                             @endif
-                                        @elseif (Auth::check() && Auth::id() === $user->id)
-                                            <p class="my-auto text-muted">You</p>
                                         @endif
                                     </div>
                                 </div>
@@ -159,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 {{-- comment --}}
                 <!-- Input Komentar -->
                 {{-- <div class="card comments-section shadow">
@@ -167,8 +193,8 @@
                         <h3>Comments</h3>
                     </div>
                     <div class="card-body"> --}}
-                        <livewire:post.comment :post="$post" />
-                    {{-- </div>
+                <livewire:post.comment :post="$post" />
+                {{-- </div>
                 </div> --}}
             </div>
         </div>

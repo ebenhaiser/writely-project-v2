@@ -67,22 +67,30 @@
                                 @endif
                             </div>
                         </div>
-                        @if (Auth::check() && Auth::user()->username == $profile->username)
-                            <div class="btn-edit-profile">
-                                <a class="btn btn-outline-primary" href="#">Edit Profile</a>
-                            </div>
-                        @elseif (Auth::check() && Auth::user()->username != $profile->username)
-                        <div wire:click="toggleFollow({{ $profile->id }})" style="cursor: pointer;">
-                            @if (Auth::user()->following->contains($profile->id))
-                                <div class="btn btn-outline-primary">
-                                    Unfollow
-                                </div>
-                            @else
-                                <div class="btn btn-primary">
-                                    Follow {{ !Auth::user()->following->contains($profile->id) && $profile->following->contains(Auth::id()) ? 'Back' : '' }}
-                                </div>
+                        @if (Auth::check())
+                            @if (Auth::id() !== $profile->id)
+                                @php
+                                    $isFollowing = Auth::user()->following->contains($profile->id);
+                                    $isFollowedBack = $profile->following->contains(Auth::id());
+                                    $buttonText = $isFollowing
+                                        ? 'Unfollow'
+                                        : 'Follow' . ($isFollowedBack ? ' Back' : '');
+                                @endphp
+
+                                <button wire:click="toggleFollow({{ $profile->id }})"
+                                    class="btn {{ $isFollowing ? 'btn-outline-primary' : 'btn-primary' }} px-4"
+                                    wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                                    wire:target="toggleFollow({{ $profile->id }})">
+
+                                    <span wire:loading.remove wire:target="toggleFollow({{ $profile->id }})">
+                                        {{ $buttonText }}
+                                    </span>
+
+                                    <span wire:loading wire:target="toggleFollow({{ $profile->id }})">
+                                        <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                                    </span>
+                                </button>
                             @endif
-                        </div>
                         @endif
                     </div>
                     <div class="mt-3 mb-3 px-4 d-flex gap-5 profile-post-follow">

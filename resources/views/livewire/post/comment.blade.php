@@ -28,7 +28,16 @@
                         @foreach ($comments as $comment)
                             {{-- Comment Utama --}}
                             <li class="comment-item" wire:key="comment-{{ $comment->id }}">
-                                <img src="{{ $comment->user->profile_picture ? asset('img/profilePicture/' . $comment->user->profile_picture) : asset('img/profilePicture/default.jpg') }}"
+                                @php
+                                    $comment_avatarPath = public_path(
+                                        'img/profilePicture/' . $comment->user->profile_picture,
+                                    );
+                                    $comment_avatarUrl =
+                                        $comment->user->profile_picture && file_exists($comment_avatarPath)
+                                            ? asset('img/profilePicture/' . $comment->user->profile_picture)
+                                            : 'https://placehold.co/400';
+                                @endphp
+                                <img src="{{ $comment_avatarUrl }}"
                                     class="profile-img" alt="{{ $comment->user->name }}">
                                 <div class="comment-box">
                                     <a href="{{ route('profile.show', $comment->user->username) }}"
@@ -88,8 +97,19 @@
                                     <ul class="timeline replies">
                                         @foreach ($comment->replies as $reply)
                                             <li class="reply" wire:key="reply-{{ $reply->id }}">
-                                                <img src="{{ $reply->user->profile_picture ? asset('img/profilePicture/' . $reply->user->profile_picture) : asset('img/profilePicture/default.jpg') }}"
-                                                    class="profile-img" alt="{{ $reply->user->name }}">
+                                                @php
+                                                    $reply_avatarPath = public_path(
+                                                        'img/profilePicture/' . $reply->user->profile_picture,
+                                                    );
+                                                    $reply_avatarUrl =
+                                                        $reply->user->profile_picture && file_exists($reply_avatarPath)
+                                                            ? asset(
+                                                                'img/profilePicture/' . $reply->user->profile_picture,
+                                                            )
+                                                            : 'https://placehold.co/400';
+                                                @endphp
+                                                <img src="{{ $reply_avatarUrl }}" class="profile-img"
+                                                    alt="{{ $reply->user->name }}">
                                                 <div class="comment-box">
                                                     <a href="{{ route('profile.show', $reply->user->username) }}"
                                                         class="text-decoration-none">
