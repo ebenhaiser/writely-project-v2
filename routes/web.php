@@ -5,11 +5,13 @@ use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');
 Route::get('/id/{username}', [ProfileController::class, 'show'])->name('profile.show');
 
 Route::middleware('guest')->group(function () {
