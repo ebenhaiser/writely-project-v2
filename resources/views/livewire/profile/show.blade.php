@@ -90,6 +90,10 @@
                                         <span class="spinner-border spinner-border-sm me-1" role="status"></span>
                                     </span>
                                 </button>
+                            @else
+                                <a href="#" class="btn btn-outline-primary">
+                                    Edit
+                                </a>
                             @endif
                         @endif
                     </div>
@@ -138,14 +142,17 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        @forelse ($posts as $post)
-            <x-cards.post-small :post="$post" />
-        @empty
-            <div class="col-md-12" align="center">
-                <i>No post yet.</i>
-            </div>
-        @endforelse
+    <div wire:loading.remove
+        wire:target="setProfileNavbar('post'), setProfileNavbar('like'), setProfileNavbar('comment')">
+        <div class="row">
+            @forelse ($posts as $post)
+                <x-cards.post-small :post="$post" />
+            @empty
+                <div class="col-md-12" align="center">
+                    <i>No post yet.</i>
+                </div>
+            @endforelse
+        </div>
         {{ $posts->links() }}
     </div>
 
@@ -155,24 +162,35 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">{{ $followModalTitle }}</h3>
+                    <h3 class="modal-title" id="exampleModalLabel" wire:loading.remove
+                        wire:target="followModal('following'), followModal('follower')">{{ $followModalTitle }}</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        wire:click="clearFollowModal()"></button>
+                        wire:loading.attr="disabled"
+                        wire:target="followModal('following'), followModal('follower')"></button>
                 </div>
                 <div class="modal-body">
-                    @if (count($followModalData) > 0)
-                        @foreach ($followModalData as $user)
-                            <x-cards.user :user="$user" />
-                        @endforeach
-                    @else
-                        <div align="center">
-                            <i>No data found.</i>
-                        </div>
-                    @endif
+                    <div wire:loading.remove wire:target="followModal('following'), followModal('follower')">
+                        @if (count($followModalData) > 0)
+                            @foreach ($followModalData as $user)
+                                <x-cards.user :user="$user" />
+                            @endforeach
+                        @else
+                            <div align="center">
+                                <i>No data found.</i>
+                            </div>
+                        @endif
+                    </div>
+                    <div wire:loading wire:target="followModal('following'), followModal('follower')"
+                        class="d-flex justify-content-center align-items-center gap-3" style="min-height: 200px;">
+                        <span class="spinner-border text-primary" role="status">
+                        </span>
+                        <span class="">Loading...</span>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        wire:click="clearFollowModal()">Close</button>
+                        wire:loading.attr="disabled"
+                        wire:target="followModal('following'), followModal('follower')">Close</button>
                 </div>
             </div>
         </div>

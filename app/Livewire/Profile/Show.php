@@ -78,12 +78,6 @@ class Show extends Component
         }
     }
 
-    public function clearFollowModal()
-    {
-        $this->followModalTitle = null;
-        $this->followModalData = [];
-    }
-
     public function toggleFollow($followingId)
     {
         if (Auth::check()) {
