@@ -1,4 +1,4 @@
 <x-layout.main>
-        <x-slot name="title">{{ $title }}</x-slot>
+        <x-slot:title>{{ $title }}</x-slot:title>
         <livewire:page.category />
 </x-layout.main>
