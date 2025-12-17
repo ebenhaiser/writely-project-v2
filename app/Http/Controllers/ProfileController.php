@@ -23,4 +23,14 @@ class ProfileController extends Controller
 
         return view('profile.show', compact('username', 'title'));
     }
+
+    public function setting($username)
+    {
+        if ($username != Auth::user()->username) {
+            return redirect()->route('profile.show', ['username' => $username]);
+        }
+        $title = 'Edit Profile | Writely.';
+
+        return view('profile.setting', compact('title'));
+    }
 }
