@@ -21,35 +21,38 @@
                         <span class="pc-mtext">Home</span>
                     </a>
                 </li>
+
                 @if (Auth::check())
-                <li class="pc-item">
-                    <a href="#" class="pc-link">
-                        <span class="pc-micon">
-                            <i class='ti ti-users'></i>
-                        </span>
-                        <span class="pc-mtext">Following</span>
-                    </a>
-                </li>
+                    <li class="pc-item">
+                        <a href="#" class="pc-link">
+                            <span class="pc-micon">
+                                <i class='ti ti-users'></i>
+                            </span>
+                            <span class="pc-mtext">Following</span>
+                        </a>
+                    </li>
                 @endif
-                <li class="pc-item">
-                    <a href="#" class="pc-link">
+
+                <li class="pc-item {{ request()->routeIs('category') ? 'active' : '' }}">
+                    <a href="{{ route('category') }}" class="pc-link">
                         <span class="pc-micon">
-                            <i class='ti ti-compass'></i>
+                            <i class='ti ti-tag'></i>
                         </span>
-                        <span class="pc-mtext">Explore</span>
+                        <span class="pc-mtext">Category</span>
                     </a>
                 </li>
+
                 @if (Auth::check())
-                <li class="pc-item">
-                    <a href="#" class="pc-link">
-                        <span class="pc-micon">
-                            <i class='ti ti-messages'></i>
-                        </span>
-                        <span class="pc-mtext">Message</span>
-                    </a>
-                </li>
+                    <li class="pc-item">
+                        <a href="#" class="pc-link">
+                            <span class="pc-micon">
+                                <i class='ti ti-messages'></i>
+                            </span>
+                            <span class="pc-mtext">Message</span>
+                        </a>
+                    </li>
                 @endif
-                
+
                 {{-- <li class="pc-item pc-caption">
                     <label>Elements</label>
                     <i class="ti ti-apps"></i>
@@ -136,7 +139,7 @@
                         <span class="pc-mtext">Sample page</span>
                     </a>
                 </li> --}}
-                
+
             </ul>
             {{-- <div class="pc-navbar-card bg-primary rounded">
                 <h4 class="text-white">Explore full code</h4>

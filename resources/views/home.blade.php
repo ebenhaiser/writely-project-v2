@@ -1,3 +1,3 @@
 <x-layout.main>
-    <livewire:dashboard.home />
+    <livewire:page.home />
 </x-layout.main>

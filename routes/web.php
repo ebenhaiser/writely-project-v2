@@ -6,10 +6,10 @@ use Livewire\Volt\Volt;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PageController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/category', [PageController::class, 'category'])->name('category');
 
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');
 Route::get('/id/{username}', [ProfileController::class, 'show'])->name('profile.show');

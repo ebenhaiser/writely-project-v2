@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dashboard;
+namespace App\Livewire\Page;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,6 +14,6 @@ class Home extends Component
     public function render()
     {
         $posts = ModelsPost::paginate(10);
-        return view('livewire.dashboard.home', compact('posts'));
+        return view('livewire.page.home', compact('posts'));
     }
 }
