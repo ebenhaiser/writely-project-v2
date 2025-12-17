@@ -18,9 +18,9 @@ class Category extends Component
     {
         $categories = ModelsCategory::select('id', 'name')->get();
         if ($this->category_id) {
-            $posts = Post::where('category_id', $this->category_id)->paginate(10);
+            $posts = Post::where('category_id', $this->category_id)->orderByDesc('created_at')->paginate(12);
         } else {
-            $posts = Post::paginate(10);
+            $posts = Post::orderByDesc('created_at')->paginate(12);
         }
         return view('livewire.page.category', compact('posts', 'categories'));
     }

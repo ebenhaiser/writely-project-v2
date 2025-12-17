@@ -13,7 +13,7 @@ class Home extends Component
 
     public function render()
     {
-        $posts = ModelsPost::paginate(10);
+        $posts = ModelsPost::orderByDesc('created_at')->paginate(10);
         return view('livewire.page.home', compact('posts'));
     }
 }
