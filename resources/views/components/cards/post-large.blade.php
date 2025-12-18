@@ -25,11 +25,11 @@
                         <div class="col-sm-8">
                             <h2 class="card-title">{{ $post->title }}</h2>
                         </div>
-                        <div class="col-sm-4" align="right">
-                            <p class="badge text-bg-info" style="color: white">
+                        <d class="col-sm-4" align="right">
+                            <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}" class="badge text-bg-info" style="color: white">
                                 {{ $post->category->name }}
-                            </p>
-                        </div>
+                            </a>
+                        </d>
                     </div>
                     <p class="card-text">
                         {{ Str::limit($post->content, 250, '...') }}

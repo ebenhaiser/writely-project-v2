@@ -11,9 +11,9 @@ class PageController extends Controller
         return view('home');
     }
 
-    public function category()
+    public function category($category_slug = null)
     {
         $title = 'Posts Category | Writely.';
-        return view('category', compact('title'));
+        return view('category', compact('title', 'category_slug'));
     }
 }

@@ -35,9 +35,9 @@
                 <img src="https://placehold.co/600x400" class="card-img-top" alt="Thumbnail">
                 <div class="card-body">
                     <h2 class="card-title title-limit">{{ $post->title }}</h2>
-                    <p class="card-subtitle mb-2 badge text-bg-info" style="color: white">
+                    <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}" class="card-subtitle mb-2 badge text-bg-info" style="color: white">
                         {{ $post->category->name }}
-                    </p>
+                    </a>
                     <p class="card-text content-limit">
                         {{ Str::limit($post->content, 250, '...') }}
                     </p>

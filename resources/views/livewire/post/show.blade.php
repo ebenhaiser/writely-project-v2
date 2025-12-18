@@ -42,9 +42,9 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <h1 class="">{{ $post->title }}</h1>
-                                <h3 class="badge text-bg-info" style="color: white">
+                                <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}" class="badge text-bg-info" style="color: white">
                                     {{ $post->category->name }}
-                                </h3>
+                                </a>
                             </div>
                             <div class="col-md-2" align="right">
                                 @if (Auth::check())

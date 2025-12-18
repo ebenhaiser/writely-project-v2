@@ -12,13 +12,25 @@ class Category extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $category_id = null;
+    public $category_slug = null;
+
+    public function mount()
+    {
+        if (request()->has('category_slug')) {
+            $this->category_slug = request()->query('category_slug');
+        }
+    }
 
     public function render()
     {
-        $categories = ModelsCategory::select('id', 'name')->get();
-        if ($this->category_id) {
-            $posts = Post::where('category_id', $this->category_id)->orderByDesc('created_at')->paginate(12);
+        $categories = ModelsCategory::select('slug', 'name')->get();
+        if ($this->category_slug) {
+            $category = ModelsCategory::where('slug', $this->category_slug)->first();
+            if ($category) {
+                $posts = Post::where('category_id', $category->id)->orderByDesc('created_at')->paginate(12);
+            } else {
+                $posts = Post::orderByDesc('created_at')->paginate(12);
+            }
         } else {
             $posts = Post::orderByDesc('created_at')->paginate(12);
         }

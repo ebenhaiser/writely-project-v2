@@ -1,12 +1,24 @@
 <div>
     <div class="card mb-3 shadow-sm">
         <div class="card-body">
-            <select name="" id="" class="form-control" wire:model.live="category_id">
+            <div class="row">
+                <div class="col-sm-6">
+                    <select class="form-control" wire:model.live="category_slug">
                 <option value="">-- choose category --</option>
                 @forelse($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option value="{{ $category->slug }}">{{ $category->name }}</option>
                 @endforeach
             </select>
+                </div>
+                <div class="col-sm-6">
+                    <select class="form-control" wire:model.live="sortBy">
+                        <option value="">-- Sort By --</option>
+                        <option value="latest">Latest</option>
+                        <option value="newest">Newest</option>
+                        <option value="most_liked">Most Liked</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 
