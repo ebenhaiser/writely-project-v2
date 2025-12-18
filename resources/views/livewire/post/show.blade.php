@@ -42,7 +42,8 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <h1 class="">{{ $post->title }}</h1>
-                                <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}" class="badge text-bg-info" style="color: white">
+                                <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}"
+                                    class="badge text-bg-info" style="color: white">
                                     {{ $post->category->name }}
                                 </a>
                             </div>
@@ -83,8 +84,10 @@
                                 @endif
                                 <div align="right" class="mt-1">
                                     <div class="d-flex justify-content-end gap-3">
-                                        <span><i class="ti ti-thumb-up"></i>{{ ' ' . $post->likes->count() }}</span>
-                                        <span><i class="ti ti-bookmark"></i>{{ ' ' . $post->bookmarks->count() }}</span>
+                                        <span data-bs-toggle="modal" data-bs-target="#likerModal"><i
+                                                class="ti ti-thumb-up"></i>{{ ' ' . $post->likes->count() }}</span>
+                                        <span><i
+                                                class="ti ti-bookmark"></i>{{ ' ' . $post->bookmarks->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -200,5 +203,30 @@
         </div>
     </div>
 
-
+    <!-- Modal -->
+    <div class="modal fade" id="likerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Liked By:</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (count($likers) > 0)
+                        @foreach ($likers as $user)
+                            <x-cards.user :user="$user" />
+                        @endforeach
+                    @else
+                        <div align="center">
+                            <i>No data found.</i>
+                        </div>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

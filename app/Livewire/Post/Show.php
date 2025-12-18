@@ -7,15 +7,20 @@ use App\Models\Like;
 use Livewire\Component;
 use App\Models\Post;
 use App\Models\Follow;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class Show extends Component
 {
     public $post;
+    public $likers = [];
 
     public function mount($postId)
     {
         $this->post = Post::findOrFail($postId);
+        $this->likers = User::whereHas('likes', function ($query) use ($postId) {
+            $query->where('post_id', $postId);
+        })->get();
     }
 
     public function render()
