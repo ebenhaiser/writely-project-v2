@@ -130,7 +130,7 @@
                                     <i class="ti ti-clock"></i>
                                     <span>History</span>
                                 </a>
-                                <a href="{{ route('auth.logout') }}" class="dropdown-item text-danger">
+                                <a href="{{ route('logout') }}" class="dropdown-item text-danger">
                                     <i class="ti ti-logout"></i>
                                     <span>Logout</span>
                                 </a>
@@ -140,7 +140,7 @@
                 </li>
                 @else
                 <li class="ms-2 pc-h-item">
-                    <a href="{{ route('auth.login') }}" class="">
+                    <a href="{{ route('login') }}" class="">
                         <span class="btn btn-secondary">
                             <i class="ti ti-login"></i> Login
                         </span>

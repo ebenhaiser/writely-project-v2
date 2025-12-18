@@ -27,6 +27,10 @@ class ProfileController extends Controller
 
     public function setting($username)
     {
+        if (!Auth::check()) {
+            return redirect()->route('profile.show', ['username' => Auth::user()->username]);
+        }
+
         if ($username != Auth::user()->username) {
             return redirect()->route('profile.setting', ['username' => Auth::user()->username]);
         }

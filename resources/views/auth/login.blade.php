@@ -47,7 +47,7 @@
             
             <livewire:auth.login :returnUrl="$returnUrl"/>
             <hr />
-            <h5 class="d-flex justify-content-center">Don't have an account?<a href="{{ route('auth.register') }}" class="ms-1">Register</a></h5>
+            <h5 class="d-flex justify-content-center">Don't have an account?<a href="{{ route('register') }}" class="ms-1">Register</a></h5>
           </div>
         </div>
       </div>

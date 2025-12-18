@@ -30,9 +30,8 @@ class AuthController extends Controller
             !str_contains($previousUrl, '/edit') &&
             !str_contains($previousUrl, '/setting')
         ) {
-            return redirect()->route('auth.login', ['returnUrl' => $previousUrl]);
+            return redirect()->route('login', ['returnUrl' => $previousUrl]);
         }
-        // return view('auth.login');
     }
 
     public function register()

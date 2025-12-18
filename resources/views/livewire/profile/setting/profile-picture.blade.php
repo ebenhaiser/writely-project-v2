@@ -83,16 +83,23 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                         Change Profile Picture</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="clear()"></button>
                 </div>
 
                 <div class="modal-body" align="center">
-                    <input type="file" name="profile_picture" accept="image/*" class="form-control" required>
-                    <div id="" class="form-text">Upload your picture</div>
+                    <input type="file" name="profile_picture" class="form-control mb-1"
+                        accept="image/jpg, image/png, image/jped" wire:model="profile_picture">
+                    @if ($errors->has('profile_picture'))
+                        <div id="defaultFormControlHelp" class="form-text text-danger mb-1">
+                            {{ $errors->first('profile_picture') }}
+                        </div>
+                    @endif
+                    <img src="{{ $profile_picture ? $profile_picture->temporaryUrl() : 'https://placehold.co/400' }}"
+                        alt="Profile Picture" class="w-100" wire:loading.remove wire:target="profile_picture" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary">Change Picture</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" wire:click="clear()">Cancel</button>
+                    <button class="btn btn-primary" wire:click="submit()">Change Picture</button>
                 </div>
             </div>
         </div>
@@ -115,7 +122,7 @@
                     <p class="mt-2"><i>Are you sure want to delete your profile picture?</i></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" wire:model="">Cancel</button>
                     <a href="" class="btn btn-danger">Delete Profile Picture</a>
                 </div>
             </div>
