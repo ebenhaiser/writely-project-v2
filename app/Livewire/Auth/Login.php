@@ -14,6 +14,7 @@ class Login extends Component
 
     #[Validate('required')]
     public $password;
+
     public $returnUrl = null;
 
 
