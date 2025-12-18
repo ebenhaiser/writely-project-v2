@@ -5,10 +5,15 @@ namespace App\Livewire\Auth;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Validate;
 
 class Login extends Component
 {
-    public $email, $password;
+    #[Validate('required|email')]
+    public $email;
+
+    #[Validate('required')]
+    public $password;
     public $returnUrl = null;
 
 
@@ -26,10 +31,7 @@ class Login extends Component
 
     public function submit()
     {
-        $this->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $this->validate();
 
         if (Auth::attempt([
             'email' => $this->email,
