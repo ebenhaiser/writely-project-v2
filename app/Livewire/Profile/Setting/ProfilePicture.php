@@ -3,6 +3,7 @@
 namespace App\Livewire\Profile\Setting;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,7 +24,6 @@ class ProfilePicture extends Component
         $profile = Auth::user();
         $this->name = $profile->name;
         $this->username = $profile->username;
-        $this->old_profile_picture = $profile->profile_picture;
     }
 
     public function render()
@@ -34,17 +34,31 @@ class ProfilePicture extends Component
     public function submit()
     {
         $this->validate();
+
         $profile = Auth::user();
-        $fileName = $profile->id . '_' . $profile->name . '_' . $profile->username;
-        $validate['profile_picture'] = $this->photo->storeAs('photos', $fileName, 's3');
-        $profile->profile_picture = $fileName;
+
+        if ($profile->profile_picture) {
+            Storage::delete('public/' . $profile->profile_picture);
+        }
+
+        $validated['profile_picture'] = $this->profile_picture->store('profile_pictures', 'public');
+
+        $profile->profile_picture = $validated['profile_picture'];
         $profile->save();
 
         $this->mount();
     }
 
+    public function delete()
+    {
+        $profile = Auth::user();
+        $delete = Storage::delete('public/' . $profile->profile_picture);
+        $profile->profile_picture = null;
+        $profile->save();
+    }
+
     public function clear()
     {
-        $this->profile_picture->delete();
+        // $this->profile_picture->delete();
     }
 }

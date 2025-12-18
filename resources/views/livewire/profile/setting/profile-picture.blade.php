@@ -38,6 +38,15 @@
             .profile-post-follow span p {
                 font-size: 14px
             }
+
+            /* Tambahkan style untuk spinner di gambar profil */
+            .profile-spinner-container {
+                width: 80px;
+                height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
     </style>
     <div class="card">
@@ -48,9 +57,25 @@
                         <div class="d-flex align-items-center avatar-edit">
                             <div
                                 class="avatar-profile avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
-                                <img src="https://placehold.co/400" alt=""
-                                    class="avatar-xxl rounded-circle border border-white-color-40" width="80"
-                                    height="80">
+                                <!-- Spinner saat loading submit -->
+                                <div wire:loading.flex wire:target="submit" class="profile-spinner-container">
+                                    <span class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </span>
+                                </div>
+
+                                <!-- Gambar profil normal (saat tidak loading) -->
+                                <div wire:loading.remove wire:target="submit">
+                                    @php
+                                        $user = Auth::user();
+                                        $profilePictureUrl = $user->profile_picture
+                                            ? Storage::url($user->profile_picture)
+                                            : 'https://placehold.co/400';
+                                    @endphp
+                                    <img src="{{ $profilePictureUrl }}" alt="https://placehold.co/400"
+                                        class="avatar-xxl rounded-circle border border-white-color-40" width="80"
+                                        height="80">
+                                </div>
                             </div>
                             <div class="lh-1 profile-name">
                                 <h2 class="mb-0">{{ $name }}<a class="text-decoration-none"
@@ -83,23 +108,38 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                         Change Profile Picture</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="clear()"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="clear()"></button>
                 </div>
 
                 <div class="modal-body" align="center">
                     <input type="file" name="profile_picture" class="form-control mb-1"
-                        accept="image/jpg, image/png, image/jped" wire:model="profile_picture">
+                        accept=".jpg, .jpeg, .png, .webp" wire:model="profile_picture">
                     @if ($errors->has('profile_picture'))
                         <div id="defaultFormControlHelp" class="form-text text-danger mb-1">
                             {{ $errors->first('profile_picture') }}
                         </div>
                     @endif
-                    <img src="{{ $profile_picture ? $profile_picture->temporaryUrl() : 'https://placehold.co/400' }}"
-                        alt="Profile Picture" class="w-100" wire:loading.remove wire:target="profile_picture" />
+                    @if ($profile_picture)
+                        <img src="{{ $profile_picture->temporaryUrl() }}" alt="Preview" class="img-fluid mt-3 rounded">
+                    @elseif(Auth::user()->profile_picture)
+                        <img src="{{ asset('storage/profile_pictures/' . Auth::user()->profile_picture) }}"
+                            alt="Current" class="img-fluid mt-3 rounded">
+                    @else
+                        <img src="https://placehold.co/400" alt="Preview" class="img-fluid mt-3 rounded">
+                    @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" wire:click="clear()">Cancel</button>
-                    <button class="btn btn-primary" wire:click="submit()">Change Picture</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        wire:click="clear()">Cancel</button>
+                    <button class="btn btn-primary" wire:click="submit()" wire:loading.attr="disabled"
+                        wire:loading.class="opacity-50" wire:target="submit(), profile_picture">
+                        <span wire:loading wire:target="submit(), profile_picture">
+                            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                        </span>
+                        <span wire:loading.remove wire:target="submit(), profile_picture" data-bs-dismiss="modal">Change
+                            Picture</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -122,8 +162,9 @@
                     <p class="mt-2"><i>Are you sure want to delete your profile picture?</i></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" wire:model="">Cancel</button>
-                    <a href="" class="btn btn-danger">Delete Profile Picture</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        >Cancel</button>
+                    <button href="" class="btn btn-danger" data-bs-dismiss="modal" wire:click="delete()">Delete Profile Picture</button>
                 </div>
             </div>
         </div>

@@ -1,3 +1,7 @@
+@php
+    $user = Auth::user();
+    $profilePictureUrl = $user->profile_picture ? Storage::url($user->profile_picture) : 'https://placehold.co/400';
+@endphp
 <header class="pc-header">
     <div class="header-wrapper"><!-- [Mobile Media Block] start -->
         <div class="me-auto pc-mob-drp">
@@ -13,14 +17,16 @@
                     </a>
                 </li>
                 <li class="dropdown pc-h-item d-inline-flex d-md-none">
-                    <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" >
+                    <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown"
+                        href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="ti ti-search"></i>
                     </a>
                     <div class="dropdown-menu pc-h-dropdown drp-search">
                         <form class="px-3">
                             <div class="mb-0 d-flex align-items-center">
                                 <i data-feather="search"></i>
-                                <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . ." />
+                                <input type="search" class="form-control border-0 shadow-none"
+                                    placeholder="Search here. . ." />
                             </div>
                         </form>
                     </div>
@@ -29,7 +35,8 @@
                     <form class="header-search">
                         <i data-feather="search" class="icon-search"></i>
                         <input type="search" class="form-control" placeholder="Search here. . ." />
-                        <button class="btn btn-light-secondary btn-search"><i class="ti ti-adjustments-horizontal"></i></button>
+                        <button class="btn btn-light-secondary btn-search"><i
+                                class="ti ti-adjustments-horizontal"></i></button>
                     </form>
                 </li>
             </ul>
@@ -38,114 +45,115 @@
         <div class="ms-auto">
             <ul class="list-unstyled">
                 @if (Auth::check())
-                <li class="dropdown pc-h-item">
-                    <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <i class="ti ti-bell"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
-                        <div class="dropdown-header">
-                            <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all read</a>
-                            <h5>
-                                All Notification
-                                <span class="badge bg-warning rounded-pill ms-1">01</span>
-                            </h5>
-                        </div>
-                        <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px)">
-                            <div class="list-group list-group-flush w-100">
-                                <div class="list-group-item list-group-item-action">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <div class="user-avtar bg-light-success"><i class="ti ti-building-store"></i></div>
-                                        </div>
-                                        <div class="flex-grow-1 ms-1">
-                                            <span class="float-end text-muted">3 min ago</span>
-                                            <h5>Store Verification Done</h5>
-                                            <p class="text-body fs-6">We have successfully received your request.</p>
-                                            <div class="badge rounded-pill bg-light-danger">Unread</div>
+                    <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>
+                                    All Notification
+                                    <span class="badge bg-warning rounded-pill ms-1">01</span>
+                                </h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="list-group-item list-group-item-action">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="{{ asset('src/assets/images/user/avatar-3.jpg') }}" alt="user-image" class="user-avtar" />
-                                        </div>
-                                        <div class="flex-grow-1 ms-1">
-                                            <span class="float-end text-muted">10 min ago</span>
-                                            <h5>Joseph William</h5>
-                                            <p class="text-body fs-6">It is a long established fact that a reader will be distracted</p>
-                                            <div class="badge rounded-pill bg-light-success">Confirmation of Account</div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="{{ $profilePictureUrl }}" alt="Profile Picture"
+                                                    class="user-avtar" width="80" height="80">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted</p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <div class="text-center py-2">
-                            <a href="#!" class="link-primary">Mark as all read</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown pc-h-item header-user-profile">
-                    <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        @php
-                        $topbar_loggedInUser = Auth::user();
-                        $topbar_profile_picture = $topbar_loggedInUser->profile_picture ?? null;
-                        
-                        if($topbar_profile_picture) {
-                            $topbar_avatarPath = public_path('img/profilePicture/' . $topbar_profile_picture);
-                            $topbar_avatarUrl = $topbar_profile_picture && file_exists($topbar_avatarPath) 
-                            ? asset('img/profilePicture/' . $topbar_profile_picture)
-                            : 'https://placehold.co/400';
-                        } else {
-                            $topbar_avatarUrl = 'https://placehold.co/400';
-                        }
-                        @endphp
-                        <img src="{{ $topbar_avatarUrl }}" alt="user-image" class="user-avtar" />
-                        <span>
-                            <i class="ti ti-settings"></i>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
-                        <div class="dropdown-header">
-                            <h4>
-                                Good Morning,
-                            </h4>
-                            <p class="text-muted">{{ Auth::user()->name }}</p>
-                            <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 280px)">
-                                <hr />
-                                <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}" class="dropdown-item">
-                                    <i class="ti ti-user"></i>
-                                    <span>Social Profile</span>
-                                </a>
-                                <a href="{{ route('profile.setting', ['username' => Auth::user()->username]) }}" class="dropdown-item">
-                                    <i class="ti ti-settings"></i>
-                                    <span>Account Settings</span>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <i class="ti ti-bookmarks"></i>
-                                    <span>Bookmark</span>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <i class="ti ti-clock"></i>
-                                    <span>History</span>
-                                </a>
-                                <a href="{{ route('logout') }}" class="dropdown-item text-danger">
-                                    <i class="ti ti-logout"></i>
-                                    <span>Logout</span>
-                                </a>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="{{ $profilePictureUrl }}" alt="user-image" class="user-avtar" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>
+                                    Good Morning,
+                                </h4>
+                                <p class="text-muted">{{ Auth::user()->name }}</p>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr />
+                                    <a href="{{ route('profile.show', ['username' => Auth::user()->username]) }}"
+                                        class="dropdown-item">
+                                        <i class="ti ti-user"></i>
+                                        <span>Social Profile</span>
+                                    </a>
+                                    <a href="{{ route('profile.setting', ['username' => Auth::user()->username]) }}"
+                                        class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Account Settings</span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="ti ti-bookmarks"></i>
+                                        <span>Bookmark</span>
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="ti ti-clock"></i>
+                                        <span>History</span>
+                                    </a>
+                                    <a href="{{ route('logout') }}" class="dropdown-item text-danger">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 @else
-                <li class="ms-2 pc-h-item">
-                    <a href="{{ route('login') }}" class="">
-                        <span class="btn btn-secondary">
-                            <i class="ti ti-login"></i> Login
-                        </span>
-                    </a>
-                </li>
+                    <li class="ms-2 pc-h-item">
+                        <a href="{{ route('login') }}" class="">
+                            <span class="btn btn-secondary">
+                                <i class="ti ti-login"></i> Login
+                            </span>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </div>
