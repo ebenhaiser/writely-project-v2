@@ -118,7 +118,7 @@
                                     <i class="ti ti-user"></i>
                                     <span>Social Profile</span>
                                 </a>
-                                <a href="#" class="dropdown-item">
+                                <a href="{{ route('profile.setting', ['username' => Auth::user()->username]) }}" class="dropdown-item">
                                     <i class="ti ti-settings"></i>
                                     <span>Account Settings</span>
                                 </a>

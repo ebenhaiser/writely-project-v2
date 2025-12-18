@@ -28,7 +28,7 @@ class ProfileController extends Controller
     public function setting($username)
     {
         if ($username != Auth::user()->username) {
-            return redirect()->route('profile.show', ['username' => $username]);
+            return redirect()->route('profile.setting', ['username' => Auth::user()->username]);
         }
         $title = 'Edit Profile | Writely.';
 
