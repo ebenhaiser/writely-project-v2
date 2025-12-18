@@ -1,4 +1,4 @@
 <x-layout.main>
     <x-slot:title>{{ $title }}</x-slot>
-    <livewire:post.show :slug="$slug" />
+    <livewire:post.show :postId="$postId" />
 </x-layout.main>

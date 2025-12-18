@@ -19,9 +19,9 @@ class Show extends Component
     public $profileNavbar = 'post';
     public $followModalTitle, $followModalData = [];
 
-    public function mount($username)
+    public function mount($userId)
     {
-        $this->profile = User::where('username', $username)->firstOrFail();
+        $this->profile = User::findOrFail($userId);
     }
 
     public function render()

@@ -20,8 +20,9 @@ class ProfileController extends Controller
             $title = $title . ' (You)';
         }
         $title = $title . ' | Writely.';
+        $userId = $user->id;
 
-        return view('profile.show', compact('username', 'title'));
+        return view('profile.show', compact('userId', 'title'));
     }
 
     public function setting($username)

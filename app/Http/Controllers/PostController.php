@@ -13,7 +13,8 @@ class PostController extends Controller
         if (!$post) {
             return redirect()->route('home');
         }
+        $postId = $post->id;
         $title = $post->title . ' by ' . $post->user->name . ' | Writely.';
-        return view('post.show', compact('slug', 'title'));
+        return view('post.show', compact('postId', 'title'));
     }
 }

@@ -13,9 +13,9 @@ class Show extends Component
 {
     public $post;
 
-    public function mount($slug)
+    public function mount($postId)
     {
-        $this->post = Post::where('slug', $slug)->firstOrFail();
+        $this->post = Post::findOrFail($postId);
     }
 
     public function render()
