@@ -14,20 +14,34 @@ class ProfilePicture extends Component
 
     public $name;
     public $username;
-    public $old_profile_picture;
+    public $profilePictureUrl;
+    public $preview_profile_picture;
 
     #[Validate('image|max:5000|mimes:jpg,jpeg,png,webp')]
-    public $profile_picture;
+    public $profile_picture = null;
 
     public function mount()
     {
         $profile = Auth::user();
         $this->name = $profile->name;
         $this->username = $profile->username;
+
+        if (
+            $profile->profile_picture &&
+            Storage::disk('public')->exists($profile->profile_picture)
+        ) {
+            $this->profilePictureUrl = Storage::url($profile->profile_picture);
+        } else {
+            $this->profilePictureUrl = asset('img/default_profile_picture.jpg');
+        }
+
+        $this->preview_profile_picture = $this->profilePictureUrl;
     }
 
     public function render()
     {
+        $this->preview_profile_picture = $this->profile_picture ? $this->profile_picture->temporaryUrl() : $this->profilePictureUrl;
+
         return view('livewire.profile.setting.profile-picture');
     }
 
@@ -55,10 +69,14 @@ class ProfilePicture extends Component
         $delete = Storage::delete('public/' . $profile->profile_picture);
         $profile->profile_picture = null;
         $profile->save();
+
+        $this->clear();
     }
 
     public function clear()
     {
-        // $this->profile_picture->delete();
+        $this->mount();
+        $this->preview_profile_picture = $this->profilePictureUrl;
+        $this->profile_picture = null;
     }
 }

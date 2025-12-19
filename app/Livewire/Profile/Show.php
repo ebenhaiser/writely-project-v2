@@ -97,4 +97,9 @@ class Show extends Component
             $this->mount($this->profile->username);
         }
     }
+
+    public function editProfile()
+    {
+        return redirect()->route('profile.setting', ['username' => Auth::user()->username]);
+    }
 }

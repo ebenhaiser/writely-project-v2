@@ -57,22 +57,17 @@
                         <div class="d-flex align-items-center avatar-edit">
                             <div
                                 class="avatar-profile avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
+
                                 <!-- Spinner saat loading submit -->
-                                <div wire:loading.flex wire:target="submit" class="profile-spinner-container">
+                                <div wire:loading.flex wire:target="submit()" class="profile-spinner-container">
                                     <span class="spinner-border text-primary" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </span>
                                 </div>
 
                                 <!-- Gambar profil normal (saat tidak loading) -->
-                                <div wire:loading.remove wire:target="submit">
-                                    @php
-                                        $user = Auth::user();
-                                        $profilePictureUrl = $user->profile_picture
-                                            ? Storage::url($user->profile_picture)
-                                            : 'https://placehold.co/400';
-                                    @endphp
-                                    <img src="{{ $profilePictureUrl }}" alt="https://placehold.co/400"
+                                <div wire:loading.remove wire:target="submit()">
+                                    <img src="{{ $profilePictureUrl }}" alt="Profile Picture"
                                         class="avatar-xxl rounded-circle border border-white-color-40" width="80"
                                         height="80">
                                 </div>
@@ -109,7 +104,8 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                         Change Profile Picture</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        wire:click="clear()"></button>
+                        wire:click="clear()" wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                        wire:target="submit(), profile_picture"></button>
                 </div>
 
                 <div class="modal-body" align="center">
@@ -120,20 +116,23 @@
                             {{ $errors->first('profile_picture') }}
                         </div>
                     @endif
-                    @if ($profile_picture)
-                        <img src="{{ $profile_picture->temporaryUrl() }}" alt="Preview" class="img-fluid mt-3 rounded">
-                    @elseif(Auth::user()->profile_picture)
-                        <img src="{{ asset('storage/profile_pictures/' . Auth::user()->profile_picture) }}"
-                            alt="Current" class="img-fluid mt-3 rounded">
-                    @else
-                        <img src="https://placehold.co/400" alt="Preview" class="img-fluid mt-3 rounded">
-                    @endif
+                    <div wire:loading wire:target="profile_picture" class="profile-spinner-container mt-3">
+                        <span class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </span>
+                    </div>
+                    <div wire:loading.remove wire:target="profile_picture" class="profile-spinner-container">
+                        <img src="{{ $preview_profile_picture }}" alt="Preview" class="img-fluid mt-3 rounded">
+                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        wire:click="clear()">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" wire:click="clear()"
+                        wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                        wire:target="submit(), profile_picture">Cancel</button>
                     <button class="btn btn-primary" wire:click="submit()" wire:loading.attr="disabled"
-                        wire:loading.class="opacity-50" wire:target="submit(), profile_picture">
+                        wire:loading.class="opacity-50" wire:target="submit(), profile_picture"
+                        {{ !$profile_picture ? 'disabled' : '' }}>
                         <span wire:loading wire:target="submit(), profile_picture">
                             <span class="spinner-border spinner-border-sm me-1" role="status"></span>
                         </span>
@@ -162,9 +161,9 @@
                     <p class="mt-2"><i>Are you sure want to delete your profile picture?</i></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        >Cancel</button>
-                    <button href="" class="btn btn-danger" data-bs-dismiss="modal" wire:click="delete()">Delete Profile Picture</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button href="" class="btn btn-danger" data-bs-dismiss="modal"
+                        wire:click="delete()">Delete Profile Picture</button>
                 </div>
             </div>
         </div>

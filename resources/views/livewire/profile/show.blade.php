@@ -91,9 +91,9 @@
                                     </span>
                                 </button>
                             @else
-                                <a href="#" class="btn btn-outline-primary">
+                                <button wire:click="editProfile()" class="btn btn-outline-primary">
                                     Edit
-                                </a>
+                                </button>
                             @endif
                         @endif
                     </div>
@@ -105,18 +105,18 @@
                             </div>
                         </span>
                         <span>
-                            <a href="" style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
+                            <button style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
                                 data-bs-target="#followModal" wire:click="followModal('following')">
                                 <h6>Following</h6>
                                 <p align="center">{{ count($profile->following) }}</p>
-                            </a>
+                            </button>
                         </span>
                         <span>
-                            <a href="#" style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
+                            <button style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
                                 data-bs-target="#followModal" wire:click="followModal('follower')">
                                 <h6>Followers</h6>
                                 <p align="center">{{ count($profile->followers) }}</p>
-                            </a>
+                            </button>
                         </span>
                     </div>
                     <div class="profile-nav">
