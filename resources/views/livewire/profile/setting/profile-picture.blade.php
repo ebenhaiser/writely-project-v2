@@ -50,9 +50,12 @@
         }
     </style>
     <div class="card">
+        <div class="card-header">
+            <div class="h3">Account Setting</div>
+        </div>
         <div class="card-body">
             <div class="row">
-                <div class="d-flex flex-wrap align-items-center justify-content-between pt-4 pb-6 px-0">
+                <div class="d-flex flex-wrap align-items-center justify-content-between pb-6">
                     <div class="col-sm-8">
                         <div class="d-flex align-items-center avatar-edit">
                             <div

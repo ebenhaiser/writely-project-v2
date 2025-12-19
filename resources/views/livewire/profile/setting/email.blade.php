@@ -4,15 +4,18 @@
             <div class="h3">Email</div>
         </div>
         <div class="card-body">
-            <form action="{{ route('change.email.submit', $profile->username) }}" method="post">
-                @csrf
                 <div class="mb-3">
                     <label for="" class="form-label">Curent Email address</label>
-                    <input type="text" class="form-control" value="{{ $profile->email }}" readonly>
+                    <input type="text" class="form-control" wire:model="email" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">New Email address</label>
-                    <input name="new_email1" class="form-control" id="" aria-describedby="" required
+                    <input class="form-control" aria-describedby=""
+                        maxlength="50">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Confirm New Email address</label>
+                    <input class="form-control" aria-describedby=""
                         maxlength="50">
                 </div>
                 <div align="right">
@@ -44,7 +47,6 @@
                     </div>
                 </div>
                 {{-- end modal --}}
-            </form>
         </div>
     </div>
 </div>
