@@ -75,7 +75,7 @@
                             <div class="lh-1 profile-name">
                                 <h2 class="mb-0">{{ $name }}<a class="text-decoration-none"
                                         data-bs-toggle="tooltip" data-placement="top" title=""
-                                        data-original-title="Beginner" href="/pages/profile#!"></a></h2>
+                                        data-original-title="Beginner"></a></h2>
                                 <p class="mb-2 d-block"><i>{{ '@' . $username }}</i></p>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button href="" class="btn btn-danger" data-bs-dismiss="modal"
+                    <button  class="btn btn-danger" data-bs-dismiss="modal"
                         wire:click="delete()">Delete Profile Picture</button>
                 </div>
             </div>
