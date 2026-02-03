@@ -54,6 +54,7 @@
             <div class="h3">Account Setting</div>
         </div>
         <div class="card-body">
+            <x-layout.alert />
             <div class="row">
                 <div class="d-flex flex-wrap align-items-center justify-content-between pb-6">
                     <div class="col-sm-8">
@@ -139,7 +140,7 @@
                         <span wire:loading wire:target="submit(), profile_picture">
                             <span class="spinner-border spinner-border-sm me-1" role="status"></span>
                         </span>
-                        <span wire:loading.remove wire:target="submit(), profile_picture" data-bs-dismiss="modal">Change
+                        <span data-bs-dismiss="modal" wire:loading.remove wire:target="submit(), profile_picture">Change
                             Picture</span>
                     </button>
                 </div>

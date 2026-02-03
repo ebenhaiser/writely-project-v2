@@ -12,7 +12,7 @@
     </div>
 @endif
 
-<script>
+{{-- <script>
     document.addEventListener('livewire:navigated', () => {
         document.querySelectorAll('.session-alert').forEach(alertEl => {
             setTimeout(() => {
@@ -20,6 +20,6 @@
             }, 3000);
         });
     });
-</script>
+</script> --}}
 
 

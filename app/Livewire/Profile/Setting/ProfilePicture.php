@@ -56,30 +56,43 @@ class ProfilePicture extends Component
 
     public function submit()
     {
-        $this->validate();
+        try {
+            $this->validate();
 
-        $profile = Auth::user();
+            $profile = Auth::user();
 
-        if ($profile->profile_picture) {
-            Storage::delete('public/' . $profile->profile_picture);
+            if ($profile->profile_picture) {
+                Storage::delete('public/' . $profile->profile_picture);
+            }
+
+            $validated['profile_picture'] = $this->profile_picture->store('profile_pictures', 'public');
+
+            $profile->profile_picture = $validated['profile_picture'];
+            $profile->save();
+
+            $this->mount();
+            $this->dispatch('profile-updated');
+            session()->flash('successAlert', 'Profile picture successfully updated.');
+        } catch (\Exception $e) {
+            session()->flash('errorAlert', 'Failed to update profile picture. ' . $e->getMessage());
         }
-
-        $validated['profile_picture'] = $this->profile_picture->store('profile_pictures', 'public');
-
-        $profile->profile_picture = $validated['profile_picture'];
-        $profile->save();
-
-        $this->mount();
     }
 
     public function delete()
     {
-        $profile = Auth::user();
-        $delete = Storage::delete('public/' . $profile->profile_picture);
-        $profile->profile_picture = null;
-        $profile->save();
+        try {
+            $profile = Auth::user();
+            $delete = Storage::delete('public/' . $profile->profile_picture);
+            $profile->profile_picture = null;
+            $profile->save();
 
-        $this->clear();
+            $this->dispatch('profile-updated');
+            $this->clear();
+            session()->flash('successAlert', 'Profile picture successfully deleted.');
+        } catch (\Exception $e) {
+            session()->flash('errorAlert', 'Failed to delete profile picture. ' . $e->getMessage());
+            return;
+        }
     }
 
     public function clear()
