@@ -1,6 +1,8 @@
 @php
-    $user = Auth::user();
-    $profilePictureUrl = $user->profile_picture ? Storage::url($user->profile_picture) : 'https://placehold.co/400';
+    if(Auth::check()){
+        $user = Auth::user();
+        $profilePictureUrl = $user->profile_picture ? Storage::url($user->profile_picture) : 'https://placehold.co/400';
+    }
 @endphp
 <header class="pc-header">
     <div class="header-wrapper"><!-- [Mobile Media Block] start -->
