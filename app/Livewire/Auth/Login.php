@@ -51,7 +51,7 @@ class Login extends Component
         }
 
         throw ValidationException::withMessages([
-            'loginFailed' => 'Email/Username atau password salah.',
+            'loginFailed' => 'Email/Username or password you entered is incorrect.',
         ]);
     }
 }

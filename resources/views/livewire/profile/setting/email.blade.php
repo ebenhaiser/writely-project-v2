@@ -1,58 +1,54 @@
 <div>
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-header">
             <div class="h3">Email</div>
         </div>
-        <div class="card-body">
+        <div class="card-body"> --}}
+            @if (session('successAlert'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('successAlert') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            <form wire:submit.prevent="submit">
                 <div class="mb-3">
                     <label for="" class="form-label">Curent Email address</label>
                     <input type="text" class="form-control" wire:model.defer="masked_email" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">New Email address</label>
-                    <input class="form-control" aria-describedby=""
-                        maxlength="50" wire:model.defer="new_email">
+                    <input type="email" class="form-control" aria-describedby="" maxlength="50"
+                        wire:model.defer="new_email">
+                    @if ($errors->has('new_email'))
+                        <div id="defaultFormControlHelp" class="form-text text-danger">
+                            {{ $errors->first('new_email') }}
+                        </div>
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">Confirm New Email address</label>
-                    <input class="form-control" aria-describedby=""
-                        maxlength="50" wire:model.defer="confirm_New_email">
+                    <input type="email" class="form-control" aria-describedby="" maxlength="50"
+                        wire:model.defer="confirm_new_email">
+                    @if ($errors->has('confirm_new_email'))
+                        <div id="defaultFormControlHelp" class="form-text text-danger">
+                            {{ $errors->first('confirm_new_email') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Enter your password for changing email</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter password"
+                        wire:model.defer="password" required>
+                    @if ($errors->has('password'))
+                        <div id="defaultFormControlHelp" class="form-text text-danger">
+                            {{ $errors->first('password') }}
+                        </div>
+                    @endif
                 </div>
                 <div align="right">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#change-email">Change Email</button>
+                    <button type="submit" class="btn btn-primary">Change Email</button>
                 </div>
-
-                {{-- modal --}}
-                <div class="modal fade" id="change-email" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                    Change Email</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" align="center">
-                                @if ($errors->has('loginFailed'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {{ $errors->first('loginFailed') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                @endif
-                                <input type="password" name="password" class="form-control" placeholder="Enter password"
-                                    required>
-                                <div id="" class="form-text">Enter your password for changing email</div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Change Email</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- end modal --}}
+            </form>
         </div>
-    </div>
-</div>
+    {{-- </div>
+</div> --}}
