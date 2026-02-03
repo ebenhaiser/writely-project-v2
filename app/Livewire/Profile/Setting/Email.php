@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class Email extends Component
 {
-    public $email;
+    public $old_email;
     public $masked_email;
 
     // #[Validate('required|email|max:255|unique:users,email')]
@@ -54,6 +54,7 @@ class Email extends Component
     public function submit()
     {
         $this->validate([
+            'old_email' => 'required|email',
             'new_email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
             'confirm_new_email' => 'required|same:new_email',
             'password' => 'required',
@@ -61,21 +62,27 @@ class Email extends Component
 
         $user = Auth::user();
 
+        // ✅ Confirm old email
+        if ($this->old_email !== $user->email) {
+            $this->addError('old_email', 'The old email address does not match your current email.');
+            return;
+        }
+
+        // ✅ Confirm password
         if (!Hash::check($this->password, $user->password)) {
             $this->addError('password', 'The password you entered is incorrect.');
             $this->reset(['password']);
             return;
         }
 
+        // ✅ Update email
         $user->email = $this->new_email;
+        $user->email_verified_at = null;
         $user->save();
 
-        session()->flash('success', 'Email address updated successfully.');
-
-        // Reset form fields
-        $this->reset(['new_email', 'confirm_new_email', 'password']);
+        $this->reset(['old_email', 'new_email', 'confirm_new_email', 'password']);
         $this->masked_email = $this->emailMask($user->email);
 
-        session()->flash('successAlert', "Email address updated successfully.");
+        session()->flash('successAlert', 'Email address updated successfully.');
     }
 }

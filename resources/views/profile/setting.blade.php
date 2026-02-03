@@ -4,24 +4,24 @@
 
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
-            <h2 class="accordion-header">
+            <div class="accordion-header">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                    Email
+                    <h4>E-mail</h4>
                 </button>
-            </h2>
+            </div>
             <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     <livewire:profile.setting.email />
             </div>
         </div>
         <div class="accordion-item">
-            <h2 class="accordion-header">
+            <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                    Accordion Item #2
+                    <h4>Accordion Item #2</h4>
                 </button>
-            </h2>
+            </div>
             <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
                     <code>.accordion-flush</code> class. This is the second item’s accordion body. Let’s imagine this
@@ -29,12 +29,12 @@
             </div>
         </div>
         <div class="accordion-item">
-            <h2 class="accordion-header">
+            <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                    Accordion Item #3
+                    <h4>Accordion Item #3</h4>
                 </button>
-            </h2>
+            </div>
             <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
                     <code>.accordion-flush</code> class. This is the third item’s accordion body. Nothing more exciting
