@@ -7,17 +7,17 @@
     @endif
     <input type="hidden" wire:model="returnUrl" />
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Email address / Username"
-            wire:model="email" />
-        <label for="floatingInput">Email address</label>
-        @if ($errors->has('email'))
+        <input type="email" class="form-control" id="floatingInput" placeholder="Email / Username"
+            wire:model.defer="login" />
+        <label for="floatingInput">Email / Username</label>
+        @if ($errors->has('login'))
             <div id="defaultFormControlHelp" class="form-text text-danger">
                 {{ $errors->first('email') }}
             </div>
         @endif
     </div>
     <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingInput1" placeholder="Password" wire:model="password" />
+        <input type="password" class="form-control" id="floatingInput1" placeholder="Password" wire:model.defer="password" />
         <label for="floatingInput1">Password</label>
         @if ($errors->has('password'))
             <div id="defaultFormControlHelp" class="form-text text-danger">

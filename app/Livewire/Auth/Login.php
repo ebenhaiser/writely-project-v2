@@ -9,13 +9,14 @@ use Livewire\Attributes\Validate;
 
 class Login extends Component
 {
-    #[Validate('required|email')]
-    public $email;
+    #[Validate('required')]
+    public $login;
 
     #[Validate('required')]
     public $password;
 
     public $returnUrl = null;
+
 
 
     public function mount($returnUrl)
@@ -34,21 +35,23 @@ class Login extends Component
     {
         $this->validate();
 
+        $field = filter_var($this->login, FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
+
         if (Auth::attempt([
-            'email' => $this->email,
+            $field => $this->login,
             'password' => $this->password
         ])) {
             session()->regenerate();
 
-            if ($this->returnUrl) {
-                return redirect()->to($this->returnUrl);
-            }
-
-            return redirect()->route('home');
+            return $this->returnUrl
+                ? redirect()->to($this->returnUrl)
+                : redirect()->route('home');
         }
 
         throw ValidationException::withMessages([
-            'loginFailed' => 'Invalid email or password. Please try again.',
+            'loginFailed' => 'Email/Username atau password salah.',
         ]);
     }
 }
