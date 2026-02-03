@@ -6,17 +6,17 @@
         <div class="card-body">
                 <div class="mb-3">
                     <label for="" class="form-label">Curent Email address</label>
-                    <input type="text" class="form-control" wire:model="email" readonly>
+                    <input type="text" class="form-control" wire:model.defer="masked_email" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">New Email address</label>
                     <input class="form-control" aria-describedby=""
-                        maxlength="50">
+                        maxlength="50" wire:model.defer="new_email">
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">Confirm New Email address</label>
                     <input class="form-control" aria-describedby=""
-                        maxlength="50">
+                        maxlength="50" wire:model.defer="confirm_New_email">
                 </div>
                 <div align="right">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -35,6 +35,12 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body" align="center">
+                                @if ($errors->has('loginFailed'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{ $errors->first('loginFailed') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
                                 <input type="password" name="password" class="form-control" placeholder="Enter password"
                                     required>
                                 <div id="" class="form-text">Enter your password for changing email</div>
