@@ -15,12 +15,16 @@
                         <div class="me-2">
                             @php
                                 $AvatarPath = public_path('img/profilePicture/' . $user->profile_picture);
-                                $AvatarlUrl =
-                                    $user->profile_picture && file_exists($AvatarPath)
-                                        ? asset('img/profilePicture/' . $user->profile_picture)
-                                        : 'https://placehold.co/400';
+                                if (
+                                    $user->profile_picture &&
+                                    Storage::disk('public')->exists($user->profile_picture)
+                                ) {
+                                    $AvatarUrl = Storage::url($user->profile_picture);
+                                } else {
+                                    $AvatarUrl = asset('img/default_profile_picture.jpg');
+                                }
                             @endphp
-                            <img src="{{ $AvatarlUrl }}" alt=""
+                            <img src="{{ $AvatarUrl }}" alt=""
                                 class="rounded-circle border-4 border-white-color-40">
                         </div>
                         <div class="my-auto">
@@ -40,7 +44,8 @@
                                     </div>
                                 @else
                                     <div class="btn btn-primary">
-                                        Follow {{ !Auth::user()->following->contains($user->id) && $user->following->contains(Auth::id()) ? 'Back' : '' }}
+                                        Follow
+                                        {{ !Auth::user()->following->contains($user->id) && $user->following->contains(Auth::id()) ? 'Back' : '' }}
                                     </div>
                                 @endif
                             </div>
@@ -55,19 +60,5 @@
                 </span>
             </div>
         </div>
-        {{-- <div class="card-footer d-flex justify-content-between">
-        <span>
-            <h7>Post</h7>
-            <p>{{ count($user->posts) }}</p>
-        </span>
-        <span>
-            <h7>Following</h7>
-            <p>{{ count($profile->following) }}</p>
-        </span>
-        <span>
-            <h6>Followers</h6>
-            <p class="follower-count">{{ count($user->followers) }}</p>
-        </span>
-    </div> --}}
     </div>
 </div>

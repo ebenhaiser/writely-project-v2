@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Follow;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\WithPagination;
 use Livewire\Component;
 
@@ -18,10 +19,19 @@ class Show extends Component
     public $profile;
     public $profileNavbar = 'post';
     public $followModalTitle, $followModalData = [];
+    public $avatarUrl;
 
     public function mount($userId)
     {
         $this->profile = User::findOrFail($userId);
+        if (
+            $this->profile->profile_picture &&
+            Storage::disk('public')->exists($this->profile->profile_picture)
+        ) {
+            $this->avatarUrl = Storage::url($this->profile->profile_picture);
+        } else {
+            $this->avatarUrl = asset('img/default_profile_picture.jpg');
+        }
     }
 
     public function render()
