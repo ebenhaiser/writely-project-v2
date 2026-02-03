@@ -1,10 +1,5 @@
 <div>
-    @if (session('successAlert'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('successAlert') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+    <x-layout.alert />
     <form wire:submit.prevent="submit">
         <div class="mb-3">
             <label for="" class="form-label">Old E-mail address</label>

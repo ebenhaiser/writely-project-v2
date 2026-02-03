@@ -12,6 +12,15 @@ class ProfilePicture extends Component
 {
     use WithFileUploads;
 
+    protected $listeners = [
+        'profile-updated' => 'refreshProfile',
+    ];
+
+    public function refreshProfile()
+    {
+        $this->mount();
+    }
+
     public $name;
     public $username;
     public $profilePictureUrl;

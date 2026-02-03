@@ -11,14 +11,8 @@ class Email extends Component
 {
     public $old_email;
     public $masked_email;
-
-    // #[Validate('required|email|max:255|unique:users,email')]
     public $new_email;
-
-    // #[Validate('required|same:new_email')]
     public $confirm_new_email;
-
-    // #[Validate('required')]
     public $password;
 
     public function mount()
