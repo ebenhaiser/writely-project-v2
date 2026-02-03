@@ -9,12 +9,14 @@ class Profile extends Component
 {
     public $name;
     public $username;
+    public $bio;
 
     public function mount()
     {
         $user = Auth::user();
         $this->name = $user->name;
         $this->username = $user->username;
+        $this->bio = $user->bio;
     }
 
     public function render()
@@ -30,13 +32,14 @@ class Profile extends Component
         ]);
 
         $user = Auth::user();
-        if ($this->username === $user->username && $this->name === $user->name) {
+        if ($this->username === $user->username && $this->name === $user->name && $this->bio) {
             session()->flash('errorAlert', 'You have not made any changes.');
             return;
         }
 
         $user->name = $this->name;
         $user->username = $this->username;
+        $user->bio = $this->bio;
         $user->save();
 
         $this->dispatch('profile-updated');

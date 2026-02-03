@@ -81,6 +81,9 @@
                                         data-bs-toggle="tooltip" data-placement="top" title=""
                                         data-original-title="Beginner"></a></h2>
                                 <p class="mb-2 d-block"><i>{{ '@' . $username }}</i></p>
+                                @if ($bio)
+                                    <p>{{ $bio }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -158,16 +161,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" align="center">
-                    <img src="{{ $preview_profile_picture }}"
-                                    alt=""
-                                    class="avatar-xxl rounded-circle border border-white-color-40"
-                                    width="130" height="130">
+                    <img src="{{ $preview_profile_picture }}" alt=""
+                        class="avatar-xxl rounded-circle border border-white-color-40" width="130" height="130">
                     <p class="mt-2"><i>Are you sure want to delete your profile picture?</i></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button  class="btn btn-danger" data-bs-dismiss="modal"
-                        wire:click="delete()">Delete Profile Picture</button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal" wire:click="delete()">Delete Profile
+                        Picture</button>
                 </div>
             </div>
         </div>

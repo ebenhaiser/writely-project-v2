@@ -23,6 +23,7 @@ class ProfilePicture extends Component
 
     public $name;
     public $username;
+    public $bio;
     public $profilePictureUrl;
     public $preview_profile_picture;
 
@@ -34,6 +35,7 @@ class ProfilePicture extends Component
         $profile = Auth::user();
         $this->name = $profile->name;
         $this->username = $profile->username;
+        $this->bio = $profile->bio;
 
         if (
             $profile->profile_picture &&
@@ -86,8 +88,8 @@ class ProfilePicture extends Component
             $profile->profile_picture = null;
             $profile->save();
 
-            $this->dispatch('profile-updated');
             $this->clear();
+            $this->dispatch('profile-updated');
             session()->flash('successAlert', 'Profile picture successfully deleted.');
         } catch (\Exception $e) {
             session()->flash('errorAlert', 'Failed to delete profile picture. ' . $e->getMessage());

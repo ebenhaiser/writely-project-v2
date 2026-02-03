@@ -19,6 +19,10 @@
                 </div>
             @endif
         </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Bio</label>
+            <input type="text" class="form-control" placeholder="" wire:model.defer="bio">
+        </div>
         <div align="right">
             <button type="submit" class="btn btn-primary" wire:loading.attr="disabled" wire:loading.class="opacity-50"
                 wire:target="submit">

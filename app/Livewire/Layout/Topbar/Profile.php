@@ -24,7 +24,14 @@ class Profile extends Component
     public function mount()
     {
         $user = Auth::user();
-        $this->profilePictureUrl = $user->profile_picture ? Storage::url($user->profile_picture) : 'https://placehold.co/400';
+        if (
+            $user->profile_picture &&
+            Storage::disk('public')->exists($user->profile_picture)
+        ) {
+            $this->profilePictureUrl = Storage::url($user->profile_picture);
+        } else {
+            $this->profilePictureUrl = asset('img/default_profile_picture.jpg');
+        }
         $this->name = $user->name;
         $this->username = $user->username;
     }
