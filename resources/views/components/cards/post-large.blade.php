@@ -12,13 +12,14 @@
             <div class="row">
                 <div class="col-md-6">
                     @php
-                    $thumbnailPath = public_path('img/postThumbnail/' . $post->thumbnail);
-                    $thumbnailUrl = $post->thumbnail && file_exists($thumbnailPath) 
-                    ? asset('img/postThumbnail/' . $post->thumbnail)
-                    : 'https://placehold.co/600x400';
+                        $thumbnailPath = public_path('img/postThumbnail/' . $post->thumbnail);
+                        $thumbnailUrl =
+                            $post->thumbnail && file_exists($thumbnailPath)
+                                ? asset('img/postThumbnail/' . $post->thumbnail)
+                                : 'https://placehold.co/600x400';
                     @endphp
-                    <img src="{{ $thumbnailUrl }}"
-                    class="card-img-top" alt="Thumbnail" style="object-fit: cover; height:220px; border-radius: 0.5em">
+                    <img src="{{ $thumbnailUrl }}" class="card-img-top" alt="Thumbnail"
+                        style="object-fit: cover; height:220px; border-radius: 0.5em">
                 </div>
                 <div class="col-md-6">
                     <div class="row mb-2 mt-2">
@@ -26,7 +27,8 @@
                             <h2 class="card-title">{{ $post->title }}</h2>
                         </div>
                         <d class="col-sm-4" align="right">
-                            <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}" class="badge text-bg-info" style="color: white">
+                            <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}"
+                                class="badge text-bg-info" style="color: white">
                                 {{ $post->category->name }}
                             </a>
                         </d>
@@ -64,13 +66,17 @@
                     <span>
                         <div class="profile me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
                             @php
-                            $card_PostLargeAvatarPath = public_path('img/profilePicture/' . $post->user->profile_picture);
-                            $card_PostLargeAvatarlUrl = $post->user->profile_picture && file_exists($card_PostLargeAvatarPath) 
-                            ? asset('img/profilePicture/' . $post->user->profile_picture)
-                            : 'https://placehold.co/400';
-                            @endphp
-                            <img src="{{ $card_PostLargeAvatarlUrl }}"
-                            alt="" class="rounded-circle border-4 border-white-color-40">
+                                if (
+                                    $post->user->profile_picture &&
+                                    Storage::disk('public')->exists($post->user->profile_picture)
+                                ) {
+                                    $card_PostLargeAvatarlUrl = Storage::url($post->user->profile_picture);
+                                } else {
+                                    $card_PostLargeAvatarlUrl = asset('img/default_profile_picture.jpg');
+                                }
+                            @endphp 
+                            <img src="{{ $card_PostLargeAvatarlUrl }}" alt=""
+                                class="rounded-circle border-4 border-white-color-40">
                         </div>
                     </span>
                     <span class="my-auto ms-1">

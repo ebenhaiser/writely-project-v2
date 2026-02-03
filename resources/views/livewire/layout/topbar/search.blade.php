@@ -1,4 +1,10 @@
 <div>
+    <style>
+        .list-group-item {
+            padding: 0.25rem 0.25rem;
+        }
+    </style>
+
     <li class="dropdown pc-h-item d-inline-flex d-md-none">
         <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#"
             role="button" aria-haspopup="false" aria-expanded="false">
@@ -24,7 +30,7 @@
     </li>
 
     {{-- DROPDOWN --}}
-    @if((strlen($keyword) > 0) && (count($users) > 0 || count($posts) > 0))
+    @if (strlen($keyword) > 0 && (count($users) > 0 || count($posts) > 0))
         <div class="position-absolute top-100 bg-transparent">
             <ul class="list-group list-group-flush bg-transparent">
                 @foreach ($users as $user)
