@@ -105,18 +105,18 @@
                             </div>
                         </span>
                         <span>
-                            <button style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
+                            <a style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
                                 data-bs-target="#followModal" wire:click="followModal('following')">
                                 <h6>Following</h6>
                                 <p align="center">{{ count($profile->following) }}</p>
-                            </button>
+                            </a>
                         </span>
                         <span>
-                            <button style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
+                            <a style="color: inherit; text-decoration: none;" data-bs-toggle="modal"
                                 data-bs-target="#followModal" wire:click="followModal('follower')">
                                 <h6>Followers</h6>
                                 <p align="center">{{ count($profile->followers) }}</p>
-                            </button>
+                            </a>
                         </span>
                     </div>
                     <div class="profile-nav">
