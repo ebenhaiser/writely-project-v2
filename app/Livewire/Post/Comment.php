@@ -25,7 +25,7 @@ class Comment extends Component
         $comments = CommentModel::with(['user', 'replies.user'])
             ->where('post_id', $this->post->id)
             ->whereNull('parent_id')
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('livewire.post.comment', [

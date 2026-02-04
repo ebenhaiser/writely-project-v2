@@ -10,9 +10,11 @@ use Livewire\WithPagination;
 class Category extends Component
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
 
     public $category_slug = null;
+    public $sortBy = null;
 
     public function mount()
     {
@@ -23,17 +25,29 @@ class Category extends Component
 
     public function render()
     {
+        // Ambil semua kategori
         $categories = ModelsCategory::select('slug', 'name')->get();
+
+        // Ambil posts sesuai kategori jika ada slug
+        $postsQuery = Post::query();
+
         if ($this->category_slug) {
             $category = ModelsCategory::where('slug', $this->category_slug)->first();
+
             if ($category) {
-                $posts = Post::where('category_id', $category->id)->orderByDesc('created_at')->paginate(12);
-            } else {
-                $posts = Post::orderByDesc('created_at')->paginate(12);
+                $postsQuery->where('category_id', $category->id);
+            }
+        }
+        if ($this->sortBy) {
+            if ($this->sortBy == 'latest') {
+                $posts = $postsQuery->orderBy('created_at')->paginate(12);
+            } elseif ($this->sortBy == 'newest') {
+                $posts = $postsQuery->orderByDesc('created_at')->paginate(12);
             }
         } else {
-            $posts = Post::orderByDesc('created_at')->paginate(12);
+            $posts = $postsQuery->orderByDesc('created_at')->paginate(12);
         }
+
         return view('livewire.page.category', compact('posts', 'categories'));
     }
 }

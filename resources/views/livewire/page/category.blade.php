@@ -4,18 +4,18 @@
             <div class="row">
                 <div class="col-sm-6">
                     <select class="form-control" wire:model.live="category_slug">
-                <option value="">-- choose category --</option>
-                @forelse($categories as $category)
-                    <option value="{{ $category->slug }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
+                        <option value="">-- choose category --</option>
+                        @forelse($categories as $category)
+                            <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-6">
                     <select class="form-control" wire:model.live="sortBy">
                         <option value="">-- Sort By --</option>
                         <option value="latest">Latest</option>
                         <option value="newest">Newest</option>
-                        <option value="most_liked">Most Liked</option>
+                        {{-- <option value="most_liked">Most Liked</option> --}}
                     </select>
                 </div>
             </div>
