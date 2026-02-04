@@ -125,13 +125,14 @@
                                     <span>
                                         <div class="me-2">
                                             @php
-                                                $author_avatarPath = public_path(
-                                                    'img/profilePicture/' . $user->profile_picture,
-                                                );
-                                                $author_avatarUrl =
-                                                    $user->profile_picture && file_exists($author_avatarPath)
-                                                        ? asset('img/profilePicture/' . $user->profile_picture)
-                                                        : 'https://placehold.co/400';
+                                                if (
+                                                    $user->profile_picture &&
+                                                    Storage::disk('public')->exists($user->profile_picture)
+                                                ) {
+                                                    $author_avatarUrl = Storage::url($user->profile_picture);
+                                                } else {
+                                                    $author_avatarUrl = asset('img/default_profile_picture.jpg');
+                                                }
                                             @endphp
                                             <img src="{{ $author_avatarUrl }}" alt=""
                                                 class="rounded-circle  border-4 border-white-color-40">
