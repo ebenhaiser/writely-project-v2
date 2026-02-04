@@ -42,6 +42,21 @@
                         <livewire:profile.setting.password />
                     </div>
                 </div>
+
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <h4 class="text-danger">Delete Account</h4>
+                    </button>
+                </div>
+                <div id="flush-collapseFour" class="accordion-collapse collapse"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <livewire:profile.setting.delete-account />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

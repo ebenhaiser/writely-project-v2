@@ -13,8 +13,7 @@
         </div>
         <div class="mb-3">
             <label for="" class="form-label">New Password</label>
-            <input type="password" class="form-control" aria-describedby="" maxlength="50"
-                wire:model.defer="new_password">
+            <input type="password" class="form-control" wire:model.defer="new_password">
             @if ($errors->has('new_password'))
                 <div id="defaultFormControlHelp" class="form-text text-danger">
                     {{ $errors->first('new_password') }}
@@ -23,8 +22,7 @@
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Confirm New Password</label>
-            <input type="password" class="form-control" aria-describedby="" maxlength="50"
-                wire:model.defer="confirm_new_password">
+            <input type="password" class="form-control" wire:model.defer="confirm_new_password">
             @if ($errors->has('confirm_new_password'))
                 <div id="defaultFormControlHelp" class="form-text text-danger">
                     {{ $errors->first('confirm_new_password') }}
