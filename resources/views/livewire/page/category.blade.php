@@ -15,7 +15,7 @@
                         <option value="">-- Sort By --</option>
                         <option value="latest">Latest</option>
                         <option value="newest">Newest</option>
-                        {{-- <option value="most_liked">Most Liked</option> --}}
+                        <option value="most_liked">Most Liked</option>
                     </select>
                 </div>
             </div>
