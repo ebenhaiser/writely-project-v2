@@ -35,7 +35,8 @@
                 <img src="https://placehold.co/600x400" class="card-img-top" alt="Thumbnail">
                 <div class="card-body">
                     <h2 class="card-title title-limit">{{ $post->title }}</h2>
-                    <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}" class="card-subtitle mb-2 badge text-bg-info" style="color: white">
+                    <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}"
+                        class="card-subtitle mb-2 badge text-bg-info" style="color: white">
                         {{ $post->category->name }}
                     </a>
                     <p class="card-text content-limit">
@@ -53,7 +54,7 @@
                             <i class='ti ti-thumb-up'></i> {{ ' ' . count($post->likes) }}</span>
                         </span>
                         <span>
-                            <i class='ti ti-message-circle'></i>{{ ' '. count($post->comments) }}</span>
+                            <i class='ti ti-message-circle'></i>{{ ' ' . count($post->comments) }}</span>
                         </span>
                     </div>
                 </div>
@@ -63,10 +64,14 @@
                     <span>
                         <div class="post-profile me-2">
                             @php
-                            $card_PostSmallAvatarPath = public_path('img/profilePicture/' . $post->user->profile_picture);
-                            $card_PostSmallAvatarlUrl = $post->user->profile_picture && file_exists($card_PostSmallAvatarPath) 
-                            ? asset('img/profilePicture/' . $post->user->profile_picture)
-                            : 'https://placehold.co/400';
+                                if (
+                                    $post->user->profile_picture &&
+                                    Storage::disk('public')->exists($post->user->profile_picture)
+                                ) {
+                                    $card_PostSmallAvatarlUrl = Storage::url($post->user->profile_picture);
+                                } else {
+                                    $card_PostSmallAvatarlUrl = asset('img/default_profile_picture.jpg');
+                                }
                             @endphp
                             <img src="{{ $card_PostSmallAvatarlUrl }}" alt=""
                                 class="rounded-circle border-4 border-white-color-40">
