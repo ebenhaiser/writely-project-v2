@@ -9,30 +9,51 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        // 1️⃣ Kalau sudah login, jangan ke login lagi
         if (Auth::check()) {
             return redirect()->back();
         }
-        if ($request->has('returnUrl')) {
-            return view('auth.login', ['returnUrl' => $request->returnUrl]);
+
+        // 2️⃣ Kalau returnUrl sudah dikirim, langsung tampilkan halaman login
+        if ($request->filled('returnUrl')) {
+            return view('auth.login', [
+                'returnUrl' => $request->returnUrl
+            ]);
         }
 
+        // 3️⃣ Ambil previous URL
         $previousUrl = url()->previous();
-        $currentUrl = url()->current();
+        $currentUrl  = url()->current();
 
-        if (
-            $previousUrl !== $currentUrl &&
-            !str_contains($previousUrl, '/login') &&
-            !str_contains($previousUrl, '/register') &&
-            !str_contains($previousUrl, '/logout') &&
-            !str_contains($previousUrl, '/password') &&
-            !str_contains($previousUrl, '/message') &&
-            !str_contains($previousUrl, '/history') &&
-            !str_contains($previousUrl, '/edit') &&
-            !str_contains($previousUrl, '/setting')
-        ) {
-            return redirect()->route('login', ['returnUrl' => $previousUrl]);
+        // 4️⃣ Daftar URL yang tidak boleh dijadikan returnUrl
+        $blockedPaths = [
+            '%2Flogin',
+            '%2Fregister',
+            '%2Flogout',
+            '%2Fpassword',
+            '%2Fmessage',
+            '%2Fhistory',
+            '%2Fedit',
+            '%2Fsetting',
+        ];
+
+        // 5️⃣ Validasi previous URL
+        foreach ($blockedPaths as $path) {
+            if (str_contains($previousUrl, $path)) {
+                return redirect()->route('login');
+            }
         }
+
+        if ($previousUrl !== $currentUrl) {
+            return redirect()->route('login', [
+                'returnUrl' => $previousUrl
+            ]);
+        }
+
+        // 6️⃣ Fallback
+        return redirect()->route('login');
     }
+
 
     public function register()
     {
