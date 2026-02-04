@@ -44,7 +44,7 @@ class Show extends Component
                     'post_id' => $postId,
                 ]);
             }
-            $this->mount($this->post->slug);
+            $this->mount($this->post->id);
         }
     }
 
@@ -64,7 +64,7 @@ class Show extends Component
                     'post_id' => $postId,
                 ]);
             }
-            $this->mount($this->post->slug);
+            $this->mount($this->post->id);
         }
     }
 
@@ -84,7 +84,7 @@ class Show extends Component
                     'follower_id' => $followerId,
                 ]);
             }
-            $this->mount($this->post->slug);
+            $this->mount($this->post->id);
         }
     }
 }
