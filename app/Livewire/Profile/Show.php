@@ -104,7 +104,7 @@ class Show extends Component
                     'follower_id' => $followerId,
                 ]);
             }
-            $this->mount($this->profile->username);
+            $this->mount($this->profile->id);
         }
     }
 

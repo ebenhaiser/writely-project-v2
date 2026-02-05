@@ -2,6 +2,9 @@
 
 namespace App\Livewire\Auth;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Register extends Component
@@ -53,14 +56,26 @@ class Register extends Component
     {
         $this->validate([
             'password' => 'required',
-            'confirm_password' => 'required'
+            'confirm_password' => 'required|same:password',
         ]);
 
-        if ($this->password !== $this->confirm_password) {
-            if ($this->password !== $this->confirm_password) {
-                $this->addError('confirm_password', 'Confirm password does not match.');
-                return;
-            }
-        }
+        $this->register();
+    }
+
+    private function register()
+    {
+        $this->resetErrorBag();
+
+        $user = User::create([
+            'name' => trim($this->firstName . ' ' . $this->lastName),
+            'email' => trim($this->email),
+            'username' => trim($this->username),
+            'password' => Hash::make($this->username)
+        ]);
+
+        Auth::login($user);
+        $this->reset();
+
+        return redirect()->route('profile.setting', ['username' => Auth::user()->username]);
     }
 }

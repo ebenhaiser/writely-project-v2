@@ -46,6 +46,19 @@
         .step-content.active {
             display: block;
         }
+
+        .step-content {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all .35s ease;
+            pointer-events: none;
+        }
+
+        .step-content.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
     </style>
 
     <div class="register-container">
