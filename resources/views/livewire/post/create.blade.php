@@ -10,6 +10,10 @@
         .ckeditor-container textarea {
             min-height: 2000px;
         }
+
+        .preview-thumbnail img {
+            max-width: 400px;
+        }
     </style>
     <div class="card">
         <div class="card-header">
@@ -20,19 +24,38 @@
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="title" class="form-control" id="title" required wire:model='title'>
             </div>
-            {{-- <div class="mb-3">
-                    <label for="" class="form-label">Thumbnail</label>
-                    <input type="file" name="thumbnail" class="form-control">
-                </div> --}}
-            {{-- @if (request()->routeIs('post.edit'))
-                    <div class="mb-3">
-                        <img src="{{ asset('img/postThumbnail/' . $post->thumbnail) }}" class="w-100" alt=""
-                            style="border-radius: 20px">
+
+            {{-- thumbnail --}}
+            <div class="mb-3">
+                <label for="title" class="form-label">Thumbnail</label>
+                <input type="file" name="thumbnail" class="form-control mb-1" accept=".jpg, .jpeg, .png, .webp"
+                    wire:model="thumbnail">
+                <div align=center class="preview-thumbnail">
+                    @if ($errors->has('thumbnail'))
+                        <div id="defaultFormControlHelp" class="form-text text-danger mb-1">
+                            {{ $errors->first('thumbnail') }}
+                        </div>
+                    @endif
+                    @if ($isEdit || $preview_thumbnail)
+                        <div wire:loading.remove wire:target="thumbnail" class="profile-spinner-container">
+                            <img src="{{ $preview_thumbnail }}" alt="Preview"
+                                class="img-fluid mt-3 mb-2 rounded border border-2 border-gray shadow-sm">
+                            <div class="d-flex justify-content-center">
+                                <span>
+                                    <button class="btn btn-outline-danger" wire:click='cancelThumbnail'>Cancel</button>
+                                </span>
+                            </div>
+                        </div>
+                    @endif
+                    <div wire:loading wire:target="thumbnail" class="profile-spinner-container mt-3">
+                        <span class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </span>
                     </div>
-                    <div class="mb-3">
-                        <div id="thumbnail-preview"></div>
-                    </div>
-                @endif --}}
+                </div>
+            </div>
+            {{-- end thumbnail --}}
+
             <div class="mb-3">
                 <label for="" class="form-label">Content</label>
                 <textarea name="content" class="form-control" rows="20" required wire:model='content'></textarea>

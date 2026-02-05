@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Profile\Setting;
 
+use Livewire\Component;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Attributes\Validate;
-use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class ProfilePicture extends Component
 {
@@ -64,21 +65,28 @@ class ProfilePicture extends Component
             $profile = Auth::user();
 
             if ($profile->profile_picture) {
-                Storage::delete('public/' . $profile->profile_picture);
+                Storage::disk('public')->delete($profile->profile_picture);
             }
 
-            $validated['profile_picture'] = $this->profile_picture->store('profile_pictures', 'public');
+            $filename = 'profile_' . Str::uuid() . '.' .
+                $this->profile_picture->getClientOriginalExtension();
 
-            $profile->profile_picture = $validated['profile_picture'];
+            $path = $this->profile_picture->storeAs(
+                'profile_pictures',
+                $filename,
+                'public'
+            );
+
+            $profile->profile_picture = $path;
             $profile->save();
 
-            $this->mount();
             $this->dispatch('profile-updated');
             session()->flash('successAlert', 'Profile picture successfully updated.');
         } catch (\Exception $e) {
             session()->flash('errorAlert', 'Failed to update profile picture. ' . $e->getMessage());
         }
     }
+
 
     public function delete()
     {

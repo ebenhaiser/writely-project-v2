@@ -6,16 +6,22 @@ use App\Models\Post;
 use Livewire\Component;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Create extends Component
 {
-    public ?Post $post = null;
+    use WithFileUploads;
 
     public $isEdit = false;
-    public $title,
+    public $postId,
+        $title,
         $category_id,
-        $content;
+        $content,
+        $thumbnail;
+
+    public $preview_thumbnail;
 
     public $categories;
 
@@ -23,6 +29,7 @@ class Create extends Component
     public function mount($post = null)
     {
         if ($post != null) {
+            $this->postId = $post->id;
             $this->isEdit = true;
         }
 
@@ -30,6 +37,8 @@ class Create extends Component
     }
     public function render()
     {
+        $this->preview_thumbnail = $this->thumbnail ? $this->thumbnail->temporaryUrl() : '';
+
         return view('livewire.post.create');
     }
 
@@ -77,5 +86,26 @@ class Create extends Component
     public function edit()
     {
         // 
+    }
+
+    public function cancelThumbnail()
+    {
+        $this->reset(['thumbnail']);
+        return;
+    }
+
+    public function saveThumbnail()
+    {
+        $post = new Post();
+        // if ($post->thumbnail) {
+        //     Storage::delete('public/' . $post->thumbnail);
+        // }
+
+        $validated['profile_picture'] = $this->thumbnail->store('profile_pictures', 'public');
+
+        $post->thumbnail = $validated['profile_picture'];
+        $post->save();
+
+        $this->mount();
     }
 }
