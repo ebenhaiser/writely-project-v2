@@ -87,8 +87,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" placeholder="Last Name" wire:model='lastName'>
-                            <label>Last Name</label>
+                            <input type="text" class="form-control" placeholder="Last Name (Optional)"
+                                wire:model='lastName'>
+                            <label>Last Name (Optional)</label>
                             @if ($errors->has('lastName'))
                                 <div class="form-text text-danger">
                                     {{ $errors->first('lastName') }}

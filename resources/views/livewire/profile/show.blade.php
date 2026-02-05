@@ -155,14 +155,13 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel" wire:loading.remove
-                        wire:target="followModal('following'), followModal('follower')">{{ $followModalTitle }}</h3>
+                    <h3 class="modal-title" id="exampleModalLabel" wire:loading.remove wire:target="followModal">
+                        {{ $followModalTitle }}</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        wire:loading.attr="disabled"
-                        wire:target="followModal('following'), followModal('follower')"></button>
+                        wire:loading.attr="disabled" wire:target="followModal"></button>
                 </div>
                 <div class="modal-body">
-                    <div wire:loading.remove wire:target="followModal('following'), followModal('follower')">
+                    <div wire:loading.remove wire:target="followModal">
                         @if (count($followModalData) > 0)
                             @foreach ($followModalData as $user)
                                 <x-cards.user :user="$user" />
@@ -173,17 +172,16 @@
                             </div>
                         @endif
                     </div>
-                    <div wire:loading wire:target="followModal('following'), followModal('follower')"
+                    {{-- <div wire:loading wire:target="followModal"
                         class="d-flex justify-content-center align-items-center gap-3" style="min-height: 200px;">
                         <span class="spinner-border text-primary" role="status">
                         </span>
                         <span class="">Loading...</span>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        wire:loading.attr="disabled"
-                        wire:target="followModal('following'), followModal('follower')">Close</button>
+                        wire:loading.attr="disabled" wire:target="followModal">Close</button>
                 </div>
             </div>
         </div>

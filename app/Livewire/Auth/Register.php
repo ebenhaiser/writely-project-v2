@@ -35,7 +35,6 @@ class Register extends Component
     {
         $this->validate([
             'firstName' => 'required',
-            'lastName' => 'required'
         ]);
         $this->stepPassed = 2;
         $this->step = 2;
