@@ -163,9 +163,14 @@
                 <div class="modal-body">
                     <div wire:loading.remove wire:target="followModal">
                         @if (count($followModalData) > 0)
-                            @foreach ($followModalData as $user)
+                            @foreach ($followModalData->take(10) as $user)
                                 <x-cards.user :user="$user" />
                             @endforeach
+                            @if (count($followModalData) > 10)
+                                <div align="Center">
+                                    <button class="btn btn-outline-secondary">See More</button>
+                                </div>
+                            @endif
                         @else
                             <div align="center">
                                 <i>No data found.</i>

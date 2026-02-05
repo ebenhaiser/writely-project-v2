@@ -1,0 +1,8 @@
+History Page
+Bookmark Page
+Follow Page
+Edit Post
+Create Post
+Search Page
+Chatting
+Notification
