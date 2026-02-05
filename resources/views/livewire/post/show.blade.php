@@ -1,7 +1,13 @@
 <div>
     <style>
         .show-post .card img {
-            border-radius: 20px
+            border-radius: 20px;
+            max-height: 350px;
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+
         }
 
         .author-section img {
@@ -26,10 +32,6 @@
                 /* Sesuaikan tinggi maksimal */
                 overflow-y: auto;
                 /* Aktifkan scroll vertikal */
-            }
-
-            .show-post .card {
-                margin-bottom: 0
             }
         }
     </style>
@@ -93,11 +95,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        {{-- @if ($post->thumbnail && file_exists(public_path('img/postThumbnail/' . $post->thumbnail)))
-                        <img src="{{ asset('img/postThumbnail/' . $post->thumbnail) }}" class="w-100 mb-4"
-                        alt="...">
-                        @endif --}}
+                    <div class="card-body post-container">
+                        @if ($thumbnail)
+                            <img src="{{ $thumbnail }}" class="mb-4" alt="...">
+                        @endif
                         <div class="ckeditor-container">{!! str_replace("\n", '<br>', e($post->content)) !!}
                         </div>
                     </div>

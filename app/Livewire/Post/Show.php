@@ -2,17 +2,19 @@
 
 namespace App\Livewire\Post;
 
-use App\Models\Bookmark;
 use App\Models\Like;
-use Livewire\Component;
 use App\Models\Post;
-use App\Models\Follow;
 use App\Models\User;
+use App\Models\Follow;
+use Livewire\Component;
+use App\Models\Bookmark;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Show extends Component
 {
     public $post;
+    public $thumbnail;
     public $likers = [];
 
     public function mount($postId)
@@ -21,6 +23,12 @@ class Show extends Component
         $this->likers = User::whereHas('likes', function ($query) use ($postId) {
             $query->where('post_id', $postId);
         })->get();
+
+        if ($this->post->thumbnail && Storage::disk('public')->exists($this->post->thumbnail)) {
+            $this->thumbnail = Storage::url($this->post->thumbnail);
+        } else {
+            $this->thumbnail = asset('https://placehold.co/600x400');
+        }
     }
 
     public function render()

@@ -14,6 +14,7 @@ class Create extends Component
 {
     use WithFileUploads;
 
+    public $post;
     public $isEdit = false;
     public $postId,
         $title,
@@ -31,6 +32,8 @@ class Create extends Component
         if ($post != null) {
             $this->postId = $post->id;
             $this->isEdit = true;
+        } else {
+            $this->post = new Post();
         }
 
         $this->categories = Category::get();
@@ -72,13 +75,14 @@ class Create extends Component
             $slug = $originalSlug . '-' . $counter;
         }
 
-        Post::create([
-            'title' => $this->title,
-            'user_id' => $author->id,
-            'content' => $this->content,
-            'category_id' => $this->category_id,
-            'slug' => $slug
-        ]);
+        $this->post->title = $this->title;
+        $this->post->user_id = $author->id;
+        $this->post->content = $this->content;
+        $this->post->category_id = $this->category_id;
+        $this->post->slug = $slug;
+        $this->saveThumbnail();
+        $this->post->save();
+
 
         return redirect()->route('post.show', $slug);
     }
@@ -96,16 +100,16 @@ class Create extends Component
 
     public function saveThumbnail()
     {
-        $post = new Post();
-        // if ($post->thumbnail) {
-        //     Storage::delete('public/' . $post->thumbnail);
-        // }
 
-        $validated['profile_picture'] = $this->thumbnail->store('profile_pictures', 'public');
+        $filename =  $this->post->slug . '.' .
+            $this->thumbnail->getClientOriginalExtension();
 
-        $post->thumbnail = $validated['profile_picture'];
-        $post->save();
+        $path = $this->thumbnail->storeAs(
+            'post_thumbnail',
+            $filename,
+            'public'
+        );
 
-        $this->mount();
+        $this->post->thumbnail = $path;
     }
 }
