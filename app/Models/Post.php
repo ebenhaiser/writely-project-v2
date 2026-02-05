@@ -15,6 +15,14 @@ class Post extends Model
     use HasFactory;
     protected $table = 'posts';
     protected $with = ['user', 'category', 'likes', 'comments'];
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'title',
+        'slug',
+        'content',
+        'thumbnail'
+    ];
 
     public function user()
     {

@@ -75,7 +75,7 @@
                         <span class="pc-mtext">Icons</span>
                     </a>
                 </li>
-                
+
                 <li class="pc-item pc-caption">
                     <label>Pages</label>
                     <i class="ti ti-news"></i>
@@ -92,24 +92,27 @@
                         <span class="pc-mtext">Register</span>
                     </a>
                 </li>
-                
+
                 <li class="pc-item pc-caption">
                     <label>Other</label>
                     <i class="ti ti-brand-chrome"></i>
                 </li>
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span>
-                        <span class="pc-mtext">Menu levels</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        <span class="pc-mtext">Menu levels</span><span class="pc-arrow"><i
+                                data-feather="chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
                         <li class="pc-item"><a class="pc-link" href="#!">Level 2.1</a></li>
                         <li class="pc-item pc-hasmenu">
-                            <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                            <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i
+                                        data-feather="chevron-right"></i></span></a>
                             <ul class="pc-submenu">
                                 <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
                                 <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
                                 <li class="pc-item pc-hasmenu">
-                                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i
+                                                data-feather="chevron-right"></i></span></a>
                                     <ul class="pc-submenu">
                                         <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
                                         <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
@@ -118,12 +121,14 @@
                             </ul>
                         </li>
                         <li class="pc-item pc-hasmenu">
-                            <a href="#!" class="pc-link">Level 2.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                            <a href="#!" class="pc-link">Level 2.3<span class="pc-arrow"><i
+                                        data-feather="chevron-right"></i></span></a>
                             <ul class="pc-submenu">
                                 <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
                                 <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
                                 <li class="pc-item pc-hasmenu">
-                                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                                    <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i
+                                                data-feather="chevron-right"></i></span></a>
                                     <ul class="pc-submenu">
                                         <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
                                         <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
@@ -139,15 +144,15 @@
                         <span class="pc-mtext">Sample page</span>
                     </a>
                 </li> --}}
-
             </ul>
-            {{-- <div class="pc-navbar-card bg-primary rounded">
-                <h4 class="text-white">Explore full code</h4>
-                <p class="text-white opacity-75">Buy now to get full access of code files</p>
-                <a href="https://codedthemes.com/item/berry-bootstrap-5-admin-template/" target="_blank" class="btn btn-light text-primary">
-                    Buy Now
-                </a>
-            </div> --}}
+            @if (Auth::check())
+                <div class="p-3">
+                    <a href="{{ route('post.create') }}" class="btn btn-primary w-100 py-2 fw-semibold shadow-sm">
+                        <i class="ti ti-pencil"></i>
+                        <span>Create Post</span>
+                    </a>
+                </div>
+            @endif
             <div class="w-100 text-center">
                 <div class="badge theme-version badge rounded-pill bg-light text-dark f-12"></div>
             </div>
