@@ -17,7 +17,7 @@
     </style>
     <div class="card">
         <div class="card-header">
-            <h3>{{ $isEdit ? 'Edit' : 'Create' }} Post</h3>
+            <h3>{{ $isEdit == true ? 'Edit' : 'Create' }} Post</h3>
         </div>
         <div class="card-body">
             <div class="mb-3">

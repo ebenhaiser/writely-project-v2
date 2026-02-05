@@ -11,7 +11,7 @@ class PostController extends Controller
     public function show($slug)
     {
         if ($slug === 'create') {
-            $this->create();
+            return redirect()->route('post.create');
         }
         $post = Post::where('slug', $slug)->first();
         if (!$post) {
@@ -29,5 +29,16 @@ class PostController extends Controller
         }
         $title = 'Create Post | Writely.';
         return view('post.create', compact('title'));
+    }
+
+    public function edit($slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+        if (Auth::user()->id !== $post->user->id) {
+            return redirect()->route('post.show', ['slug' => $slug]);
+        }
+
+        $title = '(Edit)' . $post->title . ' by ' . $post->user->name . ' | Writely.';
+        return view('post.create', compact('post', 'title'));
     }
 }
