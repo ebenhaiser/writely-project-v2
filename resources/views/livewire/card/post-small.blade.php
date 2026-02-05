@@ -33,7 +33,7 @@
     <div class="card-post-mini link-dark">
         <div class="card shadow">
             <a href="{{ route('post.show', ['slug' => $postSlug]) }}" style="color: inherit; text-decoration: none;">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Thumbnail">
+                <img src="{{ $thumbnailUrl }}" class="card-img-top" alt="Thumbnail">
                 <div class="card-body">
                     <h2 class="card-title title-limit">{{ $title }}</h2>
                     <a href="{{ route('category', ['category_slug' => $categorySlug]) }}"

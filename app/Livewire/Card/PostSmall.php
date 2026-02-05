@@ -17,7 +17,8 @@ class PostSmall extends Component
         $comments,
         $authorName,
         $authorUsername,
-        $authorProfilePictureUrl;
+        $authorProfilePictureUrl,
+        $thumbnailUrl;
 
     public function mount($post)
     {
@@ -40,6 +41,12 @@ class PostSmall extends Component
             $this->authorProfilePictureUrl = Storage::url($author->profile_picture);
         } else {
             $this->authorProfilePictureUrl = asset('img/default_profile_picture.jpg');
+        }
+
+        if ($post->thumbnail && Storage::disk('public')->exists($post->thumbnail)) {
+            $this->thumbnailUrl = Storage::url($post->thumbnail);
+        } else {
+            $this->thumbnailUrl = asset('https://placehold.co/600x400');
         }
     }
 
