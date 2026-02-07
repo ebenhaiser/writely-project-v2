@@ -20,7 +20,7 @@ class PostFactory extends Factory
         $title = $this->faker->sentence(6);
 
         return [
-            'user_id' => $this->faker->numberBetween(1, 10),
+            'user_id' => $this->faker->numberBetween(1, 750),
             'category_id' => $this->faker->numberBetween(1, 20),
             'title' => $title,
             'slug' => Str::slug($title) . '-' . $this->faker->unique()->numberBetween(1000, 9999),

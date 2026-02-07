@@ -31,7 +31,7 @@ class Show extends Component
         ) {
             $this->avatarUrl = Storage::url($this->profile->profile_picture);
         } else {
-            $this->avatarUrl = asset(Setting::defaultProfilePicture());
+            $this->avatarUrl = asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
     }
 

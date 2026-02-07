@@ -15,13 +15,21 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             [
-                'name' => 'defaultProfilePicture',
-                'value' => 'img\default\default_profile_picture.jpg'
+                'name' => 'defaultProfilePictureDir',
+                'value' => 'img/default/'
             ],
-            // [
-            //     'name' => 'defaultThumbnail',
-            //     'value' => 'img\default\default_thumbnail.jpg'
-            // ]
+            [
+                'name' => 'defaultProfilePictureImg',
+                'value' => 'default_profile_picture.jpg'
+            ],
+            [
+                'name' => 'defaultThumbnailDir',
+                'value' => 'img/default/thumbnail'
+            ],
+            [
+                'name' => 'defaultThumbnailExt',
+                'value' => '.jpg'
+            ],
         ];
 
         foreach ($settings as $setting) {

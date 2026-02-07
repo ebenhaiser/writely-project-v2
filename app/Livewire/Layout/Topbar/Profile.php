@@ -31,7 +31,7 @@ class Profile extends Component
         ) {
             $this->profilePictureUrl = Storage::url($user->profile_picture);
         } else {
-            $this->profilePictureUrl = asset(Setting::defaultProfilePicture());
+            $this->profilePictureUrl = asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
         $this->name = $user->name;
         $this->username = $user->username;

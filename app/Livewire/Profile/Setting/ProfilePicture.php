@@ -45,7 +45,7 @@ class ProfilePicture extends Component
         ) {
             $this->profilePictureUrl = Storage::url($profile->profile_picture);
         } else {
-            $this->profilePictureUrl = asset(Setting::defaultProfilePicture());
+            $this->profilePictureUrl = asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
 
         $this->preview_profile_picture = $this->profilePictureUrl;

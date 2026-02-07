@@ -41,13 +41,13 @@ class PostSmall extends Component
         if ($author->profile_picture && Storage::disk('public')->exists($author->profile_picture)) {
             $this->authorProfilePictureUrl = Storage::url($author->profile_picture);
         } else {
-            $this->authorProfilePictureUrl = asset(Setting::defaultProfilePicture());
+            $this->authorProfilePictureUrl = asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
 
         if ($post->thumbnail && Storage::disk('public')->exists($post->thumbnail)) {
             $this->thumbnailUrl = Storage::url($post->thumbnail);
         } else {
-            $this->thumbnailUrl = asset('img/default/Thumbnail/' . $post->slug . '.jpg');
+            $this->thumbnailUrl = asset('img/default/Thumbnail/' . $post->category->slug . '.jpg');
         }
     }
 

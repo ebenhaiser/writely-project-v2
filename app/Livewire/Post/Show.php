@@ -43,7 +43,7 @@ class Show extends Component
         ) {
             $this->authorProfilePicture = Storage::url($author->profile_picture);
         } else {
-            $this->authorProfilePicture = asset(Setting::defaultProfilePicture());
+            $this->authorProfilePicture = asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
     }
 

@@ -8,15 +8,8 @@ class Setting extends Model
 {
     protected $fillable = ['name', 'value'];
 
-    public function defaultProfilePicture()
+    public static function value(string $name, $default = null)
     {
-        $defaultProfilePicture = Setting::where('name', 'defaultProfilePicture');
-        return $defaultProfilePicture->value;
-    }
-
-    public function defaultThumbnail()
-    {
-        $defaultThumbnail = Setting::where('name', 'defaultThumbnail');
-        return $defaultThumbnail->value;
+        return self::where('name', $name)->value('value') ?? $default;
     }
 }
