@@ -5,6 +5,7 @@ namespace App\Livewire\Post;
 use Livewire\Component;
 use App\Models\Comment as CommentModel;
 use App\Models\Post;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 
@@ -14,9 +15,16 @@ class Comment extends Component
     public $content = '';
     public $replyingTo = null;
     public $replyContent = '';
+    public $defaultProfilePicture;
 
     public function mount(Post $post)
     {
+        $this->defaultProfilePicture = asset(
+            Setting::value('defaultProfilePictureDir') .
+                '/' .
+                Setting::value('defaultProfilePictureImg')
+        );
+
         $this->post = $post;
     }
 

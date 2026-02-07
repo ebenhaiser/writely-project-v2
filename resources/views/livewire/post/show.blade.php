@@ -117,7 +117,7 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('profile.show', ['username' => $authorUsername]) }}"
+                            <a href="{{ route('profile.show', ['username' => $author->username]) }}"
                                 style="color: inherit; text-decoration: none;">
                                 <span class="d-flex">
                                     <span>
@@ -127,36 +127,36 @@
                                         </div>
                                     </span>
                                     <span class="my-auto">
-                                        <h5 class="mt-0 mb-0">{{ $authorName }}</h5>
+                                        <h5 class="mt-0 mb-0">{{ $author->name }}</h5>
                                         <p class="mb-0 mt-0 text-body" style="text-decoration: none">
-                                            {{ '@' . $authorUsername }}
+                                            {{ '@' . $author->username }}
                                         </p>
                                     </span>
                                 </span>
                             </a>
                             <span class="my-auto">
                                 <div align="right">
-                                    <div wire:click="toggleFollow({{ $user->id }})" style="cursor: pointer;">
+                                    <div wire:click="toggleFollow({{ $author->id }})" style="cursor: pointer;">
                                         @if (Auth::check())
-                                            @if (Auth::id() !== $user->id)
+                                            @if (Auth::id() !== $author->id)
                                                 @php
-                                                    $isFollowing = Auth::user()->following->contains($user->id);
-                                                    $isFollowedBack = $user->following->contains(Auth::id());
+                                                    $isFollowing = Auth::user()->following->contains($author->id);
+                                                    $isFollowedBack = $author->following->contains(Auth::id());
                                                 @endphp
 
                                                 <button
                                                     class="btn {{ $isFollowing ? 'btn-outline-primary' : 'btn-primary' }}"
                                                     wire:loading.attr="disabled"
-                                                    wire:target="toggleFollow({{ $user->id }})">
+                                                    wire:target="toggleFollow({{ $author->id }})">
                                                     <span wire:loading.remove
-                                                        wire:target="toggleFollow({{ $user->id }})">
+                                                        wire:target="toggleFollow({{ $author->id }})">
                                                         @if ($isFollowing)
                                                             Unfollow
                                                         @else
                                                             Follow{{ $isFollowedBack ? ' Back' : '' }}
                                                         @endif
                                                     </span>
-                                                    <span wire:loading wire:target="toggleFollow({{ $user->id }})">
+                                                    <span wire:loading wire:target="toggleFollow({{ $author->id }})">
                                                         <span class="spinner-border spinner-border-sm"
                                                             role="status"></span>
                                                     </span>
@@ -169,7 +169,7 @@
                                 </div>
                                 <div class="mt-1" align="right">
                                     <i>
-                                        <span class="follower-count">{{ count($user->followers) }}</span>
+                                        <span class="follower-count">{{ count($author->followers) }}</span>
                                         follower
                                     </i>
                                 </div>

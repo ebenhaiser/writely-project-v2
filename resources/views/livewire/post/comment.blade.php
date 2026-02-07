@@ -35,7 +35,7 @@
                                     ) {
                                         $comment_avatarUrl = Storage::url($comment->user->profile_picture);
                                     } else {
-                                        $comment_avatarUrl = asset('img/default_profile_picture.jpg');
+                                        $comment_avatarUrl = $defaultProfilePicture;
                                     }
                                 @endphp
                                 <img src="{{ $comment_avatarUrl }}" class="profile-img"

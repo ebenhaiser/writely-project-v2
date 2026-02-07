@@ -17,9 +17,8 @@ class Show extends Component
     public $post;
     public $thumbnail;
     public $likers = [];
+    public $author;
     public $authorProfilePicture;
-    public $authorName;
-    public $authorUsername;
 
     public function mount($postId)
     {
@@ -32,14 +31,12 @@ class Show extends Component
             $this->thumbnail = Storage::url($this->post->thumbnail);
         }
 
-        $author = $this->post->user;
-        $this->authorName = $author->name;
-        $this->authorUsername = $author->username;
+        $this->author = $this->post->user;
         if (
-            $author->profile_picture &&
-            Storage::disk('public')->exists($author->profile_picture)
+            $this->author->profile_picture &&
+            Storage::disk('public')->exists($this->author->profile_picture)
         ) {
-            $this->authorProfilePicture = Storage::url($author->profile_picture);
+            $this->authorProfilePicture = Storage::url($this->author->profile_picture);
         } else {
             $this->authorProfilePicture = asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
