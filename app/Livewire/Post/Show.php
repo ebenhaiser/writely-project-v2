@@ -31,7 +31,7 @@ class Show extends Component
         if ($this->post->thumbnail && Storage::disk('public')->exists($this->post->thumbnail)) {
             $this->thumbnail = Storage::url($this->post->thumbnail);
         } else {
-            $this->thumbnail = asset('https://placehold.co/600x400');
+            $this->thumbnail = asset(Setting::value('defaultThumbnailDir') . $this->post->category->slug . Setting::value('defaultThumbnailExt'));
         }
 
         $author = $this->post->user;

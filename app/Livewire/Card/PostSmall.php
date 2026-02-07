@@ -47,7 +47,7 @@ class PostSmall extends Component
         if ($post->thumbnail && Storage::disk('public')->exists($post->thumbnail)) {
             $this->thumbnailUrl = Storage::url($post->thumbnail);
         } else {
-            $this->thumbnailUrl = asset('img/default/Thumbnail/' . $post->category->slug . '.jpg');
+            $this->thumbnailUrl = asset(Setting::value('defaultThumbnailDir') . $post->category->slug . Setting::value('defaultThumbnailExt'));
         }
     }
 
