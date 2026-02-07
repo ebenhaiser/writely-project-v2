@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Layout\Topbar;
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -30,7 +31,7 @@ class Profile extends Component
         ) {
             $this->profilePictureUrl = Storage::url($user->profile_picture);
         } else {
-            $this->profilePictureUrl = asset('img/default_profile_picture.jpg');
+            $this->profilePictureUrl = asset(Setting::defaultProfilePicture());
         }
         $this->name = $user->name;
         $this->username = $user->username;

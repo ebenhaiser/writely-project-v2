@@ -6,6 +6,7 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Follow;
+use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Bookmark;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,9 @@ class Show extends Component
     public $post;
     public $thumbnail;
     public $likers = [];
+    public $authorProfilePicture;
+    public $authorName;
+    public $authorUsername;
 
     public function mount($postId)
     {
@@ -28,6 +32,18 @@ class Show extends Component
             $this->thumbnail = Storage::url($this->post->thumbnail);
         } else {
             $this->thumbnail = asset('https://placehold.co/600x400');
+        }
+
+        $author = $this->post->user;
+        $this->authorName = $author->name;
+        $this->authorUsername = $author->username;
+        if (
+            $author->profile_picture &&
+            Storage::disk('public')->exists($author->profile_picture)
+        ) {
+            $this->authorProfilePicture = Storage::url($author->profile_picture);
+        } else {
+            $this->authorProfilePicture = asset(Setting::defaultProfilePicture());
         }
     }
 

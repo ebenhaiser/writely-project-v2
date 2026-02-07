@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Profile\Setting;
 
+use App\Models\Setting;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -44,7 +45,7 @@ class ProfilePicture extends Component
         ) {
             $this->profilePictureUrl = Storage::url($profile->profile_picture);
         } else {
-            $this->profilePictureUrl = asset('img/default_profile_picture.jpg');
+            $this->profilePictureUrl = asset(Setting::defaultProfilePicture());
         }
 
         $this->preview_profile_picture = $this->profilePictureUrl;

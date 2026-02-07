@@ -4,12 +4,13 @@ namespace App\Livewire\Profile;
 
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Comment;
 use App\Models\Follow;
+use App\Models\Comment;
+use App\Models\Setting;
+use Livewire\Component;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Livewire\WithPagination;
-use Livewire\Component;
 
 class Show extends Component
 {
@@ -30,7 +31,7 @@ class Show extends Component
         ) {
             $this->avatarUrl = Storage::url($this->profile->profile_picture);
         } else {
-            $this->avatarUrl = asset('img/default_profile_picture.jpg');
+            $this->avatarUrl = asset(Setting::defaultProfilePicture());
         }
     }
 

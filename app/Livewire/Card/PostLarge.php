@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Card;
 
+use App\Models\Setting;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,7 +41,7 @@ class PostLarge extends Component
         if ($author->profile_picture && Storage::disk('public')->exists($author->profile_picture)) {
             $this->authorProfilePictureUrl = Storage::url($author->profile_picture);
         } else {
-            $this->authorProfilePictureUrl = asset('img/default_profile_picture.jpg');
+            $this->authorProfilePictureUrl = asset(Setting::defaultProfilePicture());
         }
 
         if ($post->thumbnail && Storage::disk('public')->exists($post->thumbnail)) {

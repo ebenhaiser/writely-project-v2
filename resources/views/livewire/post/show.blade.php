@@ -116,33 +116,20 @@
                         <h3>Author</h3>
                     </div>
                     <div class="card-body">
-                        @php
-                            $user = $post->user;
-                        @endphp
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('profile.show', ['username' => $user->username]) }}"
+                            <a href="{{ route('profile.show', ['username' => $authorUsername]) }}"
                                 style="color: inherit; text-decoration: none;">
                                 <span class="d-flex">
                                     <span>
                                         <div class="me-2">
-                                            @php
-                                                if (
-                                                    $user->profile_picture &&
-                                                    Storage::disk('public')->exists($user->profile_picture)
-                                                ) {
-                                                    $author_avatarUrl = Storage::url($user->profile_picture);
-                                                } else {
-                                                    $author_avatarUrl = asset('img/default_profile_picture.jpg');
-                                                }
-                                            @endphp
-                                            <img src="{{ $author_avatarUrl }}" alt=""
+                                            <img src="{{ $authorProfilePicture }}" alt=""
                                                 class="rounded-circle  border-4 border-white-color-40">
                                         </div>
                                     </span>
                                     <span class="my-auto">
-                                        <h5 class="mt-0 mb-0">{{ $user->name }}</h5>
+                                        <h5 class="mt-0 mb-0">{{ $authorName }}</h5>
                                         <p class="mb-0 mt-0 text-body" style="text-decoration: none">
-                                            {{ '@' . $user->username }}
+                                            {{ '@' . $authorUsername }}
                                         </p>
                                     </span>
                                 </span>
