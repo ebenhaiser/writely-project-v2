@@ -28,26 +28,32 @@
             {{-- thumbnail --}}
             <div class="mb-3">
                 <label for="title" class="form-label">Thumbnail</label>
-                <input type="file" name="thumbnail" class="form-control mb-1" accept=".jpg, .jpeg, .png, .webp"
-                    wire:model="thumbnail">
+                <input type="file" name="newThumbnail" class="form-control mb-1" accept=".jpg, .jpeg, .png, .webp"
+                    wire:model="newThumbnail">
                 <div align=center class="preview-thumbnail">
                     @if ($errors->has('thumbnail'))
                         <div id="defaultFormControlHelp" class="form-text text-danger mb-1">
                             {{ $errors->first('thumbnail') }}
                         </div>
                     @endif
-                    @if ($isEdit || $preview_thumbnail)
-                        <div wire:loading.remove wire:target="thumbnail" class="profile-spinner-container">
+                    @if (($isEdit && $oldThumbnail && $isDeleteThumbnail == false) || $newThumbnail)
+                        <div wire:loading.remove wire:target="newThumbnail" class="profile-spinner-container">
                             <img src="{{ $preview_thumbnail }}" alt="Preview"
                                 class="img-fluid mt-3 mb-2 rounded border border-2 border-gray shadow-sm">
                             <div class="d-flex justify-content-center">
                                 <span>
-                                    <button class="btn btn-outline-danger" wire:click='cancelThumbnail'>Cancel</button>
+                                    @if (($isEdit && $newThumbnail) || $newThumbnail)
+                                        <button class="btn btn-outline-danger"
+                                            wire:click='cancelThumbnail'>Cancel</button>
+                                    @endif
+                                    @if ($isEdit && !$newThumbnail)
+                                        <button class="btn btn-danger" wire:click='btnDeleteThumbnail'>Delete</button>
+                                    @endif
                                 </span>
                             </div>
                         </div>
                     @endif
-                    <div wire:loading wire:target="thumbnail" class="profile-spinner-container mt-3">
+                    <div wire:loading wire:target="newThumbnail" class="profile-spinner-container mt-3">
                         <span class="spinner-border text-primary" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </span>

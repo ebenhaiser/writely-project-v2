@@ -82,7 +82,8 @@
                                     </div>
                                 @endif
                                 @if (Auth::check() && Auth::user()->id == $post->user_id)
-                                    <a href="#" class="btn btn-outline-primary">Edit</a>
+                                    <a href="{{ route('post.edit', ['slug' => $post->slug]) }}"
+                                        class="btn btn-outline-primary">Edit</a>
                                 @endif
                                 <div align="right" class="mt-1">
                                     <div class="d-flex justify-content-end gap-3">
