@@ -24,7 +24,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'defaultThumbnailDir',
-                'value' => 'img/default/thumbnail'
+                'value' => 'img/default/thumbnail/'
             ],
             [
                 'name' => 'defaultThumbnailExt',
