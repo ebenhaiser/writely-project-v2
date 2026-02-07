@@ -79,6 +79,11 @@
                 </select>
             </div>
             <div align="right">
+                @if ($isEdit == true)
+                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+                        Back
+                    </a>
+                @endif
                 <button class="btn btn-primary" wire:click='submit' wire:loading.attr='disabled'>
                     <span wire:loading.remove wire:target="submit">Post</span>
                     <span wire:loading wire:target="submit" class="spinner-border text-primary" role="status"></span>

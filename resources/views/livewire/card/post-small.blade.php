@@ -6,6 +6,11 @@
             object-fit: cover;
         }
 
+        .card-post-mini .card {
+            /* width: 100%; */
+            height: 555px;
+        }
+
         .card-post-mini .content-limit {
             display: -webkit-box;
             -webkit-line-clamp: 3;
