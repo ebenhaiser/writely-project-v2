@@ -25,12 +25,12 @@ class PostFactory extends Factory
             'title' => $title,
             'slug' => Str::slug($title) . '-' . $this->faker->unique()->numberBetween(1000, 9999),
             'content' => $this->generateContent(),
-            'thumbnail' => $this->faker->randomElement([
-                null,
-                $this->faker->imageUrl(800, 600, 'nature', true, 'post'),
-                $this->faker->imageUrl(800, 600, 'technology', true, 'post'),
-                $this->faker->imageUrl(800, 600, 'business', true, 'post'),
-            ]),
+            // 'thumbnail' => $this->faker->randomElement([
+            //     null,
+            //     $this->faker->imageUrl(800, 600, 'nature', true, 'post'),
+            //     $this->faker->imageUrl(800, 600, 'technology', true, 'post'),
+            //     $this->faker->imageUrl(800, 600, 'business', true, 'post'),
+            // ]),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];

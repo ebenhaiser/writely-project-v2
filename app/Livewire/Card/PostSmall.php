@@ -46,7 +46,7 @@ class PostSmall extends Component
         if ($post->thumbnail && Storage::disk('public')->exists($post->thumbnail)) {
             $this->thumbnailUrl = Storage::url($post->thumbnail);
         } else {
-            $this->thumbnailUrl = asset('https://placehold.co/600x400');
+            $this->thumbnailUrl = asset('img/default/Thumbnail/' . $post->slug . '.jpg');
         }
     }
 

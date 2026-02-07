@@ -74,6 +74,7 @@ class DatabaseSeeder extends Seeder
             BookmarkSeeder::class,
             NotificationSeeder::class,
             MessageSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }
