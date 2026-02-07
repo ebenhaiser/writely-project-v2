@@ -3,6 +3,7 @@
 namespace App\Livewire\Card;
 
 use App\Models\Follow;
+use App\Models\Setting;
 use Livewire\Component;
 use Livewire\Volt\Compilers\Mount;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,7 @@ class User extends Component
         if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
             $this->AvatarUrl = Storage::url($user->profile_picture);
         } else {
-            $this->AvatarUrl = asset('img/default_profile_picture.jpg');
+            $this->AvatarUrl = asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
 
         if (Auth::check()) {

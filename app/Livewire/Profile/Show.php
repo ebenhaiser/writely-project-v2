@@ -76,6 +76,7 @@ class Show extends Component
     public function setProfileNavbar($navbar)
     {
         $this->profileNavbar = $navbar;
+        $this->resetPage(); // INI KUNCI UTAMANYA
     }
 
     public function followModal($follow)
