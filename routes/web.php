@@ -13,6 +13,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{username}/setting', [ProfileController::class, 'setting'])->name('profile.setting');
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::get('/post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
+    Route::get('/history', [PageController::class, 'history'])->name('history');
 });
 
 Route::middleware('guest')->group(function () {

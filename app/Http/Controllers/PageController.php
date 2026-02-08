@@ -16,4 +16,10 @@ class PageController extends Controller
         $title = 'Posts Category | Writely.';
         return view('category', compact('title', 'category_slug'));
     }
+
+    public function history()
+    {
+        $title = 'Your History | Writely.';
+        return view('history', compact('title'));
+    }
 }
