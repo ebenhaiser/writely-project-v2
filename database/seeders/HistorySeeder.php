@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\History;
 
@@ -17,15 +16,15 @@ class HistorySeeder extends Seeder
         $totalUsers = 750;
         $totalPosts = 3000;
 
-        // Setiap user memiliki 30-100 riwayat pembacaan
         for ($userId = 1; $userId <= $totalUsers; $userId++) {
             // Jumlah history per user: 30-100
             $historyCount = rand(30, 100);
 
-            // Pilih post yang telah dilihat (unique per user)
+            // Pilih post yang telah dilihat (UNIK per user)
             $viewedPostIds = collect(range(1, $totalPosts))
                 ->shuffle()
-                ->take($historyCount);
+                ->take($historyCount)
+                ->unique(); // pastikan unik
 
             foreach ($viewedPostIds as $postId) {
                 $viewedAt = now()->subDays(rand(0, 365));
@@ -39,7 +38,7 @@ class HistorySeeder extends Seeder
                 ];
             }
 
-            // Insert per 1000 records
+            // Insert per 1000 records untuk efisiensi
             if (count($histories) >= 1000) {
                 History::insert($histories);
                 $histories = [];

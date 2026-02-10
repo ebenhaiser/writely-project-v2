@@ -12,15 +12,10 @@ class Home extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    protected function getPageName()
-    {
-        return 'postsPage';
-    }
-
     public function render()
     {
         $posts = ModelsPost::orderByDesc('created_at')
-            ->paginate(10, ['*'], $this->getPageName());
+            ->paginate(10);
 
         return view('livewire.page.home', compact('posts'));
     }
