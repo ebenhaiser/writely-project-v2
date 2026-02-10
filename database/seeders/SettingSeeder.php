@@ -30,6 +30,14 @@ class SettingSeeder extends Seeder
                 'name' => 'defaultThumbnailExt',
                 'value' => '.jpg'
             ],
+            [
+                'name' => 'profilePictureFolder',
+                'value' => 'profile_pictures'
+            ],
+            [
+                'name' => 'thumbnailFolder',
+                'value' => 'post_thumbnail'
+            ]
         ];
 
         foreach ($settings as $setting) {

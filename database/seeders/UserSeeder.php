@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin'),
             'bio' => 'Platform Administrator',
+            'isAdmin' => true,
             'profile_picture' => 'https://i.pravatar.cc/300?img=1',
             'email_verified_at' => now(),
             'created_at' => now()->subYear(),
