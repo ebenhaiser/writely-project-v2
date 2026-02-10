@@ -159,7 +159,7 @@ class Create extends Component
             }
         }
 
-        $filename =  $this->post->slug . '.' .
+        $filename =  $this->post->slug . '_' . Str::uuid()  . '.' .
             $this->newThumbnail->getClientOriginalExtension();
 
         $path = $this->newThumbnail->storeAs(

@@ -69,7 +69,7 @@ class ProfilePicture extends Component
                 Storage::disk('public')->delete($profile->profile_picture);
             }
 
-            $filename = $profile->username . Str::uuid() . '.' .
+            $filename = $profile->username . '_' . Str::uuid() . '.' .
                 $this->profile_picture->getClientOriginalExtension();
 
             $path = $this->profile_picture->storeAs(
