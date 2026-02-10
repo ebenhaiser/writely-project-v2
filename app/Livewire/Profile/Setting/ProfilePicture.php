@@ -73,7 +73,7 @@ class ProfilePicture extends Component
                 $this->profile_picture->getClientOriginalExtension();
 
             $path = $this->profile_picture->storeAs(
-                'profile_pictures',
+                Setting::value('profilePictureFolder'),
                 $filename,
                 'public'
             );

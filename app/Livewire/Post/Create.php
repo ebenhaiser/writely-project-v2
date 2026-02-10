@@ -3,6 +3,7 @@
 namespace App\Livewire\Post;
 
 use App\Models\Post;
+use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -162,7 +163,7 @@ class Create extends Component
             $this->newThumbnail->getClientOriginalExtension();
 
         $path = $this->newThumbnail->storeAs(
-            'post_thumbnail',
+            Setting::value('thumbnailFolder'),
             $filename,
             'public'
         );
