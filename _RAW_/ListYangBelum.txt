@@ -1,8 +1,8 @@
-History Page
-Bookmark Page
+History Page - DONE
+Bookmark Page - DONE
 Follow Page
-Edit Post
-Create Post
+Edit Post - DONE
+Create Post - DONE
 Search Page
 Chatting
 Notification
