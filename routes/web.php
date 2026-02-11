@@ -7,14 +7,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PageController;
+use App\Livewire\Profile\Setting\Profile;
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/profile/{username}/setting', [ProfileController::class, 'setting'])->name('profile.setting');
+    Route::get('/profile/setting', [ProfileController::class, 'setting'])->name('profile.setting');
+    Route::get('/profile/history', [ProfileController::class, 'history'])->name('profile.history');
+    Route::get('/profile/bookmark', [ProfileController::class, 'bookmark'])->name('profile.bookmark');
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::get('/post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
-    Route::get('/history', [PageController::class, 'history'])->name('history');
-    Route::get('/bookmark', [PageController::class, 'bookmark'])->name('bookmark');
 });
 
 Route::middleware('guest')->group(function () {

@@ -19,15 +19,15 @@
                         <i class="ti ti-user"></i>
                         <span>Social Profile</span>
                     </a>
-                    <a href="{{ route('profile.setting', ['username' => $username]) }}" class="dropdown-item">
+                    <a href="{{ route('profile.setting') }}" class="dropdown-item">
                         <i class="ti ti-settings"></i>
                         <span>Account Settings</span>
                     </a>
-                    <a href="{{ route('bookmark') }}" class="dropdown-item">
+                    <a href="{{ route('profile.bookmark') }}" class="dropdown-item">
                         <i class="ti ti-bookmarks"></i>
                         <span>Bookmark</span>
                     </a>
-                    <a href="{{ route('history') }}" class="dropdown-item">
+                    <a href="{{ route('profile.history') }}" class="dropdown-item">
                         <i class="ti ti-clock"></i>
                         <span>History</span>
                     </a>

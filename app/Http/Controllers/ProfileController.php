@@ -25,17 +25,22 @@ class ProfileController extends Controller
         return view('profile.show', compact('userId', 'title'));
     }
 
-    public function setting($username)
+    public function setting()
     {
-        if (!Auth::check()) {
-            return redirect()->route('profile.show', ['username' => Auth::user()->username]);
-        }
-
-        if (!$username || $username != Auth::user()->username) {
-            return redirect()->route('profile.setting', ['username' => Auth::user()->username]);
-        }
         $title = 'Edit Profile | Writely.';
 
         return view('profile.setting', compact('title'));
+    }
+
+    public function history()
+    {
+        $title = 'Your History | Writely.';
+        return view('profile.history', compact('title'));
+    }
+
+    public function bookmark()
+    {
+        $title = 'Your Bookmarks | Writely.';
+        return view('profile.bookmark', compact('title'));
     }
 }

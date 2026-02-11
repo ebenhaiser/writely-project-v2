@@ -112,6 +112,6 @@ class Show extends Component
 
     public function editProfile()
     {
-        return redirect()->route('profile.setting', ['username' => Auth::user()->username]);
+        return redirect()->route('profile.setting');
     }
 }
