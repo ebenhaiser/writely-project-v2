@@ -2,33 +2,31 @@
 
 namespace App\Livewire\Page;
 
-use App\Models\Bookmark as ModelsBookmark;
 use App\Models\Category;
+use App\Models\History as ModelsHistory;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Component;
 
-
-class Bookmark extends Component
+class History extends Component
 {
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+
     public $categories;
     public $category_id;
     public $sortBy;
     public $keyword;
-
     public function mount()
     {
         $this->categories = Category::orderBy('name')->get();
     }
-
     public function render()
     {
-        $postsQuery = Post::join('bookmarks', 'posts.id', '=', 'bookmarks.post_id')->join('users', 'users.id', '=', 'posts.user_id')
-            ->where('bookmarks.user_id', Auth::id());
+        $postsQuery = Post::join('histories', 'posts.id', '=', 'histories.post_id')->join('users', 'users.id', '=', 'posts.user_id')
+            ->where('histories.user_id', Auth::id());
 
         if ($this->keyword && $this->keyword != '') {
             $postsQuery->where('posts.title', 'like', '%' . $this->keyword . '%')->orWhere('posts.content', 'like', '%' . $this->keyword . '%')->orWhere('users.name', 'like', '%' . $this->keyword . '%')->orWhere('users.username', 'like', '%' . $this->keyword . '%');
@@ -40,25 +38,40 @@ class Bookmark extends Component
 
         if ($this->sortBy && $this->sortBy != '') {
             if ($this->sortBy === 'latest') {
-                $postsQuery->orderBy('bookmarks.updated_at');
+                $postsQuery->orderBy('histories.updated_at');
             } else {
-                $postsQuery->orderByDesc('bookmarks.updated_at');
+                $postsQuery->orderByDesc('histories.updated_at');
             }
         } else {
-            $postsQuery->orderByDesc('bookmarks.updated_at');
+            $postsQuery->orderByDesc('histories.updated_at');
         }
 
         $posts = $posts = $postsQuery
             ->select('posts.*')
             ->paginate(12);
-        return view('livewire.page.bookmark', compact('posts'));
+        return view('livewire.page.history', compact('posts'));
     }
 
     public function delete($postId)
     {
-        $history = ModelsBookmark::where('user_id', Auth::id())->where('post_id', $postId)->first();
+        $history = ModelsHistory::where('user_id', Auth::id())->where('post_id', $postId)->first();
         if ($history) {
             $history->delete();
         }
+    }
+
+    public function updatedCategoryId()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSortBy()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedKeyword()
+    {
+        $this->resetPage();
     }
 }

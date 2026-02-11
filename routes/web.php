@@ -28,6 +28,8 @@ Route::get('/category', [PageController::class, 'category'])->name('category');
 
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');
 Route::get('/profile/{username}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile/{username}/follower', [ProfileController::class, 'follower'])->name('profile.follower');
+Route::get('/profile/{username}/following', [ProfileController::class, 'following'])->name('profile.following');
 
 Route::fallback(function () {
     return redirect('/');

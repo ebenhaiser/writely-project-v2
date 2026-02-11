@@ -43,4 +43,34 @@ class ProfileController extends Controller
         $title = 'Your Bookmarks | Writely.';
         return view('profile.bookmark', compact('title'));
     }
+
+    public function follower($username)
+    {
+        $user = User::where('username', $username)->first();
+        if (!$user) {
+            return redirect()->route('home');
+        }
+
+        $title = '@' . $user->username . "'s Follower | Writely.";
+
+        $follow = 'follower';
+
+        $username = $user->username;
+        return view('profile.follow', compact('title', 'username', 'follow'));
+    }
+
+    public function following($username)
+    {
+        $user = User::where('username', $username)->first();
+        if (!$user) {
+            return redirect()->route('home');
+        }
+
+        $title = '@' . $user->username . "'s Following | Writely.";
+
+        $follow = 'following';
+
+        $username = $user->username;
+        return view('profile.follow', compact('title', 'username', 'follow'));
+    }
 }

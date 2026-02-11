@@ -1,4 +1,4 @@
 <x-layout.main>
     <x-slot:title>{{ $title }}</x-slot>
-    <livewire:page.history />
+    <livewire:profile.history />
 </x-layout.main>

@@ -170,7 +170,7 @@
                             @endforeach
                             @if (count($followModalData) > 10)
                                 <div align="Center">
-                                    <button class="btn btn-outline-secondary">See More</button>
+                                    <button class="btn btn-outline-secondary" wire:click="btnSeeMore">See More</button>
                                 </div>
                             @endif
                         @else

@@ -21,6 +21,7 @@ class Show extends Component
     public $profileNavbar = 'post';
     public $followModalTitle, $followModalData = [];
     public $avatarUrl;
+    public $follow;
 
     public function mount($userId)
     {
@@ -81,6 +82,7 @@ class Show extends Component
 
     public function followModal($follow)
     {
+        $this->follow = $follow;
         if ($follow == 'following') {
             $this->followModalTitle = '@' . $this->profile->username . ' Following';
             $this->followModalData = $this->profile->following()->get();
@@ -113,5 +115,19 @@ class Show extends Component
     public function editProfile()
     {
         return redirect()->route('profile.setting');
+    }
+
+    public function btnSeeMore()
+    {
+        if ($this->follow == 'following') {
+            return redirect()->route('profile.following', ['username' => $this->profile->username]);
+        } elseif ($this->follow == 'follower') {
+            return redirect()->route('profile.follower', ['username' => $this->profile->username]);
+        }
+    }
+
+    public function updatedProfileNavbar()
+    {
+        $this->resetPage();
     }
 }
