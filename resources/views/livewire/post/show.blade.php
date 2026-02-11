@@ -51,8 +51,8 @@
                             </div>
                             <div class="col-md-2" align="right">
                                 @if (Auth::check())
-                                    <div class="d-flex gap-1">
-                                        <button class="btn btn-outline-primary mb-1"
+                                    <div class="d-flex gap-1 justify-content-end">
+                                        <button class="btn btn-sm btn-outline-primary mb-1"
                                             wire:click="likeToggle({{ $post->id }})" wire:loading.attr="disabled">
                                             <span wire:loading.remove wire:target="likeToggle({{ $post->id }})">
                                                 @if (!$post->likes->contains('user_id', Auth::id()))
@@ -65,7 +65,7 @@
                                                 <span class="spinner-border spinner-border-sm" role="status"></span>
                                             </span>
                                         </button>
-                                        <button class="btn btn-outline-primary mb-1"
+                                        <button class="btn btn-sm btn-outline-primary mb-1"
                                             wire:click="bookmarkToggle({{ $post->id }})"
                                             wire:loading.attr="disabled">
                                             <span wire:loading.remove wire:target="bookmarkToggle({{ $post->id }})">
