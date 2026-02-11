@@ -49,7 +49,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h1>Your History</h1>
+            <h1>Your Bookmark</h1>
         </div>
         <div class="card-body">
             <div class="row">
@@ -96,9 +96,4 @@
     @if ($posts)
         {{ $posts->links() }}
     @endif
-
-
-
-
-
 </div>

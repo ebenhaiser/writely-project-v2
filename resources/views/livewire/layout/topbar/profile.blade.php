@@ -23,7 +23,7 @@
                         <i class="ti ti-settings"></i>
                         <span>Account Settings</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ route('bookmark') }}" class="dropdown-item">
                         <i class="ti ti-bookmarks"></i>
                         <span>Bookmark</span>
                     </a>

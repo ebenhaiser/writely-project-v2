@@ -14,6 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::get('/post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::get('/history', [PageController::class, 'history'])->name('history');
+    Route::get('/bookmark', [PageController::class, 'bookmark'])->name('bookmark');
 });
 
 Route::middleware('guest')->group(function () {

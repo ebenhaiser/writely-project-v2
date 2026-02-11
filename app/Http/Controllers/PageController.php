@@ -22,4 +22,10 @@ class PageController extends Controller
         $title = 'Your History | Writely.';
         return view('history', compact('title'));
     }
+
+    public function bookmark()
+    {
+        $title = 'Your Bookmarks | Writely.';
+        return view('bookmark', compact('title'));
+    }
 }
