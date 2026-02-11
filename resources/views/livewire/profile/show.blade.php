@@ -139,7 +139,9 @@
         wire:target="setProfileNavbar('post'), setProfileNavbar('like'), setProfileNavbar('comment')">
         <div class="row">
             @forelse ($posts as $post)
-                <x-cards.post-small :post="$post" />
+                <div class="col-md-4">
+                    <x-cards.post-small :post="$post" />
+                </div>
             @empty
                 <div class="col-md-12" align="center">
                     <i>No post yet.</i>

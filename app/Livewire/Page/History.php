@@ -3,6 +3,7 @@
 namespace App\Livewire\Page;
 
 use App\Models\Category;
+use App\Models\History as ModelsHistory;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
@@ -49,5 +50,13 @@ class History extends Component
             ->select('posts.*')
             ->paginate(12);
         return view('livewire.page.history', compact('posts'));
+    }
+
+    public function deleteHistory($postId)
+    {
+        $history = ModelsHistory::where('user_id', Auth::id())->where('post_id', $postId)->first();
+        if ($history) {
+            $history->delete();
+        }
     }
 }
