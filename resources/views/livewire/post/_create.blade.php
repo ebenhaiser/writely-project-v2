@@ -1,7 +1,4 @@
 <div>
-    <!-- Include Quill stylesheet -->
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-
     <style>
         .ckeditor-container img {
             max-height: 400px;
@@ -67,13 +64,7 @@
 
             <div class="mb-3">
                 <label for="" class="form-label">Content</label>
-                {{-- <textarea name="content" class="form-control" rows="20" required wire:model='content'></textarea> --}}
-                <!-- Create the editor container -->
-                <div wire:ignore>
-                    <div id="editor">
-                        {!! $content !!}
-                    </div>
-                </div>
+                <textarea name="content" class="form-control" rows="20" required wire:model='content'></textarea>
             </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Category</label>
@@ -129,22 +120,4 @@
             </div>
         </div>
     @endif --}}
-
-    <!-- Include the Quill library -->
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-
-    <!-- Initialize Quill editor -->
-    <script>
-        document.addEventListener('livewire:init', () => {
-            const quill = new Quill('#editor', {
-                theme: 'snow'
-            });
-
-            // setiap content berubah
-            quill.on('text-change', function() {
-                @this.set('content', quill.root.innerHTML);
-            });
-        });
-    </script>
-
 </div>

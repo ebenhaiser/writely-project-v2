@@ -46,7 +46,8 @@
                         {{ $categoryName }}
                     </a>
                     <p class="card-text content-limit">
-                        {{ Str::limit($content, 250, '...') }}
+                        {{ Str::limit(strip_tags($content), 250, '...') }}
+
                     </p>
                     {{-- <a href="#" class="card-link">Card link</a> --}}
                     <div class="d-flex gap-2" style="color: gray">

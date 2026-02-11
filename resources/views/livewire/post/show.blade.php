@@ -100,7 +100,7 @@
                         @if ($thumbnail)
                             <img src="{{ $thumbnail }}" class="mb-4" alt="...">
                         @endif
-                        <div class="ckeditor-container">{!! str_replace("\n", '<br>', e($post->content)) !!}
+                        <div class="">{!! $post->content !!}
                         </div>
                     </div>
                     <div class="card-footer" align="center">
