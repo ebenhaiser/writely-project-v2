@@ -1,6 +1,6 @@
 History Page - DONE
 Bookmark Page - DONE
-Follow Page
+Follow Page - DONE
 Edit Post - DONE
 Create Post - DONE
 Search Page
