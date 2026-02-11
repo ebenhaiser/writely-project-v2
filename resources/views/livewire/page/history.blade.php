@@ -27,13 +27,15 @@
             </div>
         </div>
     </div>
-    @forelse ($posts as $post)
-        <x-cards.post-large :post="$post" wire:key="post-{{ $post->id }}" />
-    @empty
-        <div class="col-md-12" align="center">
-            <i>No post yet.</i>
-        </div>
-    @endforelse
+    <div class="row">
+        @forelse ($posts as $post)
+            <x-cards.post-small :post="$post" wire:key="post-{{ $post->id }}" />
+        @empty
+            <div class="col-md-12" align="center">
+                <i>No post yet.</i>
+            </div>
+        @endforelse
+    </div>
     @if ($posts)
         {{ $posts->links() }}
     @endif

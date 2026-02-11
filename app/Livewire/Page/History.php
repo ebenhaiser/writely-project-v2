@@ -37,17 +37,17 @@ class History extends Component
 
         if ($this->sortBy && $this->sortBy != '') {
             if ($this->sortBy === 'latest') {
-                $postsQuery->orderBy('histories.created_at');
+                $postsQuery->orderBy('histories.updated_at');
             } else {
-                $postsQuery->orderByDesc('histories.created_at');
+                $postsQuery->orderByDesc('histories.updated_at');
             }
         } else {
-            $postsQuery->orderBy('histories.created_at');
+            $postsQuery->orderByDesc('histories.updated_at');
         }
 
         $posts = $posts = $postsQuery
             ->select('posts.*')
-            ->paginate(10);
+            ->paginate(12);
         return view('livewire.page.history', compact('posts'));
     }
 }

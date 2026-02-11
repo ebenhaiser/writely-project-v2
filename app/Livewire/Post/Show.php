@@ -9,6 +9,7 @@ use App\Models\Follow;
 use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Bookmark;
+use App\Models\History;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,6 +24,9 @@ class Show extends Component
     public function mount($postId)
     {
         $this->post = Post::findOrFail($postId);
+
+        $this->createHistory();
+
         $this->likers = User::whereHas('likes', function ($query) use ($postId) {
             $query->where('post_id', $postId);
         })->get();
@@ -104,6 +108,21 @@ class Show extends Component
                 ]);
             }
             $this->mount($this->post->id);
+        }
+    }
+
+    public function createHistory()
+    {
+        if (Auth::check()) {
+            if (!History::where('user_id', Auth::user()->id)->where('post_id', $this->post->id)->exists()) {
+                $history = new History();
+                $history->user_id = Auth::user()->id;
+                $history->post_id = $this->post->id;
+                $history->save();
+            } else {
+                $existingHistory = History::where('user_id', Auth::user()->id)->where('post_id', $this->post->id)->first();
+                $existingHistory->touch();
+            }
         }
     }
 }
