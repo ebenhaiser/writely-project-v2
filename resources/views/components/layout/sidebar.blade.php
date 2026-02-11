@@ -26,9 +26,9 @@
                     <li class="pc-item">
                         <a href="#" class="pc-link">
                             <span class="pc-micon">
-                                <i class='ti ti-users'></i>
+                                <i class='ti ti-compass'></i>
                             </span>
-                            <span class="pc-mtext">Following</span>
+                            <span class="pc-mtext">Explore</span>
                         </a>
                     </li>
                 @endif
