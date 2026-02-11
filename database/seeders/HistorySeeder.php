@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\History;
+use App\Models\Post;
+use App\Models\User;
 
 class HistorySeeder extends Seeder
 {
@@ -13,8 +15,8 @@ class HistorySeeder extends Seeder
     public function run(): void
     {
         $histories = [];
-        $totalUsers = 750;
-        $totalPosts = 3000;
+        $totalUsers = User::count();
+        $totalPosts = Post::count();
 
         for ($userId = 1; $userId <= $totalUsers; $userId++) {
             // Jumlah history per user: 30-100
@@ -32,7 +34,6 @@ class HistorySeeder extends Seeder
                 $histories[] = [
                     'user_id' => $userId,
                     'post_id' => $postId,
-                    'viewed_at' => $viewedAt,
                     'created_at' => $viewedAt,
                     'updated_at' => $viewedAt,
                 ];

@@ -9,11 +9,7 @@ class History extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'post_id', 'viewed_at'];
-
-    protected $casts = [
-        'viewed_at' => 'datetime',
-    ];
+    protected $fillable = ['user_id', 'post_id'];
 
     public function user()
     {

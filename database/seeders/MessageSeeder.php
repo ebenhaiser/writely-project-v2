@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Message;
+use App\Models\User;
 
 class MessageSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class MessageSeeder extends Seeder
     public function run(): void
     {
         $messages = [];
-        $totalUsers = 750;
+        $totalUsers = User::count();
         $messageCount = 1000;
 
         for ($i = 0; $i < $messageCount; $i++) {

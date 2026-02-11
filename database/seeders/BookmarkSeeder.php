@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Bookmark;
+use App\Models\Post;
+use App\Models\User;
 
 class BookmarkSeeder extends Seeder
 {
@@ -14,8 +16,8 @@ class BookmarkSeeder extends Seeder
     public function run(): void
     {
         $bookmarks = [];
-        $totalUsers = 750;
-        $totalPosts = 3000;
+        $totalUsers = User::count();
+        $totalPosts = Post::count();
 
         // Setiap user bookmark 10-30 post
         for ($userId = 1; $userId <= $totalUsers; $userId++) {

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Notification;
+use App\Models\User;
+use App\Models\Post;
 
 class NotificationSeeder extends Seeder
 {
@@ -13,8 +15,8 @@ class NotificationSeeder extends Seeder
     public function run(): void
     {
         $notifications = [];
-        $totalUsers = 750;
-        $totalPosts = 3000;
+        $totalUsers = User::count();
+        $totalPosts = Post::count();
         $notificationCount = 2000; // Total notifikasi
 
         $types = ['like', 'comment', 'follow'];

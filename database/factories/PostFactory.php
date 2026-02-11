@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,7 @@ class PostFactory extends Factory
         $title = $this->faker->sentence(6);
 
         return [
-            'user_id' => $this->faker->numberBetween(1, 750),
+            'user_id' => $this->faker->numberBetween(1, User::count()),
             'category_id' => $this->faker->numberBetween(1, 20),
             'title' => $title,
             'slug' => Str::slug($title) . '-' . $this->faker->unique()->numberBetween(1000, 9999),

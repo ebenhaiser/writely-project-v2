@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Like;
+use App\Models\Post;
+use App\Models\User;
 
 class LikeSeeder extends Seeder
 {
@@ -14,8 +16,8 @@ class LikeSeeder extends Seeder
     public function run(): void
     {
         $likes = [];
-        $totalUsers = 750;
-        $totalPosts = 3000;
+        $totalUsers = User::count();
+        $totalPosts = Post::count();
 
         // Setiap user akan like 50-200 post secara acak
         for ($userId = 1; $userId <= $totalUsers; $userId++) {

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Comment;
+use App\Models\Post;
+use App\Models\User;
 
 class CommentSeeder extends Seeder
 {
@@ -14,8 +16,8 @@ class CommentSeeder extends Seeder
     public function run(): void
     {
         $comments = [];
-        $totalUsers = 750;
-        $totalPosts = 3000;
+        $totalUsers = User::count();
+        $totalPosts = Post::count();
         $totalComments = 5000; // Total komentar yang ingin dibuat
 
         // Tahap 1: Buat komentar utama (parent)

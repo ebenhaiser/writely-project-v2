@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Follow;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class FollowSeeder extends Seeder
@@ -14,7 +15,7 @@ class FollowSeeder extends Seeder
      */
     public function run(): void
     {
-        $totalUsers = 750;
+        $totalUsers = User::count();
         $follows = [];
 
         // Setiap user akan follow 30-100 user lainnya
