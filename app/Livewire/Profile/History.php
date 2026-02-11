@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Page;
+namespace App\Livewire\Profile;
 
 use App\Models\Category;
 use App\Models\History as ModelsHistory;
@@ -29,7 +29,12 @@ class History extends Component
             ->where('histories.user_id', Auth::id());
 
         if ($this->keyword && $this->keyword != '') {
-            $postsQuery->where('posts.title', 'like', '%' . $this->keyword . '%')->orWhere('posts.content', 'like', '%' . $this->keyword . '%')->orWhere('users.name', 'like', '%' . $this->keyword . '%')->orWhere('users.username', 'like', '%' . $this->keyword . '%');
+            $postsQuery->where(function ($q) {
+                $q->where('posts.title', 'like', '%' . $this->keyword . '%')
+                    ->orWhere('posts.content', 'like', '%' . $this->keyword . '%')
+                    ->orWhere('users.name', 'like', '%' . $this->keyword . '%')
+                    ->orWhere('users.username', 'like', '%' . $this->keyword . '%');
+            });
         }
 
         if ($this->category_id && $this->category_id != '') {

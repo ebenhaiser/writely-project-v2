@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Page;
+namespace App\Livewire\Profile;
 
 use App\Models\Bookmark as ModelsBookmark;
 use App\Models\Category;
@@ -27,11 +27,17 @@ class Bookmark extends Component
 
     public function render()
     {
-        $postsQuery = Post::join('bookmarks', 'posts.id', '=', 'bookmarks.post_id')->join('users', 'users.id', '=', 'posts.user_id')
+        $postsQuery = Post::join('bookmarks', 'posts.id', '=', 'bookmarks.post_id')
+            ->join('users', 'users.id', '=', 'posts.user_id')
             ->where('bookmarks.user_id', Auth::id());
 
         if ($this->keyword && $this->keyword != '') {
-            $postsQuery->where('posts.title', 'like', '%' . $this->keyword . '%')->orWhere('posts.content', 'like', '%' . $this->keyword . '%')->orWhere('users.name', 'like', '%' . $this->keyword . '%')->orWhere('users.username', 'like', '%' . $this->keyword . '%');
+            $postsQuery->where(function ($q) {
+                $q->where('posts.title', 'like', '%' . $this->keyword . '%')
+                    ->orWhere('posts.content', 'like', '%' . $this->keyword . '%')
+                    ->orWhere('users.name', 'like', '%' . $this->keyword . '%')
+                    ->orWhere('users.username', 'like', '%' . $this->keyword . '%');
+            });
         }
 
         if ($this->category_id && $this->category_id != '') {
@@ -48,7 +54,7 @@ class Bookmark extends Component
             $postsQuery->orderByDesc('bookmarks.updated_at');
         }
 
-        $posts = $posts = $postsQuery
+        $posts = $postsQuery
             ->select('posts.*')
             ->paginate(12);
         return view('livewire.page.bookmark', compact('posts'));
