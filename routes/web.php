@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PageController;
@@ -11,11 +12,19 @@ use App\Livewire\Profile\Setting\Profile;
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // profile
     Route::get('/profile/setting', [ProfileController::class, 'setting'])->name('profile.setting');
     Route::get('/profile/history', [ProfileController::class, 'history'])->name('profile.history');
     Route::get('/profile/bookmark', [ProfileController::class, 'bookmark'])->name('profile.bookmark');
+
+    // post
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::get('/post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
+
+    // messages
+    Route::get('/messages', [ChatController::class, 'index'])->name('messages');
+    Route::get('/messages/{username}', [ChatController::class, 'with'])->name('messaging.with');
 });
 
 Route::middleware('guest')->group(function () {

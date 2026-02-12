@@ -41,8 +41,8 @@
                 </li> --}}
 
                 @if (Auth::check())
-                    <li class="pc-item">
-                        <a href="#" class="pc-link">
+                    <li class="pc-item {{ request()->routeIs('messages') ? 'active' : '' }}">
+                        <a href="{{ route('messages') }}" class="pc-link">
                             <span class="pc-micon">
                                 <i class='ti ti-messages'></i>
                             </span>
