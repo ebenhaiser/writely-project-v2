@@ -41,7 +41,7 @@
                 <img src="{{ $thumbnailUrl }}" class="card-img-top" alt="Thumbnail">
                 <div class="card-body">
                     <h2 class="card-title title-limit">{{ $title }}</h2>
-                    <a href="{{ route('category', ['category_slug' => $categorySlug]) }}"
+                    <a href="{{ route('explore', ['category' => $categorySlug]) }}"
                         class="card-subtitle mb-2 badge text-bg-info" style="color: white">
                         {{ $categoryName }}
                     </a>

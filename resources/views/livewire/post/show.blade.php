@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <h1 class="">{{ $post->title }}</h1>
-                                <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}"
+                                <a href="{{ route('explore', ['category' => $post->category->slug]) }}"
                                     class="badge text-bg-info" style="color: white">
                                     {{ $post->category->name }}
                                 </a>

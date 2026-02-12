@@ -24,6 +24,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/explore', [PageController::class, 'explore'])->name('explore');
 Route::get('/category', [PageController::class, 'category'])->name('category');
 
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');

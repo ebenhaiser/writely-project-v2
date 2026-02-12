@@ -16,16 +16,16 @@
                             style="object-fit: cover; height:220px; border-radius: 0.5em">
                     </div>
                     <div class="col-md-6">
-                        <div class="row mb-2 mt-2">
-                            <div class="col-sm-8">
+                        <div class="d-flex justify-content-between mb-2 mt-2">
+                            <span class="">
                                 <h2 class="card-title">{{ $title }}</h2>
-                            </div>
-                            <d class="col-sm-4" align="right">
-                                <a href="{{ route('category', ['category_slug' => $categorySlug]) }}"
+                            </span>
+                            <span class="" align="right">
+                                <a href="{{ route('explore', ['category' => $categorySlug]) }}"
                                     class="badge text-bg-info" style="color: white">
                                     {{ $categoryName }}
                                 </a>
-                            </d>
+                            </span>
                         </div>
                         <p class="card-text">
                             {{ Str::limit(strip_tags($content), 250, '...') }}

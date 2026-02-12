@@ -22,25 +22,23 @@
                     </a>
                 </li>
 
-                @if (Auth::check())
-                    <li class="pc-item">
-                        <a href="#" class="pc-link">
-                            <span class="pc-micon">
-                                <i class='ti ti-compass'></i>
-                            </span>
-                            <span class="pc-mtext">Explore</span>
-                        </a>
-                    </li>
-                @endif
+                <li class="pc-item {{ request()->routeIs('explore') ? 'active' : '' }}">
+                    <a href="{{ route('explore') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <i class='ti ti-compass'></i>
+                        </span>
+                        <span class="pc-mtext">Explore</span>
+                    </a>
+                </li>
 
-                <li class="pc-item {{ request()->routeIs('category') ? 'active' : '' }}">
+                {{-- <li class="pc-item {{ request()->routeIs('category') ? 'active' : '' }}">
                     <a href="{{ route('category') }}" class="pc-link">
                         <span class="pc-micon">
                             <i class='ti ti-tag'></i>
                         </span>
                         <span class="pc-mtext">Category</span>
                     </a>
-                </li>
+                </li> --}}
 
                 @if (Auth::check())
                     <li class="pc-item">

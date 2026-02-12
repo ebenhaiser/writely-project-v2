@@ -11,6 +11,12 @@ class PageController extends Controller
         return view('home');
     }
 
+    public function explore()
+    {
+        $title = 'Explore Posts | Writely.';
+        return view('explore', compact('title'));
+    }
+
     public function category($category_slug = null)
     {
         $title = 'Posts Category | Writely.';
