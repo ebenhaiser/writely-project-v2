@@ -35,164 +35,166 @@
             }
         }
     </style>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="show-post">
-                <div class="card shadow">
-                    <div class="card-header">
-                        {{-- <div class="d-flex justify-content-between"> --}}
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h1 class="">{{ $post->title }}</h1>
+    <div class="">
+        <div class="show-post">
+            <div class="card shadow">
+                <div class="card-header">
+                    {{-- <div class="d-flex justify-content-between"> --}}
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h1 class="mb-0">{{ $post->title }}</h1>
+                            <div class="mb-2">By: <a href="{{ route('profile.show', ['username' => $author->username]) }}"
+                                    style="color: inherit; text-decoration: none;">{{ $post->user->name . ' (@' . $post->user->username . ')' }}</a>
+                            </div>
+                            <div>
                                 <a href="{{ route('explore', ['category' => $post->category->slug]) }}"
                                     class="badge text-bg-info" style="color: white">
                                     {{ $post->category->name }}
                                 </a>
                             </div>
-                            <div class="col-md-3" align="right">
-                                @if (Auth::check())
-                                    <div class="d-flex gap-1 justify-content-end">
-                                        <button class="btn btn-sm btn-outline-primary mb-1"
-                                            wire:click="likeToggle({{ $post->id }})" wire:loading.attr="disabled">
-                                            <span wire:loading.remove wire:target="likeToggle({{ $post->id }})">
-                                                @if (!$post->likes->contains('user_id', Auth::id()))
-                                                    <i class="bi bi-hand-thumbs-up"></i>
-                                                @else
-                                                    <i class="bi bi-hand-thumbs-up-fill"></i>
-                                                @endif
-                                            </span>
-                                            <span wire:loading wire:target="likeToggle({{ $post->id }})">
-                                                <span class="spinner-border spinner-border-sm" role="status"></span>
-                                            </span>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-primary mb-1"
-                                            wire:click="bookmarkToggle({{ $post->id }})"
-                                            wire:loading.attr="disabled">
-                                            <span wire:loading.remove wire:target="bookmarkToggle({{ $post->id }})">
-                                                @if (!$post->bookmarks->contains('user_id', Auth::id()))
-                                                    <i class="bi bi-bookmark"></i>
-                                                @else
-                                                    <i class="bi bi-bookmark-fill"></i>
-                                                @endif
-                                            </span>
-                                            <span wire:loading wire:target="bookmarkToggle({{ $post->id }})">
-                                                <span class="spinner-border spinner-border-sm" role="status"></span>
-                                            </span>
-                                        </button>
-                                        @if (Auth::check() && Auth::user()->id == $post->user_id)
-                                            <a href="{{ route('post.edit', ['slug' => $post->slug]) }}"
-                                                class="btn btn-sm btn-outline-primary">Edit</a>
-                                        @endif
-                                    </div>
-                                @endif
-                                <div align="right" class="mt-1">
-                                    <div class="d-flex justify-content-end gap-3">
-                                        <span data-bs-toggle="modal" data-bs-target="#likerModal"><i
-                                                class="ti ti-thumb-up"></i>{{ ' ' . $post->likes->count() }}
+                        </div>
+                        <div class="col-md-3" align="right">
+                            @if (Auth::check())
+                                <div class="d-flex gap-1 justify-content-end">
+                                    <button class="btn btn-sm btn-outline-primary mb-1"
+                                        wire:click="likeToggle({{ $post->id }})" wire:loading.attr="disabled">
+                                        <span wire:loading.remove wire:target="likeToggle({{ $post->id }})">
+                                            @if (!$post->likes->contains('user_id', Auth::id()))
+                                                <i class="bi bi-hand-thumbs-up"></i>
+                                            @else
+                                                <i class="bi bi-hand-thumbs-up-fill"></i>
+                                            @endif
                                         </span>
-                                        <span><i class="ti ti-bookmark"></i>{{ ' ' . $post->bookmarks->count() }}
+                                        <span wire:loading wire:target="likeToggle({{ $post->id }})">
+                                            <span class="spinner-border spinner-border-sm" role="status"></span>
                                         </span>
-                                        <span><i class="ti ti-eye"></i>{{ ' ' . $post->histories->count() }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary mb-1"
+                                        wire:click="bookmarkToggle({{ $post->id }})" wire:loading.attr="disabled">
+                                        <span wire:loading.remove wire:target="bookmarkToggle({{ $post->id }})">
+                                            @if (!$post->bookmarks->contains('user_id', Auth::id()))
+                                                <i class="bi bi-bookmark"></i>
+                                            @else
+                                                <i class="bi bi-bookmark-fill"></i>
+                                            @endif
                                         </span>
-                                    </div>
+                                        <span wire:loading wire:target="bookmarkToggle({{ $post->id }})">
+                                            <span class="spinner-border spinner-border-sm" role="status"></span>
+                                        </span>
+                                    </button>
+                                    @if (Auth::check() && Auth::user()->id == $post->user_id)
+                                        <a href="{{ route('post.edit', ['slug' => $post->slug]) }}"
+                                            class="btn btn-sm btn-outline-primary">Edit</a>
+                                    @endif
+                                </div>
+                            @endif
+                            <div align="right" class="mt-1">
+                                <div class="d-flex justify-content-end gap-3">
+                                    <span data-bs-toggle="modal" data-bs-target="#likerModal"><i
+                                            class="ti ti-thumb-up"></i>{{ ' ' . $post->likes->count() }}
+                                    </span>
+                                    <span><i class="ti ti-bookmark"></i>{{ ' ' . $post->bookmarks->count() }}
+                                    </span>
+                                    <span><i class="ti ti-eye"></i>{{ ' ' . $post->histories->count() }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body post-container">
-                        @if ($thumbnail)
-                            <img src="{{ $thumbnail }}" class="mb-4" alt="...">
-                        @endif
-                        <div class="">{!! $post->content !!}
-                        </div>
+                </div>
+                <div class="card-body post-container">
+                    @if ($thumbnail)
+                        <img src="{{ $thumbnail }}" class="mb-4" alt="...">
+                    @endif
+                    <div class="">{!! $post->content !!}
                     </div>
-                    <div class="card-footer" align="center">
-                        <p>Created at: {{ $post->created_at->format('d F Y') }}</p>
+                </div>
+                <div class="card-footer" align="center">
+                    <p>Created at: {{ $post->created_at->format('d F Y') }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="">
+        <div class="author-and-comments-section">
+            <div class="card author-section shadow">
+                <div class="card-header">
+                    <h3>Author</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('profile.show', ['username' => $author->username]) }}"
+                            style="color: inherit; text-decoration: none;">
+                            <span class="d-flex">
+                                <span>
+                                    <div class="me-2">
+                                        <img src="{{ $authorProfilePicture }}" alt=""
+                                            class="rounded-circle  border-4 border-white-color-40">
+                                    </div>
+                                </span>
+                                <span class="my-auto">
+                                    <h5 class="mt-0 mb-0">{{ $author->name }}</h5>
+                                    <p class="mb-0 mt-0 text-body" style="text-decoration: none">
+                                        {{ '@' . $author->username }}
+                                    </p>
+                                </span>
+                            </span>
+                        </a>
+                        <span class="my-auto">
+                            <div align="right">
+                                <div wire:click="toggleFollow({{ $author->id }})" style="cursor: pointer;">
+                                    @if (Auth::check())
+                                        @if (Auth::id() !== $author->id)
+                                            @php
+                                                $isFollowing = Auth::user()->following->contains($author->id);
+                                                $isFollowedBack = $author->following->contains(Auth::id());
+                                            @endphp
+
+                                            <button
+                                                class="btn {{ $isFollowing ? 'btn-outline-primary' : 'btn-primary' }}"
+                                                wire:loading.attr="disabled"
+                                                wire:target="toggleFollow({{ $author->id }})">
+                                                <span wire:loading.remove
+                                                    wire:target="toggleFollow({{ $author->id }})">
+                                                    @if ($isFollowing)
+                                                        Unfollow
+                                                    @else
+                                                        Follow{{ $isFollowedBack ? ' Back' : '' }}
+                                                    @endif
+                                                </span>
+                                                <span wire:loading wire:target="toggleFollow({{ $author->id }})">
+                                                    <span class="spinner-border spinner-border-sm"
+                                                        role="status"></span>
+                                                </span>
+                                            </button>
+                                        @else
+                                            <p class="my-auto text-muted">You</p>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="mt-1" align="right">
+                                <i>
+                                    <span class="follower-count">{{ count($author->followers) }}</span>
+                                    follower
+                                </i>
+                            </div>
+                        </span>
                     </div>
                 </div>
             </div>
 
-        </div>
-        <div class="col-lg-4">
-            <div class="author-and-comments-section">
-                <div class="card author-section shadow">
-                    <div class="card-header">
-                        <h3>Author</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('profile.show', ['username' => $author->username]) }}"
-                                style="color: inherit; text-decoration: none;">
-                                <span class="d-flex">
-                                    <span>
-                                        <div class="me-2">
-                                            <img src="{{ $authorProfilePicture }}" alt=""
-                                                class="rounded-circle  border-4 border-white-color-40">
-                                        </div>
-                                    </span>
-                                    <span class="my-auto">
-                                        <h5 class="mt-0 mb-0">{{ $author->name }}</h5>
-                                        <p class="mb-0 mt-0 text-body" style="text-decoration: none">
-                                            {{ '@' . $author->username }}
-                                        </p>
-                                    </span>
-                                </span>
-                            </a>
-                            <span class="my-auto">
-                                <div align="right">
-                                    <div wire:click="toggleFollow({{ $author->id }})" style="cursor: pointer;">
-                                        @if (Auth::check())
-                                            @if (Auth::id() !== $author->id)
-                                                @php
-                                                    $isFollowing = Auth::user()->following->contains($author->id);
-                                                    $isFollowedBack = $author->following->contains(Auth::id());
-                                                @endphp
-
-                                                <button
-                                                    class="btn {{ $isFollowing ? 'btn-outline-primary' : 'btn-primary' }}"
-                                                    wire:loading.attr="disabled"
-                                                    wire:target="toggleFollow({{ $author->id }})">
-                                                    <span wire:loading.remove
-                                                        wire:target="toggleFollow({{ $author->id }})">
-                                                        @if ($isFollowing)
-                                                            Unfollow
-                                                        @else
-                                                            Follow{{ $isFollowedBack ? ' Back' : '' }}
-                                                        @endif
-                                                    </span>
-                                                    <span wire:loading wire:target="toggleFollow({{ $author->id }})">
-                                                        <span class="spinner-border spinner-border-sm"
-                                                            role="status"></span>
-                                                    </span>
-                                                </button>
-                                            @else
-                                                <p class="my-auto text-muted">You</p>
-                                            @endif
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="mt-1" align="right">
-                                    <i>
-                                        <span class="follower-count">{{ count($author->followers) }}</span>
-                                        follower
-                                    </i>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- comment --}}
-                <!-- Input Komentar -->
-                {{-- <div class="card comments-section shadow">
+            {{-- comment --}}
+            <!-- Input Komentar -->
+            {{-- <div class="card comments-section shadow">
                     <div class="card-header">
                         <h3>Comments</h3>
                     </div>
                     <div class="card-body"> --}}
-                <livewire:post.comment :post="$post" />
-                {{-- </div>
+            <livewire:post.comment :post="$post" />
+            {{-- </div>
                 </div> --}}
-            </div>
         </div>
     </div>
 

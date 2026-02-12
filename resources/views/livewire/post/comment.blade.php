@@ -44,11 +44,11 @@
                                     <a href="{{ route('profile.show', $comment->user->username) }}"
                                         class="text-decoration-none">
                                         @if ($comment->user->name)
-                                            <b>{{ $comment->user->name }}</b><br />
+                                            <b class="text-sm">{{ $comment->user->name }}</b><br />
                                         @endif
-                                        <i>&#64;{{ $comment->user->username }}</i>
+                                        <i class="text-sm">&#64;{{ $comment->user->username }}</i>
                                     </a>
-                                    <p class="mt-2 mb-1">{{ $comment->content }}</p>
+                                    <p class="mt-2 mb-1 text-sm">{{ $comment->content }}</p>
                                     <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
 
                                     <div class="comment-actions mt-1">
@@ -100,12 +100,12 @@
                                             <li class="reply" wire:key="reply-{{ $reply->id }}">
                                                 @php
                                                     if (
-                                                        $reply->userprofile_picture &&
-                                                        Storage::disk('public')->exists($reply->userprofile_picture)
+                                                        $reply->user->profile_picture &&
+                                                        Storage::disk('public')->exists($reply->user->profile_picture)
                                                     ) {
-                                                        $reply_avatarUrl = Storage::url($reply->userprofile_picture);
+                                                        $reply_avatarUrl = Storage::url($reply->user->profile_picture);
                                                     } else {
-                                                        $reply_avatarUrl = asset('img/default_profile_picture.jpg');
+                                                        $reply_avatarUrl = $defaultProfilePicture;
                                                     }
                                                 @endphp
                                                 <img src="{{ $reply_avatarUrl }}" class="profile-img"
