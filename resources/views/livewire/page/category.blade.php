@@ -16,6 +16,8 @@
                         <option value="latest">Latest</option>
                         <option value="newest">Newest</option>
                         <option value="most_liked">Most Liked</option>
+                        <option value="most_commented">Most commented</option>
+                        <option value="most_viewed">Most Viewed</option>
                     </select>
                 </div>
             </div>

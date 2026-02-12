@@ -29,7 +29,7 @@ class Category extends Component
         $categories = ModelsCategory::select('slug', 'name')->get();
 
         // Ambil posts sesuai kategori jika ada slug
-        $postsQuery = Post::query()->withCount('likes');
+        $postsQuery = Post::query()->withCount('likes')->withCount('comments')->withCount('histories');
 
         if ($this->category_slug) {
             $category = ModelsCategory::where('slug', $this->category_slug)->first();
@@ -45,6 +45,10 @@ class Category extends Component
                 $posts = $postsQuery->orderByDesc('created_at')->paginate(12);
             } elseif ($this->sortBy == 'most_liked') {
                 $posts = $postsQuery->orderByDesc('likes_count')->paginate(12);
+            } elseif ($this->sortBy == 'most_commented') {
+                $posts = $postsQuery->orderByDesc('comments_count')->paginate(12);
+            } elseif ($this->sortBy == 'most_viewed') {
+                $posts = $postsQuery->orderByDesc('histories_count')->paginate(12);
             }
         } else {
             $posts = $postsQuery->orderByDesc('created_at')->paginate(12);

@@ -16,6 +16,7 @@ class PostSmall extends Component
         $created_at,
         $likes,
         $comments,
+        $views,
         $authorName,
         $authorUsername,
         $authorProfilePictureUrl,
@@ -33,6 +34,7 @@ class PostSmall extends Component
         $this->categoryName = $category->name;
         $this->likes = $post->likes;
         $this->comments = $post->comments;
+        $this->views = $post->histories;
 
         $author = $post->user;
         $this->authorName = $author->name;

@@ -42,14 +42,14 @@
                     <div class="card-header">
                         {{-- <div class="d-flex justify-content-between"> --}}
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-9">
                                 <h1 class="">{{ $post->title }}</h1>
                                 <a href="{{ route('category', ['category_slug' => $post->category->slug]) }}"
                                     class="badge text-bg-info" style="color: white">
                                     {{ $post->category->name }}
                                 </a>
                             </div>
-                            <div class="col-md-2" align="right">
+                            <div class="col-md-3" align="right">
                                 @if (Auth::check())
                                     <div class="d-flex gap-1 justify-content-end">
                                         <button class="btn btn-sm btn-outline-primary mb-1"
@@ -79,18 +79,21 @@
                                                 <span class="spinner-border spinner-border-sm" role="status"></span>
                                             </span>
                                         </button>
+                                        @if (Auth::check() && Auth::user()->id == $post->user_id)
+                                            <a href="{{ route('post.edit', ['slug' => $post->slug]) }}"
+                                                class="btn btn-sm btn-outline-primary">Edit</a>
+                                        @endif
                                     </div>
-                                @endif
-                                @if (Auth::check() && Auth::user()->id == $post->user_id)
-                                    <a href="{{ route('post.edit', ['slug' => $post->slug]) }}"
-                                        class="btn btn-outline-primary">Edit</a>
                                 @endif
                                 <div align="right" class="mt-1">
                                     <div class="d-flex justify-content-end gap-3">
                                         <span data-bs-toggle="modal" data-bs-target="#likerModal"><i
-                                                class="ti ti-thumb-up"></i>{{ ' ' . $post->likes->count() }}</span>
-                                        <span><i
-                                                class="ti ti-bookmark"></i>{{ ' ' . $post->bookmarks->count() }}</span>
+                                                class="ti ti-thumb-up"></i>{{ ' ' . $post->likes->count() }}
+                                        </span>
+                                        <span><i class="ti ti-bookmark"></i>{{ ' ' . $post->bookmarks->count() }}
+                                        </span>
+                                        <span><i class="ti ti-eye"></i>{{ ' ' . $post->histories->count() }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

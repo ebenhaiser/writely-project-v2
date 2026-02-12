@@ -44,6 +44,9 @@
                             <span>
                                 <i class='ti ti-message-circle'></i>{{ ' ' . count($comments) }}
                             </span>
+                            <span>
+                                <i class='ti ti-eye'></i>{{ ' ' . count($views) }}
+                            </span>
                         </div>
                         {{-- <button class="btn btn-outline-primary mt-2 like-btn" data-post-id="{{ $post->id }}">
                         <span class="like-text mt-0">

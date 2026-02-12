@@ -63,6 +63,9 @@
                         <span>
                             <i class='ti ti-message-circle'></i>{{ ' ' . count($comments) }}</span>
                         </span>
+                        <span>
+                            <i class='ti ti-eye'></i>{{ ' ' . count($views) }}</span>
+                        </span>
                     </div>
                 </div>
             </a>
