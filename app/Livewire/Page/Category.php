@@ -43,7 +43,7 @@ class Category extends Component
                 $posts = $postsQuery->orderBy('created_at')->paginate(12);
             } elseif ($this->sortBy == 'newest') {
                 $posts = $postsQuery->orderByDesc('created_at')->paginate(12);
-            } elseif ($this->sortBy == 'most_liked'){
+            } elseif ($this->sortBy == 'most_liked') {
                 $posts = $postsQuery->orderByDesc('likes_count')->paginate(12);
             }
         } else {
@@ -51,5 +51,14 @@ class Category extends Component
         }
 
         return view('livewire.page.category', compact('posts', 'categories'));
+    }
+
+    public function updatedSortBy()
+    {
+        $this->resetPage();
+    }
+    public function updatedCategorySlug()
+    {
+        $this->resetPage();
     }
 }
