@@ -15,7 +15,7 @@ class Home extends Component
 
     public function render()
     {
-        if (Auth::guest()) {
+        if (Auth::check()) {
             $posts = ModelsPost::whereIn(
                 'user_id',
                 Auth::user()->following()->pluck('users.id')
