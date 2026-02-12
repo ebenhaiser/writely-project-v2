@@ -80,16 +80,6 @@ class UserSeeder extends Seeder
                 'created_at' => now()->subYear(),
             ],
             [ // 6
-                'name' => 'Gus Syams',
-                'username' => 'gus.syams',
-                'email' => 'gus.syams@gmail.com',
-                'password' => Hash::make('admin'),
-                'bio' => 'Entrepreneur | Business Consultant',
-                'isAdmin' => true,
-                'email_verified_at' => now(),
-                'created_at' => now()->subYear(),
-            ],
-            [ // 7
                 'name' => 'Immortal',
                 'username' => 'immortal',
                 'email' => 'immortal@gmail.com',
@@ -99,7 +89,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 8
+            [ // 7
                 'name' => 'Jago Pantun',
                 'username' => 'jago.pantun',
                 'email' => 'jago.pantun@gmail.com',
@@ -109,7 +99,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 9
+            [ // 8
                 'name' => 'Jago Silat',
                 'username' => 'jago.silat',
                 'email' => 'jago.silat@gmail.com',
@@ -119,7 +109,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 10
+            [ // 9
                 'name' => 'Joni Dosa',
                 'username' => 'joni.dosa',
                 'email' => 'joni.dosa@gmail.com',
@@ -129,7 +119,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 11
+            [ // 10
                 'name' => 'Kakek Sugiono',
                 'username' => 'kakek.sugiono',
                 'email' => 'kakek.sugiono@gmail.com',
@@ -139,7 +129,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 12
+            [ // 11
                 'name' => 'Mbak Jago Ekting',
                 'username' => 'mbak.jago.ekting',
                 'email' => 'mbak.jago.ekting@gmail.com',
@@ -149,7 +139,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 13
+            [ // 12
                 'name' => 'Mbak Lebanon',
                 'username' => 'mbak.lebanon',
                 'email' => 'mbak.lebanon@gmail.com',
@@ -159,7 +149,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 14
+            [ // 13
                 'name' => 'Pelawak Jenius',
                 'username' => 'pelawak.jenius',
                 'email' => 'pelawak.jenius@gmail.com',
@@ -169,7 +159,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 15
+            [ // 14
                 'name' => 'Puncak Rantai Makanan',
                 'username' => 'puncak.rantai.makanan',
                 'email' => 'puncak.rantai.makanan@gmail.com',
@@ -179,7 +169,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 16
+            [ // 15
                 'name' => 'Raja Mukbang',
                 'username' => 'raja.mukbang',
                 'email' => 'raja.mukbang@gmail.com',
@@ -189,7 +179,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->subYear(),
             ],
-            [ // 17
+            [ // 16
                 'name' => 'Si Paling Ngulang',
                 'username' => 'si.paling.ngulang',
                 'email' => 'si.paling.ngulang@gmail.com',
