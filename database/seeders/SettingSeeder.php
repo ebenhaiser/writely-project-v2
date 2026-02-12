@@ -37,7 +37,15 @@ class SettingSeeder extends Seeder
             [
                 'name' => 'thumbnailFolder',
                 'value' => 'post_thumbnail'
-            ]
+            ],
+            [
+                'name' => 'userSeederCount',
+                'value' => '300'
+            ],
+            [
+                'name' => 'postSeederCount',
+                'value' => '2000'
+            ],
         ];
 
         foreach ($settings as $setting) {

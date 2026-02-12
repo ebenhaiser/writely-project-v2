@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -16,59 +17,189 @@ class UserSeeder extends Seeder
     {
         // 1. Buat admin utama
         User::create([
-            'name' => 'Admin User',
-            'username' => 'admin',
-            'email' => 'admin@admin.com',
+            'name' => 'Horang Kaya',
+            'username' => 'horang.kaya',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
             'bio' => 'Platform Administrator',
             'isAdmin' => true,
-            'profile_picture' => 'https://i.pravatar.cc/300?img=1',
             'email_verified_at' => now(),
             'created_at' => now()->subYear(),
         ]);
 
-        // 2. Buat 5 popular users
+        // 2. Buat popular users
         $popularUsers = [
-            [
-                'name' => 'John Developer',
-                'username' => 'johndev',
-                'email' => 'john@example.com',
+            [ // 1
+                'name' => 'Bang Ganteng',
+                'username' => 'bang.ganteng',
+                'email' => 'bang.ganteng@gmail.com',
                 'password' => Hash::make('admin'),
                 'bio' => 'Full Stack Developer | Tech Enthusiast',
-                'profile_picture' => 'https://i.pravatar.cc/300?img=5',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
             ],
-            [
-                'name' => 'Sarah Designer',
-                'username' => 'sarahdesign',
-                'email' => 'sarah@example.com',
+            [ // 2
+                'name' => 'Jago Kelahi',
+                'username' => 'jago.kelahi',
+                'email' => 'jago.kelahi@gmail.com',
                 'password' => Hash::make('admin'),
                 'bio' => 'UI/UX Designer | Creative Director',
-                'profile_picture' => 'https://i.pravatar.cc/300?img=8',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
             ],
-            [
-                'name' => 'Mike Writer',
-                'username' => 'mikewrites',
-                'email' => 'mike@example.com',
+            [ // 3
+                'name' => 'Bang Jordi',
+                'username' => 'bang.jordi',
+                'email' => 'bang.jordi@gmail.com',
                 'password' => Hash::make('admin'),
                 'bio' => 'Content Writer | Blogger',
-                'profile_picture' => 'https://i.pravatar.cc/300?img=12',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
             ],
-            [
-                'name' => 'Lisa Tech',
-                'username' => 'lisatech',
-                'email' => 'lisa@example.com',
+            [ // 4
+                'name' => 'Cewek Rusia',
+                'username' => 'cewek.rusia',
+                'email' => 'cewek.rusia@gmail.com',
                 'password' => Hash::make('admin'),
                 'bio' => 'Technology Analyst | AI Researcher',
-                'profile_picture' => 'https://i.pravatar.cc/300?img=15',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
             ],
-            [
-                'name' => 'David Business',
-                'username' => 'davidbiz',
-                'email' => 'david@example.com',
+            [ // 5
+                'name' => 'Gus Syams',
+                'username' => 'gus.syams',
+                'email' => 'gus.syams@gmail.com',
                 'password' => Hash::make('admin'),
                 'bio' => 'Entrepreneur | Business Consultant',
-                'profile_picture' => 'https://i.pravatar.cc/300?img=20',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
             ],
+            [ // 6
+                'name' => 'Gus Syams',
+                'username' => 'gus.syams',
+                'email' => 'gus.syams@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 7
+                'name' => 'Immortal',
+                'username' => 'immortal',
+                'email' => 'immortal@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 8
+                'name' => 'Jago Pantun',
+                'username' => 'jago.pantun',
+                'email' => 'jago.pantun@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 9
+                'name' => 'Jago Silat',
+                'username' => 'jago.silat',
+                'email' => 'jago.silat@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 10
+                'name' => 'Joni Dosa',
+                'username' => 'joni.dosa',
+                'email' => 'joni.dosa@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 11
+                'name' => 'Kakek Sugiono',
+                'username' => 'kakek.sugiono',
+                'email' => 'kakek.sugiono@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 12
+                'name' => 'Mbak Jago Ekting',
+                'username' => 'mbak.jago.ekting',
+                'email' => 'mbak.jago.ekting@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 13
+                'name' => 'Mbak Lebanon',
+                'username' => 'mbak.lebanon',
+                'email' => 'mbak.lebanon@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 14
+                'name' => 'Pelawak Jenius',
+                'username' => 'pelawak.jenius',
+                'email' => 'pelawak.jenius@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 15
+                'name' => 'Puncak Rantai Makanan',
+                'username' => 'puncak.rantai.makanan',
+                'email' => 'puncak.rantai.makanan@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 16
+                'name' => 'Raja Mukbang',
+                'username' => 'raja.mukbang',
+                'email' => 'raja.mukbang@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+            [ // 17
+                'name' => 'Si Paling Ngulang',
+                'username' => 'si.paling.ngulang',
+                'email' => 'si.paling.ngulang@gmail.com',
+                'password' => Hash::make('admin'),
+                'bio' => 'Entrepreneur | Business Consultant',
+                'isAdmin' => true,
+                'email_verified_at' => now(),
+                'created_at' => now()->subYear(),
+            ],
+
         ];
 
         foreach ($popularUsers as $user) {
@@ -77,7 +208,9 @@ class UserSeeder extends Seeder
             User::create($user);
         }
 
-        // 3. Buat 744 user random menggunakan factory (total 750)
-        \App\Models\User::factory()->count(744)->create();
+        // 3. Buat user random menggunakan factory
+        $userFactoryCount = Setting::value('userSeederCount') ?? 300;
+        $totalUser = (int) $userFactoryCount;
+        User::factory()->count($totalUser)->create();
     }
 }

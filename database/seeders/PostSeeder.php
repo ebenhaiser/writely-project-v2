@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Post;
+use App\Models\Setting;
 
 class PostSeeder extends Seeder
 {
@@ -13,10 +14,11 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        // Buat 3000 post menggunakan factory
+        // Buat post menggunakan factory
         // Dengan chunk untuk menghindari memory limit
+        $postSeedCount = Setting::value('postSeederCount') ?? 3000;
+        $totalPosts = (int) $postSeedCount;
         $chunkSize = 500;
-        $totalPosts = 3000;
 
         for ($i = 0; $i < ceil($totalPosts / $chunkSize); $i++) {
             Post::factory()
