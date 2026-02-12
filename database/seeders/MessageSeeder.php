@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Message;
+use App\Models\Setting;
 use App\Models\User;
 
 class MessageSeeder extends Seeder
@@ -15,7 +16,9 @@ class MessageSeeder extends Seeder
     {
         $messages = [];
         $totalUsers = User::count();
-        $messageCount = 1000;
+
+        $messageSeederCount = Setting::value('messageSeederCount') ?? 4000;
+        $messageCount = (int) $messageSeederCount;
 
         for ($i = 0; $i < $messageCount; $i++) {
             $fromUserId = rand(1, $totalUsers);

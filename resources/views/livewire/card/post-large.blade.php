@@ -16,7 +16,7 @@
                             style="object-fit: cover; height:220px; border-radius: 0.5em">
                     </div>
                     <div class="col-md-6">
-                        <div class="d-flex justify-content-between mb-2 mt-2">
+                        <div class="d-flex justify-content-between mb-2 mt-2 gap-4">
                             <span class="">
                                 <h2 class="card-title">{{ $title }}</h2>
                             </span>

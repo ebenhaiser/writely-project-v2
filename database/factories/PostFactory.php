@@ -21,25 +21,47 @@ class PostFactory extends Factory
         $title = $this->faker->sentence(6);
 
         return [
-            'user_id' => $this->faker->numberBetween(1, User::count()),
+            'user_id' => User::inRandomOrder()->value('id'),
             'category_id' => $this->faker->numberBetween(1, 20),
             'title' => $title,
             'slug' => Str::slug($title) . '-' . $this->faker->unique()->numberBetween(1000, 9999),
-            'content' => $this->generateContent(),
-            // 'thumbnail' => $this->faker->randomElement([
-            //     null,
-            //     $this->faker->imageUrl(800, 600, 'nature', true, 'post'),
-            //     $this->faker->imageUrl(800, 600, 'technology', true, 'post'),
-            //     $this->faker->imageUrl(800, 600, 'business', true, 'post'),
-            // ]),
+            'content' => $this->generateHtmlContent(),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 
-    private function generateContent(): string
+    private function generateHtmlContent(): string
     {
-        $paragraphs = $this->faker->paragraphs(rand(5, 10));
-        return implode("\n\n", $paragraphs);
+        $html = '';
+
+        // Opening paragraph
+        $html .= '<p>' . $this->faker->paragraph() . '</p>';
+
+        // Paragraph with <strong>
+        $html .= '<p><strong>' . $this->faker->sentence() . '</strong> ' .
+            $this->faker->paragraph() . '</p>';
+
+        // Paragraph with <a>
+        $html .= '<p>' .
+            $this->faker->sentence() .
+            ' <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">' .
+            'Watch related video</a> ' .
+            $this->faker->sentence() .
+            '</p>';
+
+        // Bullet list
+        $html .= '<ul>';
+        foreach (range(1, rand(3, 5)) as $i) {
+            $html .= '<li>' . $this->faker->sentence() . '</li>';
+        }
+        $html .= '</ul>';
+
+        // Additional paragraphs
+        foreach (range(1, rand(2, 4)) as $i) {
+            $html .= '<p>' . $this->faker->paragraph() . '</p>';
+        }
+
+        return $html;
     }
 }

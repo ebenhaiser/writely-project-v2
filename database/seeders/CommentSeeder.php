@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Setting;
 use App\Models\User;
 
 class CommentSeeder extends Seeder
@@ -18,7 +19,9 @@ class CommentSeeder extends Seeder
         $comments = [];
         $totalUsers = User::count();
         $totalPosts = Post::count();
-        $totalComments = 5000; // Total komentar yang ingin dibuat
+
+        $commentSeederCount = Setting::value('commentSeederCount') ?? 5000;
+        $totalComments = (int) $commentSeederCount; // Total komentar yang ingin dibuat
 
         // Tahap 1: Buat komentar utama (parent)
         for ($i = 0; $i < $totalComments; $i++) {
@@ -100,6 +103,21 @@ class CommentSeeder extends Seeder
             'I have a different take on this, but great post nonetheless.',
             'This is exactly what I was looking for!',
             'Appreciate the effort you put into this post.',
+            'Really love how you explained this step by step.',
+            'This topic is explained in a very easy-to-understand way.',
+            'I learned something new today, thanks!',
+            'Solid write-up, keep it up!',
+            'This cleared up a lot of confusion for me.',
+            'Nice breakdown of the topic.',
+            'I like how you used real examples here.',
+            'Very helpful content, especially for beginners.',
+            'Short, clear, and straight to the point.',
+            'I wish I had read this earlier!',
+            'This deserves more attention.',
+            'One of the better explanations I’ve seen.',
+            'Helpful and practical, thanks for sharing.',
+            'This gave me a new perspective.',
+            'Simple explanation but very effective.',
         ];
 
         return $comments[array_rand($comments)];
@@ -118,6 +136,21 @@ class CommentSeeder extends Seeder
             'Have you considered this alternative?',
             'Great addition to the discussion!',
             'Thanks for sharing your experience.',
+            'That makes sense, thanks for explaining.',
+            'Good insight, appreciate it.',
+            'Nice explanation, very clear.',
+            'I was thinking the same thing.',
+            'Interesting take, thanks for sharing.',
+            'That’s a good way to look at it.',
+            'I hadn’t thought about it like that before.',
+            'Fair point, I agree with you.',
+            'This adds a lot to the discussion.',
+            'Glad you mentioned this.',
+            'Thanks for pointing that out.',
+            'This really helps clarify things.',
+            'Good follow-up!',
+            'That answers my question, thanks.',
+            'Makes total sense now.',
         ];
 
         return $replies[array_rand($replies)];
