@@ -44,11 +44,11 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'postSeederCount',
-                'value' => '3000'
+                'value' => '1500'
             ],
             [
                 'name' => 'commentSeederCount',
-                'value' => '7000'
+                'value' => '10000'
             ],
             [
                 'name' => 'messageSeederCount',
