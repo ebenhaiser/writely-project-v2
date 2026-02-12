@@ -64,6 +64,7 @@ class DatabaseSeeder extends Seeder
 
         // Urutan seeding penting!
         $this->call([
+            SettingSeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
             PostSeeder::class,
@@ -74,7 +75,6 @@ class DatabaseSeeder extends Seeder
             BookmarkSeeder::class,
             NotificationSeeder::class,
             MessageSeeder::class,
-            SettingSeeder::class,
         ]);
     }
 }
