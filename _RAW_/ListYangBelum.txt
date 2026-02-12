@@ -3,6 +3,7 @@ Bookmark Page - DONE
 Follow Page - DONE
 Edit Post - DONE
 Create Post - DONE
+View count each post - DONE
 Search Page
 Chatting
 Notification
