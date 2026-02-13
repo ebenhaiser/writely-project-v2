@@ -12,7 +12,7 @@ class Box extends Component
 {
     public $receiver;
     public $message = '';
-    public $messages = [];
+    public $chatMessages = [];
 
     protected $rules = [
         'message' => 'required|string|max:1000'
@@ -25,7 +25,7 @@ class Box extends Component
 
     public function loadMessages()
     {
-        $this->messages = Message::where(function ($q) {
+        $this->chatMessages = Message::where(function ($q) {
             $q->where('from_user_id', Auth::id())
                 ->where('to_user_id', $this->receiver->id);
         })

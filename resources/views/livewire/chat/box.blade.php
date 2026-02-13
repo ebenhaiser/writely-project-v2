@@ -19,7 +19,7 @@
         <!-- MESSAGES -->
         <div id="chatBody" class="flex-grow-1 overflow-auto p-3 bg-light" wire:poll.3s="loadMessages">
 
-            @foreach ($messages as $msg)
+            @foreach ($chatMessages as $msg)
                 <div class="mb-2 d-flex {{ $msg->from_user_id === auth()->id() ? 'justify-content-end' : '' }}">
                     <div
                         class="px-3 py-2 rounded
@@ -35,7 +35,7 @@
             <div class="input-group">
                 <input type="text" wire:model.defer="message" class="form-control" placeholder="Type a message...">
                 <button class="btn btn-primary">
-                    <i class="bx bx-send"></i>
+                    <i class="ti ti-arrow-circle-right"></i>
                 </button>
             </div>
         </form>
