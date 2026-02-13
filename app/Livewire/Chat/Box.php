@@ -4,7 +4,9 @@ namespace App\Livewire\Chat;
 
 use Livewire\Component;
 use App\Models\Message;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Box extends Component
 {
@@ -54,5 +56,14 @@ class Box extends Component
     public function render()
     {
         return view('livewire.chat.box');
+    }
+
+    public function profilePicturePath($profilePicture)
+    {
+        if ($profilePicture && Storage::disk('public')->exists($profilePicture)) {
+            return Storage::url($profilePicture);
+        } else {
+            return asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
+        }
     }
 }

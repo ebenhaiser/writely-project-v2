@@ -7,12 +7,12 @@
                 ←
             </a>
 
-            <img src="{{ asset('img/profilePicture/' . ($receiver->profile_picture ?? 'default.jpg')) }}"
-                class="rounded-circle" width="40" height="40">
+            <img src="{{ $this->profilePicturePath($receiver->profile_picture) }}" alt="" class="rounded-circle"
+                width="40" height="40">
 
             <div>
                 <div class="fw-bold">{{ $receiver->name }}</div>
-                <small class="text-muted">@{{ $receiver - > username }}</small>
+                <small class="text-muted">{{ '@' . $receiver->username }}</small>
             </div>
         </div>
 

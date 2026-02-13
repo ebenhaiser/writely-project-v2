@@ -10,12 +10,12 @@
                 <div wire:click="open('{{ $user->username }}')"
                     class="d-flex align-items-center gap-3 p-3 border-bottom chat-user">
 
-                    <img src="{{ asset('img/profilePicture/' . ($user->profile_picture ?? 'default.jpg')) }}"
+                    <img src="{{ $this->profilePicturePath($user->profile_picture) }}" alt=""
                         class="rounded-circle" width="45" height="45">
 
                     <div>
                         <div class="fw-semibold">{{ $user->name }}</div>
-                        <small class="text-muted">@{{ $user - > username }}</small>
+                        <small class="text-muted">{{ '@' . $user->username }}</small>
                     </div>
                 </div>
             @endforeach
