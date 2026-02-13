@@ -1,51 +1,96 @@
 <div>
     <div class="card shadow chat-card">
+        <!-- HEADER -->
+        <div class="card-header chat-header">
+            <h5 class="mb-0">Messages</h5>
+        </div>
 
-        <div class="row g-0 chat-card-body">
+        <!-- BODY -->
+        <div class="row g-0 chat-body">
 
             <!-- USER LIST -->
-            <div class="col-md-4 border-end chat-userlist">
+            <div class="col-md-4 chat-userlist border-end">
                 <livewire:chat.user-list />
             </div>
 
-            <!-- CHAT -->
+            <!-- CHAT AREA -->
             <div class="col-md-8 chat-main">
-                @if ($receiver)
-                    <livewire:chat.box :receiver="$receiver" :key="$receiver->id" />
-                @else
-                    <div class="h-100 d-flex justify-content-center align-items-center text-muted">
-                        <i>Select a conversation</i>
-                    </div>
-                @endif
+                <div class="h-100 d-flex flex-column" style="min-height:0">
+                    @if ($receiver)
+                        <livewire:chat.box :receiver="$receiver" :key="$receiver->id" />
+                    @else
+                        <div class="chat-empty">
+                            <i>Select a conversation</i>
+                        </div>
+                    @endif
+
+                </div>
             </div>
 
-        </div>
 
+
+
+        </div>
     </div>
 
     <style>
-        /* CARD TETAP */
+        /* =========================
+           CARD WRAPPER
+        ========================== */
         .chat-card {
             height: calc(100vh - 120px);
             max-height: 800px;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* GRID FIX */
-        .chat-card-body {
-            height: 100%;
+        /* =========================
+           HEADER (FIXED)
+        ========================== */
+        .chat-header {
+            flex-shrink: 0;
+            background: #fff;
+            z-index: 2;
         }
 
-        /* USER LIST */
+        /* =========================
+           BODY (FLEX)
+        ========================== */
+        .chat-body {
+            flex: 1;
+            min-height: 0;
+            display: flex; 
+        }
+
+        /* =========================
+           USER LIST
+        ========================== */
         .chat-userlist {
             height: 100%;
             overflow-y: auto;
+            background-color: #f8f9fa;
         }
 
-        /* CHAT MAIN */
+        /* =========================
+           CHAT MAIN
+        ========================== */
         .chat-main {
             height: 100%;
+            min-height: 0;
             display: flex;
             flex-direction: column;
+            background-color: #fff;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================== */
+        .chat-empty {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
         }
     </style>
 </div>

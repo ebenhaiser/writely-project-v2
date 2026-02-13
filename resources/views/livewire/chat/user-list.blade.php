@@ -1,10 +1,6 @@
 <div>
     <div class="h-100 d-flex flex-column">
 
-        <div class="p-3 border-bottom fw-bold">
-            Messages
-        </div>
-
         <div class="flex-grow-1 overflow-auto">
             @foreach ($users as $user)
                 <div wire:click="open('{{ $user->username }}')"

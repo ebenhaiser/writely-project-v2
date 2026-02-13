@@ -44,14 +44,17 @@ class Box extends Component
         Message::create([
             'from_user_id' => Auth::id(),
             'to_user_id'   => $this->receiver->id,
-            'message'      => $this->message
+            'message'      => $this->message,
         ]);
 
         $this->message = '';
+
         $this->loadMessages();
 
-        $this->dispatch('scroll-bottom');
+        $this->dispatch('chat-scroll-bottom');
     }
+
+
 
     public function render()
     {
