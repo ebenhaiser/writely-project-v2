@@ -17,7 +17,7 @@ class MessageSeeder extends Seeder
         $messages = [];
         $totalUsers = User::count();
 
-        $messageSeederCount = Setting::value('messageSeederCount') ?? 4000;
+        $messageSeederCount = 1000000;
         $messageCount = (int) $messageSeederCount;
 
         for ($i = 0; $i < $messageCount; $i++) {

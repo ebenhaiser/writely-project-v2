@@ -52,7 +52,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'messageSeederCount',
-                'value' => '10000'
+                'value' => '1000000'
             ],
             [
                 'name' => 'notificationSeederCount',

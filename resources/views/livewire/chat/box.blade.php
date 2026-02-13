@@ -21,12 +21,13 @@
 
         @foreach ($chatMessages as $msg)
             <div wire:key="msg-{{ $msg->id }}"
-                class="mb-2 d-flex {{ $msg->from_user_id === auth()->id() ? 'justify-content-end' : '' }}">
+                class="mb-2 d-flex {{ $msg->from_user_id === Auth::id() ? 'justify-content-end' : '' }}">
                 <div
                     class="px-3 py-2 rounded
-            {{ $msg->from_user_id === auth()->id() ? 'bg-primary text-white' : 'bg-white border' }}">
+            {{ $msg->from_user_id === Auth::id() ? 'bg-primary text-white' : 'bg-white border' }}">
                     {{ $msg->message }}
                 </div>
+                <div class="text-mute text-sm">{{ $msg->created_at->format('H:i') }}</div>
             </div>
         @endforeach
 
