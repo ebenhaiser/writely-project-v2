@@ -15,14 +15,20 @@ class Box extends Component
     public $chatMessages = [];
 
     protected $rules = [
-        'message' => 'required|string|max:1000'
+        'message' => 'required|string|max:1000',
     ];
 
+    /**
+     * Dipanggil saat component pertama kali dibuka
+     */
     public function mount()
     {
         $this->loadMessages();
     }
 
+    /**
+     * Ambil semua chat antara user login & receiver
+     */
     public function loadMessages()
     {
         $this->chatMessages = Message::where(function ($q) {
@@ -37,6 +43,9 @@ class Box extends Component
             ->get();
     }
 
+    /**
+     * Kirim pesan
+     */
     public function send()
     {
         $this->validate();
@@ -49,24 +58,30 @@ class Box extends Component
 
         $this->message = '';
 
+        // reload data
         $this->loadMessages();
 
-        $this->dispatch('chat-scroll-bottom');
+        // trigger auto scroll di JS
+        $this->dispatch('scroll-chat-bottom');
     }
-
-
 
     public function render()
     {
         return view('livewire.chat.box');
     }
 
+    /**
+     * Helper foto profile
+     */
     public function profilePicturePath($profilePicture)
     {
         if ($profilePicture && Storage::disk('public')->exists($profilePicture)) {
             return Storage::url($profilePicture);
-        } else {
-            return asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
+
+        return asset(
+            Setting::value('defaultProfilePictureDir') .
+                Setting::value('defaultProfilePictureImg')
+        );
     }
 }

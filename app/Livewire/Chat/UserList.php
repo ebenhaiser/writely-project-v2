@@ -20,45 +20,44 @@ class UserList extends Component
     {
         $authId = Auth::id();
 
-        $users = User::where('users.id', '!=', Auth::id())
-            ->whereExists(function ($q) {
-                $q->selectRaw(1)
-                    ->from('messages')
-                    ->where(function ($q2) {
-                        $q2->whereColumn('messages.from_user_id', 'users.id')
-                            ->where('messages.to_user_id', Auth::id());
-                    })
-                    ->orWhere(function ($q2) {
-                        $q2->whereColumn('messages.to_user_id', 'users.id')
-                            ->where('messages.from_user_id', Auth::id());
-                    });
+        $users = User::join('messages as m', function ($join) use ($authId) {
+            $join->on('users.id', '=', 'm.from_user_id')
+                ->orOn('users.id', '=', 'm.to_user_id');
+        })
+            ->where(function ($q) use ($authId) {
+                $q->where('m.from_user_id', $authId)
+                    ->orWhere('m.to_user_id', $authId);
             })
-            ->select('users.*')
-            ->selectSub(function ($q) {
-                $q->from('messages')
-                    ->selectRaw('MAX(created_at)')
-                    ->where(function ($q2) {
-                        $q2->whereColumn('from_user_id', 'users.id')
-                            ->where('to_user_id', Auth::id());
-                    })
-                    ->orWhere(function ($q2) {
-                        $q2->whereColumn('to_user_id', 'users.id')
-                            ->where('from_user_id', Auth::id());
-                    });
-            }, 'last_message_at')
+            ->where('users.id', '!=', $authId)
+            ->select(
+                'users.id',
+                'users.name',
+                'users.username',
+                'users.profile_picture',
+                DB::raw('MAX(m.created_at) as last_message_at')
+            )
+            ->groupBy(
+                'users.id',
+                'users.name',
+                'users.username',
+                'users.profile_picture'
+            )
             ->orderByDesc('last_message_at')
+            ->limit(30) // ⬅️ WAJIB
             ->get();
 
         return view('livewire.chat.user-list', compact('users'));
     }
 
-
     public function profilePicturePath($profilePicture)
     {
         if ($profilePicture && Storage::disk('public')->exists($profilePicture)) {
             return Storage::url($profilePicture);
-        } else {
-            return asset(Setting::value('defaultProfilePictureDir') . Setting::value('defaultProfilePictureImg'));
         }
+
+        return asset(
+            Setting::value('defaultProfilePictureDir') .
+                Setting::value('defaultProfilePictureImg')
+        );
     }
 }

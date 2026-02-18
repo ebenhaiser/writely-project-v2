@@ -10,7 +10,7 @@
 
             <!-- USER LIST -->
             <div class="col-md-4 chat-userlist border-end">
-                <livewire:chat.user-list />
+                <livewire:chat.user-list wire:ignore.self/>
             </div>
 
             <!-- CHAT AREA -->
