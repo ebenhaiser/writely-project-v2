@@ -2,10 +2,7 @@
 
     <!-- HEADER -->
     <div class="border-bottom p-3 d-flex align-items-center gap-3 bg-white flex-shrink-0">
-        <img
-            src="{{ $this->profilePicturePath($receiver->profile_picture) }}"
-            class="rounded-circle"
-            width="40"
+        <img src="{{ $this->profilePicturePath($receiver->profile_picture) }}" class="rounded-circle" width="40"
             height="40">
 
         <div>
@@ -15,46 +12,44 @@
     </div>
 
     <!-- CHAT BODY (SCROLL AREA) -->
-    <div
-        id="chatBody"
-        class="flex-grow-1 overflow-auto p-3 bg-light"
-        wire:init="$dispatch('chat-mounted')"
-    >
+    <div id="chatBody" class="flex-grow-1 overflow-auto p-3 bg-light" wire:init="$dispatch('chat-mounted')">
         @foreach ($chatMessages as $msg)
-            <div
-                class="mb-2 d-flex {{ $msg->from_user_id === Auth::id() ? 'justify-content-end' : '' }}"
-                wire:key="msg-{{ $msg->id }}"
-            >
+            <div class="mb-2 d-flex {{ $msg->from_user_id === Auth::id() ? 'justify-content-end' : '' }}"
+                wire:key="msg-{{ $msg->id }}">
                 <div
-                    class="px-3 py-2 rounded
-                    {{ $msg->from_user_id === Auth::id() ? 'bg-primary text-white' : 'bg-white border' }}"
-                >
-                    {{ $msg->message }}
+                    class="d-flex flex-column
+            {{ $msg->from_user_id === Auth::id() ? 'align-items-end' : 'align-items-start' }}">
+
+                    <!-- BUBBLE -->
+                    <div
+                        class="px-3 py-2 rounded
+                {{ $msg->from_user_id === Auth::id() ? 'bg-primary text-white' : 'bg-white border' }}">
+                        {{ $msg->message }}
+                    </div>
+
+                    <!-- JAM -->
+                    <small class="text-muted mt-1" style="font-size: 11px;">
+                        {{ $msg->created_at->format('H:i') }}
+                    </small>
+
                 </div>
             </div>
         @endforeach
+
     </div>
 
     <!-- INPUT -->
     <form wire:submit.prevent="send" class="p-3 border-top bg-white flex-shrink-0">
         <div class="input-group">
-            <input
-                type="text"
-                wire:model.defer="message"
-                class="form-control"
-                placeholder="Type a message..."
-                autocomplete="off"
-            >
+            <input type="text" wire:model.defer="message" class="form-control" placeholder="Type a message..."
+                autocomplete="off">
             <button class="btn btn-primary">Send</button>
         </div>
     </form>
 
     <!-- SCROLL BUTTON -->
-    <button
-        id="scrollBtn"
-        class="btn btn-primary rounded-circle d-none"
-        style="position:absolute; bottom:90px; right:20px;"
-    >
+    <button id="scrollBtn" class="btn btn-primary rounded-circle d-none"
+        style="position:absolute; bottom:90px; right:20px;">
         ⬇
     </button>
 
